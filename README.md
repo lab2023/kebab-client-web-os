@@ -1,6 +1,6 @@
 Requirements
 ------------
-Kebab Project 2.x - Client Web Ext JS version is only supported on Ext 4.x and up.
+Kebab Project 2.x Web Client Platform for Ext JS is only supported on Ext JS 4.x and up.
 
 - ExtJS 4.0.2a
     http://www.sencha.com
