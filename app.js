@@ -12,7 +12,7 @@ Ext.application({
     autoCreateViewport: true,
     
     controllers: [
-        'Login',
+        'Index',
         'Desktop'
     ]
 });

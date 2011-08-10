@@ -1,8 +1,8 @@
-Ext.define('Kebab.controller.Login', {
+Ext.define('Kebab.controller.Index', {
     extend: 'Ext.app.Controller',
 
     views: [
-        'login.SignIn'
+        'index.SignIn'
     ],
 
     init: function() {
