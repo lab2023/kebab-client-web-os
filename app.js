@@ -8,6 +8,7 @@ Ext.Loader.setConfig({
  */
 Ext.application({
     name: 'Kebab',
+    appFolder: 'application',
     autoCreateViewport: true,
     
     controllers: [
