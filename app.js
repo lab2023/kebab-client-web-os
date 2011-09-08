@@ -1,6 +1,5 @@
 /* -----------------------------------------------------------------------------
- Kebab Project 2.0.0 (Kebab Revolution)
- Kebab Revolution 2.0.0 - Web OS Client Platform for Ext JS 4.x
+ Kebab Project 2.x (Kebab Revolution) - Web OS Client Platform for Ext JS 4.x
  http://kebab-project.com
  Copyright (c) 2011-2012 lab2023 - internet technologies TURKEY Inc.
  http://www.lab2023.com
