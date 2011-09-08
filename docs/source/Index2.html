@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='Index'>/**
+</span> * @class Index
+ * @extends Ext.panel.Panel
+ * @author Tayfun Öziş ERİKAN &lt;tayfun.ozis.erikan@lab2023.com&gt;
+ *
+ * Kebab OS Desktop index widget
+ */
+Ext.define('Kebab.view.desktop.Index', {
+    extend: 'Ext.panel.Panel',
+
+    alias: 'widget.desktop_index',
+
+    initComponent: function() {
+
+        var me = this;
+
+        Ext.apply(me, {
+            border: false,
+            layout: 'fit',
+            items  : [
+                {xtype: 'desktop_wallpaper'},
+                {xtype: 'desktop_shortcuts'}
+            ],
+            dockedItems: [{
+                xtype: 'desktop_menuBar'
+            },{
+                xtype: 'desktop_dock',
+            }]
+        });
+        
+        me.callParent(arguments);
+    }
+});
+</pre>
+</body>
+</html>

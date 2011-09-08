@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='OS'>/**
+</span> * @class OS
+ * @singleton
+ * @author Tayfun Öziş ERİKAN &lt;tayfun.ozis.erikan@lab2023.com&gt;
+ *
+ * OS base configuration options and utils
+ */
+Ext.define('Kebab.config.OS', {
+
+<span id='OS-property-singleton'>    /**
+</span>     * Object singleton property
+     */
+    singleton: true,
+
+<span id='OS-property-options'>    /**
+</span>     * @property {object} options
+     * All configuration options
+     */
+    options: {
+
+        // Paths
+        appsRepo: 'http://kebab-revolution/apps',
+        serviceAPI: 'http://kebab-revolution/service',
+
+        // Desktop configurations
+        desktop: {
+            menuBar: {
+                position: 'top'
+            },
+            dock: {
+                position: 'bottom'
+            }
+        }
+    },
+
+<span id='OS-method-getOption'>    /**
+</span>     * Get the specific config options
+     * @static
+     * @param key
+     */
+    getOption: function(key) {
+        return this.options[key];
+    },
+
+<span id='OS-method-setOption'>    /**
+</span>     * Set the specific config option
+     * @static
+     * @param key
+     * @param value
+     */
+    setOption: function(key, value) {
+        this.options[key] = value;
+    },
+
+<span id='OS-method-getOptions'>    /**
+</span>     * Get all config options
+     * @static
+     */
+    getOptions: function() {
+        return this.options;
+    },
+
+<span id='OS-method-setOptions'>    /**
+</span>     * Add or override config options
+     * @static
+     * @param options object
+     * @param isImportant boolean
+     */
+    setOptions: function(options, isImportant) {
+
+        if (isImportant) {
+            Ext.apply(this.options, options);
+        } else {
+            Ext.applyIf(this.options, options);
+        }
+    }
+});</pre>
+</body>
+</html>

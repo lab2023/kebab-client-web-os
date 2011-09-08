@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='Login'>/**
+</span> * @class Login
+ * @extends Ext.app.Controller
+ * @author Tayfun Öziş ERİKAN &lt;tayfun.ozis.erikan@lab2023.com&gt;
+ *
+ * Kebab OS Login controller
+ */
+Ext.define('Kebab.controller.Login', {
+    extend: 'Ext.app.Controller',
+
+<span id='Login-property-views'>    /**
+</span>     * Controller view widgets
+     */
+    views: [
+        'login.Index',
+        'login.SignIn',
+        'login.ForgotPassword',
+        'login.SignUp'
+    ],
+
+<span id='Login-method-init'>    /**
+</span>     * Controller initializer
+     */
+    init: function() {
+
+        var me = this;
+
+<span id='Login-property-control'>        /**
+</span>         * Control events
+         */
+        me.control({
+            'login_signIn button[action=&quot;send&quot;]': {
+                click: me.signInAction
+            },
+            'login_forgotPassword button[action=&quot;send&quot;]': {
+                click: me.forgotPasswordAction
+            },
+            'login_signUp button[action=&quot;send&quot;]': {
+                click: me.signUpAction
+            },
+            'login_index button[ref=&quot;view&quot;]': {
+                click: me.changeViewAction
+            }
+        });
+    },
+
+<span id='Login-method-indexAction'>    /**
+</span>     * Show login window
+     */
+    indexAction: function() {
+        var me = this;
+        Ext.create(me.getView('login.Index'));
+    },
+
+<span id='Login-method-signInAction'>    /**
+</span>     * Sign in user
+     * @param btn
+     */
+    signInAction: function(btn) {
+        var me = this;
+        
+        var form = btn.up('form').getForm();
+
+        if (form.isValid()) {
+            form.submit({
+                clientValidation: true,
+                url: me.application.helpers.url('server.php'),
+                waitMsg: 'Signing...'
+            });
+        }
+    },
+
+<span id='Login-method-forgotPasswordAction'>    /**
+</span>     * Forgot password in user
+     * @param btn
+     */
+    forgotPasswordAction: function(btn) {
+        var me = this;
+
+        var form = btn.up('form').getForm();
+
+        if (form.isValid()) {
+            form.submit({
+                clientValidation: true,
+                method: 'PUT',
+                url: me.application.helpers.url('kebab/password'),
+                waitMsg: 'Your password sending...'
+            });
+        }
+    },
+
+<span id='Login-method-signUpAction'>    /**
+</span>     * Sign up new user
+     * @param btn
+     */
+    signUpAction: function(btn) {
+        var me = this;
+
+        var form = btn.up('form').getForm();
+
+        if (form.isValid()) {
+            form.submit({
+                clientValidation: true,
+                method: 'POST',
+                url: me.application.helpers.url('kebab/user'),
+                waitMsg: 'Creating your account...'
+            });
+        }
+    },
+
+<span id='Login-method-changeViewAction'>    /**
+</span>     * Change login window active items
+     * @param btn
+     */
+    changeViewAction: function(btn) {
+        var activeItem;
+        
+        switch (btn.action) {
+            case 'forgotPassword':
+                activeItem = 1;
+                break;
+            case 'signUp':
+                activeItem = 2;
+                break;
+            default:
+                activeItem = 0;
+                break;
+        }
+
+        btn.up().items.each(function(item) {
+            if  (btn != item) {
+                item.toggle(false);
+            } else {
+                btn.toggle(true);
+            }
+        });
+
+        btn.up('panel').getLayout().setActiveItem(activeItem);
+    }
+});
+</pre>
+</body>
+</html>

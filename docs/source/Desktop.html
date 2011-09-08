@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='Desktop'>/**
+</span> * @class Desktop
+ * @extends Ext.app.Controller
+ * @author Tayfun Öziş ERİKAN &lt;tayfun.ozis.erikan@lab2023.com&gt;
+ *
+ * Kebab OS Desktop controller
+ */
+Ext.define('Kebab.controller.Desktop', {
+    extend: 'Ext.app.Controller',
+
+<span id='Desktop-property-views'>    /**
+</span>     * Controller view widgets
+     */
+    views: [
+        'desktop.Index',
+        'desktop.Dock',
+        'desktop.MenuBar',
+        'desktop.Shortcuts',
+        'desktop.Wallpaper'
+    ],
+
+<span id='Desktop-property-stores'>    /**
+</span>     * Controller stores
+     */
+    stores: ['Shortcuts'],
+
+<span id='Desktop-property-models'>    /**
+</span>     * Controller models
+     */
+    models: ['Module'],
+
+<span id='Desktop-method-init'>    /**
+</span>     * Controller initializer
+     */
+    init: function() {
+        var me = this;
+        me.callParent(arguments);
+    },
+
+<span id='Desktop-method-indexAction'>    /**
+</span>     * Index action
+     */
+    indexAction: function() {
+        
+    }
+});
+</pre>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='SignIn'>/**
+</span> * @class SignIn
+ * @extends Ext.form.Panel
+ * @author Tayfun Öziş ERİKAN &lt;tayfun.ozis.erikan@lab2023.com&gt;
+ *
+ * Kebab OS Login sign-in widget
+ */
+Ext.define('Kebab.view.login.SignIn', {
+    
+    extend: 'Ext.form.Panel',
+    alias : 'widget.login_signIn',
+
+    initComponent: function() {
+
+        var me = this;
+
+        Ext.apply(this, {
+            title : 'Sign-in',
+            waitMsgTarget: true,
+            frame  :true,
+            bodyPadding : 5,
+            layout: 'anchor',
+            defaults: {
+                anchor: '100%'
+            },
+            defaultType: 'textfield',
+            items: me.buildItems(),
+            buttons: [{
+                text : 'Send',
+                action: 'send'
+            }]
+        });
+
+        this.callParent(arguments);
+    },
+
+    buildItems: function() {
+        return [{
+            name : 'username',
+            fieldLabel : 'Username',
+            allowBlank : false
+        },{
+            name       : 'password',
+            fieldLabel : 'Password',
+            inputType  : 'password',
+            allowBlank : false
+        }];
+    }
+});</pre>
+</body>
+</html>

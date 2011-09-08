@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='Shortcuts'>/**
+</span> * @class Shortcuts
+ * @extends Ext.Component
+ * @author Tayfun Öziş ERİKAN &lt;tayfun.ozis.erikan@lab2023.com&gt;
+ *
+ * Kebab OS Desktop shortcuts widget
+ */
+Ext.define('Kebab.view.desktop.Shortcuts', {
+    extend: 'Ext.view.View',
+    
+    alias: 'widget.desktop_shortcuts',
+
+    id: 'kebab-desktop-shortcuts',
+
+    initComponent: function() {
+        
+        var me = this;
+
+        var tpl = [
+            '&lt;tpl for=&quot;.&quot;&gt;',
+                '&lt;div class=&quot;kebab-desktop-shortcut&quot; id=&quot;{name}-shortcut&quot;&gt;',
+                    '&lt;div class=&quot;kebab-desktop-shortcut-icon {iconCls}&quot;&gt;&lt;/div&gt;',
+                    '&lt;span class=&quot;kebab-desktop-shortcut-text&quot;&gt;{name}&lt;/span&gt;',
+                '&lt;/div&gt;',
+            '&lt;/tpl&gt;',
+            '&lt;div class=&quot;x-clear&quot;&gt;&lt;/div&gt;'
+        ];
+
+        Ext.apply(me, {
+            store: 'Shortcuts',
+            overItemCls: 'x-view-over',
+            trackOver: true,
+            itemSelector: 'div.kebab-desktop-shortcut',
+            tpl: new Ext.XTemplate(tpl)
+        });
+
+        this.callParent(arguments);
+    }
+});</pre>
+</body>
+</html>
