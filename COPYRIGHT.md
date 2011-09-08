@@ -1,7 +1,6 @@
 COPYRIGHT
 ================================================================================
-Kebab Project 2.0.0 (Kebab Revolution)
-Kebab Revolution 2.0.0 - Web OS Client Platform for Ext JS 4.x
+Kebab Project 2.x (Kebab Revolution) - Web OS Client Platform for Ext JS 4.x
     Copyright (c) 2010-2011 lab2023 - internet technologies TURKEY Inc.
     http://www.lab2023.com - http://www.kebab-project.com/cms/licensing
 ================================================================================
