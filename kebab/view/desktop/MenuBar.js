@@ -17,7 +17,7 @@ Ext.define('Kebab.view.desktop.MenuBar', {
         var me = this;
 
         Ext.apply(me, {
-            dock: Kebab.config.OS.getOption('desktop').menuBar.position,
+            dock: 'top',
             defaults: {
                 scale: 'small'
             },

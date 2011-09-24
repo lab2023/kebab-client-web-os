@@ -15,16 +15,20 @@
     * to info@lab2023.com so we can send you a copy immediately.
 ----------------------------------------------------------------------------- */
 
+/**
+ * Ext loader configuration
+ */
 Ext.Loader.setConfig({
     enabled: true,
     paths: {
         'Kebab': 'kebab'
     }
 });
-Ext.require('Kebab.OS');
 
+// Require for Kebab and Kebab.Kernel
+Ext.require('Kebab.Kernel');
+
+// Initialize Kebab on DOM ready
 Ext.onReady(function() {
-    Ext.create('Kebab.OS', {
-        env: 'development'
-    });
+    Kebab.init();
 });

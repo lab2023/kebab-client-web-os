@@ -6,8 +6,7 @@
  * Kebab OS Login sign-in widget
  */
 Ext.define('Kebab.view.login.SignIn', {
-    
-    extend: 'Ext.form.Panel',
+    extend: 'Ext.panel.Panel',
     alias : 'widget.login_signIn',
 
     initComponent: function() {
@@ -15,9 +14,7 @@ Ext.define('Kebab.view.login.SignIn', {
         var me = this;
 
         Ext.apply(this, {
-            title : 'Sign-in',
             waitMsgTarget: true,
-            frame  :true,
             bodyPadding : 5,
             layout: 'anchor',
             defaults: {

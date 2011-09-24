@@ -17,7 +17,7 @@ Ext.define('Kebab.view.desktop.Dock', {
         var me = this;
 
         Ext.apply(me, {
-            dock: Kebab.config.OS.getOption('desktop').dock.position,
+            dock: 'bottom',
             defaults: {
                 scale:'large'
             },

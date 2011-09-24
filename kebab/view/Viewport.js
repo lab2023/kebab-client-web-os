@@ -9,6 +9,8 @@ Ext.define('Kebab.view.Viewport', {
     extend: 'Ext.container.Viewport',
     alias: 'widget.viewport',
 
+    id: 'viewport',
+    
     requires : [
         'Kebab.library.layout.FitAll'
     ],
@@ -17,11 +19,9 @@ Ext.define('Kebab.view.Viewport', {
         var me = this;
 
         Ext.apply(me, {
-            layout:'fitall',
-            items  : {
-                xtype : 'desktop_index'
-            }
+            layout:'fitall'
         });
+
         me.callParent(arguments);
     }
 });

@@ -13,10 +13,12 @@ Ext.define('Kebab.OS', {
 
     autoCreateViewport: true,
 
-    requires: [
-        'Kebab.config.OS'
+    refs: [{
+            ref: 'viewport',
+            selector: 'viewport'
+        }
     ],
-
+    
     controllers: [
         'Login',
         'Desktop'
@@ -27,17 +29,12 @@ Ext.define('Kebab.OS', {
      * Creates new OS from config options
      */
     constructor: function(config) {
-        console.log('Kebab.OS initialized...');
-
-        // Merge configurations
-        this.initConfig(
-            Ext.apply(config, Kebab.config.OS.getOptions())
-        );
+        var me = this;
 
         // Call parent constructor
-        this.callParent(arguments);
+        me.callParent(arguments);
 
-        console.log(this);
+        Kebab.helper.log('Kebab.OS initialized...');
     },
 
     /**
@@ -45,8 +42,11 @@ Ext.define('Kebab.OS', {
      * @return void
      */
     launch: function() {
-        console.log('Kebab launched...');
+        var me = this;
+
         // TODO check user is online
-        //this.getController('Login').indexAction();
+        me.getController('Login').indexAction();
+
+        Kebab.helper.log('Kebab.OS launched...');
     }
 });

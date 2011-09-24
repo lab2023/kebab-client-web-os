@@ -16,7 +16,6 @@ Ext.define('Kebab.view.desktop.Index', {
 
         Ext.apply(me, {
             border: false,
-            layout: 'fit',
             items  : [
                 {xtype: 'desktop_wallpaper'},
                 {xtype: 'desktop_shortcuts'}

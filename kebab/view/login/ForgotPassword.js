@@ -6,8 +6,7 @@
  * Kebab OS Login forgot password widget
  */
 Ext.define('Kebab.view.login.ForgotPassword', {
-    
-    extend: 'Ext.form.Panel',
+    extend: 'Ext.window.Window',
     alias : 'widget.login_forgotPassword',
 
     initComponent: function() {
@@ -15,15 +14,11 @@ Ext.define('Kebab.view.login.ForgotPassword', {
         var me = this;
 
         Ext.apply(this, {
+            border:false,
             title : 'Forgot Password',
-            waitMsgTarget: true,
-            bodyPadding : 5,
-            frame  :true,
-            layout: 'anchor',
-            defaults: {
-                anchor: '100%'
-            },
-            defaultType: 'textfield',
+            width: 300,
+            constrainHeader: true,
+            closeAction: 'hide',
             items: me.buildItems(),
             buttons: [{
                 text : 'Send',
@@ -35,11 +30,24 @@ Ext.define('Kebab.view.login.ForgotPassword', {
     },
 
     buildItems: function() {
-        return [{
-            name : 'email',
-            fieldLabel : 'Your e-mail',
-            allowBlank : false,
-            vtype: 'email'
-        }];
+
+        this.form = Ext.create('Ext.form.Panel', {
+            frame:true,
+            fieldDefaults: {
+                msgTarget: 'side',
+                labelWidth: 75
+            },
+            defaultType: 'textfield',
+            defaults: {
+                anchor: '100%'
+            },
+            items: [{
+                fieldLabel: 'Email',
+                name: 'email',
+                vtype:'email'
+            }]
+        });
+
+        return [this.form];
     }
 });

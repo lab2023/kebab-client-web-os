@@ -5,7 +5,6 @@
  *
  * Kebab OS fitall layout
  */
-
 Ext.define('Kebab.library.layout.FitAll', {
     extend: 'Ext.layout.container.AbstractFit',
     alias: 'layout.fitall',

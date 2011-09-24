@@ -19,6 +19,6 @@ Ext.define('Kebab.store.Shortcuts', {
 
     data: [
         {name: 'Sample', iconCls: 'a', module: 'sample-module'},
-        {name: 'Demo', iconCls: 'a', module: 'demo-module'},
+        {name: 'Demo', iconCls: 'a', module: 'demo-module'}
     ]
 });

@@ -7,10 +7,9 @@
  */
 Ext.define('Kebab.model.Module', {
     extend: 'Ext.data.Model',
-    
+
     fields: [
-       { name: 'name' },
-       { name: 'email' },
-       { name: 'module' }
+        { name: 'name' },
+        { name: 'icon' }
     ]
 });

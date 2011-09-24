@@ -41,6 +41,7 @@ Ext.define('Kebab.controller.Desktop', {
      * Index action
      */
     indexAction: function() {
-        
+        var me = this;
+        Ext.create(me.getView('desktop.Index'));
     }
 });

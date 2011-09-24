@@ -7,46 +7,25 @@
  */
 Ext.define('Kebab.view.login.Index', {
 
-    extend: 'Ext.window.Window',
+    extend: 'Ext.panel.Panel',
     alias : 'widget.login_index',
 
     initComponent: function() {
         var me = this;
 
         Ext.apply(me, {
+            renderTo: Ext.getBody(),
             title: 'Kebab Revolution • Welcome',
-            layout:'card',
-            activeItem: 0,
+            frame:true,
+            width:400,
             border:false,
-            constrain: true,
-            modal:true,
-            autoShow : true,
-            closable :false,
-            resizable :false,
             buttonAlign: 'center',
             items : [{
                 xtype: 'login_signIn'
-            },{
-                xtype: 'login_forgotPassword'
-            },{
-                xtype: 'login_signUp'
             }],
             buttons: [{
-                text: 'Sign-in',
-                enableToggle: true,
-                pressed: true,
-                action: 'signIn',
-                ref: 'view'
-            },{
                 text : 'Forgot Password',
-                enableToggle: true,
-                action: 'forgotPassword',
-                ref: 'view'
-            },{
-                text: 'Sign-up',
-                enableToggle: true,
-                action: 'signUp',
-                ref: 'view'
+                action: 'forgotPassword'
             }]
         });
 
@@ -54,9 +33,10 @@ Ext.define('Kebab.view.login.Index', {
     },
 
     listeners: {
-        afterRender: function(win) {
+        afterRender: function(panel) {
+            panel.center();
             Ext.fly(window).on('resize', function() {
-                win.center();
+                panel.center();
             });
         }
     }
