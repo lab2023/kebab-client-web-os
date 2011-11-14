@@ -21,14 +21,10 @@
 Ext.Loader.setConfig({
     enabled: true,
     paths: {
+        'Ext.ux' : 'ext-js/examples/ux',
         'Kebab': 'kebab'
     }
 });
 
-// Require for Kebab and Kebab.Kernel
+// Require for Kebab.OS
 Ext.require('Kebab.Kernel');
-
-// Initialize Kebab on DOM ready
-Ext.onReady(function() {
-    Kebab.init();
-});

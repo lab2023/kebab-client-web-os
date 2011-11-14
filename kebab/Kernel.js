@@ -1,91 +1,4 @@
 /**
- * @class Kebab
- * @singleton
- * @author Tayfun Öziş ERİKAN <tayfun.ozis.erikan@lab2023.com>
- *
- * Base class of the Kebab
- */
-Ext.define('Kebab', {
-    singleton: true,
-
-    /**
-     * Kebab Version
-     */
-    VERSION: '2.0.0',
-
-    /**
-     * Kebab Environment
-     */
-    ENVIRONMENT: 'development',
-
-    /**
-     * Kebab Base URL (Auto detected)
-     */
-    BASE_URL: window.location.origin + window.location.pathname,
-
-    /**
-     * Kebab RESTful Service API URL
-     */
-    REST_API: '',
-
-    /**
-     * Setup Kebab environment & base URL
-     */
-    constructor: function() {
-
-        // URL parameter detector. ?dev = development mode
-        this.ENVIRONMENT = (window.location.search.match('(\\?|&)dev') !== null) ? 'development' : 'production';
-
-        // IF value is blank, REST_API value is equal for BASE_URL value
-        this.REST_API = this.REST_API || this.BASE_URL;
-    },
-
-    /**
-     * Initialize Kebab and boot the kernel
-     */
-    init: function(config) {
-
-        Ext.apply(this, config || null);
-
-        Kebab.helper.log('Kebab initialized by "' + this.ENVIRONMENT + '" environment...');
-
-        Kebab.Kernel.boot();
-    },
-
-    /**
-     * Kebab Helpers
-     */
-    helper: {
-
-        /**
-         * Log system messages only production environment
-         * @param msg string
-         */
-        log: function(msg) {
-            if (Kebab.ENVIRONMENT != 'production') {
-                console.log(msg);
-            }
-        },
-
-        /**
-         * Return base URL or generated URL
-         * @param url
-         */
-        url: function(url) {
-            return url ? Kebab.BASE_URL + url : Kebab.BASE_URL;
-        },
-
-        /**
-         * Return the RESTful service URL
-         * @param service string
-         */
-        rest: function(service) {
-            return service ? Kebab.REST_API + service : Kebab.REST_API;
-        }
-    }
-});
-
-/**
  * @class Kernel
  * @singleton
  * @author Tayfun Öziş ERİKAN <tayfun.ozis.erikan@lab2023.com>
@@ -96,31 +9,165 @@ Ext.define('Kebab.Kernel', {
     singleton: true,
 
     /**
-     * Kebab OS property
-     * @type Kebab.OS
+     * Class mixins
      */
-    OS: null,
+    mixins: [
+        'Ext.util.Observable'
+    ],
 
     /**
-     * Required classess
+     * Required classes
      */
     requires: [
         'Kebab.OS'
     ],
 
     /**
+     * Kernel Configurations
+     * @type Object
+     */
+    config: {
+
+        /**
+         * Kebab Kernel Version
+         * @type Object
+         */
+        version: {
+            build: 0,
+            major: 2,
+            minor: 0,
+            patch: 0,
+            shortVersion: "200",
+            version: "2.0.0"
+        },
+
+        /**
+         * Kebab OS property
+         * @type Kebab.OS
+         */
+        OS: null,
+
+        /**
+         * Kebab System Paths
+         * @type Object
+         */
+        paths: {
+
+            /**
+             * OS root folder
+             * @type String
+             */
+            root: 'kebab',
+
+            /**
+             * Kebab Assets and resources folder
+             * @type String
+             */
+            resources: 'resources',
+
+            /**
+             * Kebab Vendors and 3rd. party libraries folder
+             * @type String
+             */
+            vendors: 'vendors'
+        },
+
+        /**
+         * Kebab Environment
+         * @type String
+         */
+        environment: 'development',
+
+        /**
+         * Kebab Base URL (Auto detected)
+         * @type String
+         */
+        baseURL: window.location.origin + window.location.pathname,
+
+        /**
+         * Kebab RESTful Service API URL
+         * @type String
+         */
+        restAPI: 'http://localhost:4567'
+    },
+
+    /**
+     * Kebab constructor
+     * @param config
+     */
+    constructor: function(config) {
+        var me = this;
+        
+        // Init the config
+        me.initConfig(config);
+
+        // Add booted event
+        me.addEvents('booted');
+
+        // Build the basics
+        me._buildBasics();
+
+        // Log message
+        console.log('Kebab.Kernel has been initialized for "' + me.getEnvironment() + '" environment...');
+
+        // Boot the kernel
+        me.boot();
+    },
+
+    /**
      * Boot the Kebab.Kernel and Create new Kebab OS
+     * @return void
      */
     boot: function() {
+        var me = this, OSInstance;
 
-        Kebab.helper.log('Kebab.Kernel initialized ...');
+        // Check OS instance already exist
+        if (!me.getOS()) {
 
-        if (!this.OS) {
+            // Create new Kebab.OS instance
+            OSInstance = Ext.create('Kebab.OS', {
+                appFolder: me.getPaths().root,
+            });
 
-            this.OS = Ext.create('Kebab.OS');
+            // Listen Kebab.OS launched event
+            OSInstance.on('launched', function() {
 
+                // Setup Kernel.config.OS parameter Kebab.OS
+                me.setOS(OSInstance);
+
+                //Merging Kebab and Kebab.Kernel classes
+                Ext.apply(Kebab, me);
+            });
+
+            // Fires self for booted event
+            me.fireEvent('booted', me);
+
+            // Log message
+            console.log('Kebab.Kernel has been boot up...');
+            
         } else {
-            throw new Error(Ext.getDisplayName(this.self) + ' OS already booted!');
+
+            // Throw error
+            throw new Error(Ext.getDisplayName(me.self) + ' OS has already booted!');
         }
+
+    },
+
+    /**
+     * Build the Kebab basics
+     * @private
+     * @return void
+     */
+    _buildBasics: function() {
+        var me = this, environment, restAPI;
+
+        // URL parameter detector. ?dev = development mode
+        environment = (window.location.search.match('(\\?|&)dev') !== null)
+            ? 'development' : 'production';
+        me.setEnvironment(environment);
+
+        // IF value is blank, REST_API value is equal for BASE_URL value
+        restAPI = me.getRestAPI() || me.getBaseURL();
+        me.setRestAPI(restAPI);
     }
 });

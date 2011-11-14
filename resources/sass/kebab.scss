@@ -1,0 +1,72 @@
+/* -----------------------------------------------------------------------------
+ Kebab Project 2.x (Kebab Revolution) - Web OS Client Platform for Ext JS 4.x
+ http://kebab-project.com
+ Copyright (c) 2011-2012 lab2023 - internet technologies TURKEY Inc.
+ http://www.lab2023.com
+
+    * LICENSE
+    *
+    * This source file is subject to the  Dual Licensing Model that is bundled
+    * with this package in the file LICENSE.txt.
+    * It is also available through the world-wide-web at this URL:
+    * http://www.kebab-project.com/licensing
+    * If you did not receive a copy of the license and are unable to
+    * obtain it through the world-wide-web, please send an email
+    * to info@lab2023.com so we can send you a copy immediately.
+----------------------------------------------------------------------------- */
+
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+@import "compass";
+
+$loader_bg_color: #000;
+$loader_msg_color: #ccc;
+
+body {
+    overflow: hidden;
+    height: 100%;
+}
+
+div#loader-mask {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 9999;
+    background-color: $loader_bg_color;
+
+    p {
+        width: 350px;
+        height: 160px;
+        position: absolute;
+        left: 50%;
+        top: 45%;
+        margin: -80px 0 0 -175px;
+        color: $loader_msg_color;
+        text-align: center;
+        background: url('../images/loader.png') no-repeat center top;
+
+        span {
+            display: block;
+            background: $loader_bg_color url('../images/loader-bar.gif') no-repeat center;
+            height: 60px;
+            margin-top: 110px;
+
+            strong {
+                color: lighten($loader_msg_color, 1%);
+                font-weight: bold;
+            }
+
+            a {
+                color: gray;
+            }
+        }
+    }
+
+
+    p.disabled {
+        background: url('../images/loader-disabled.png') no-repeat center top;
+    }
+}

@@ -8,9 +8,13 @@ Kebab Project 2.x (Kebab Revolution) - Web OS Client Platform for Ext JS 4.x
 Credits of 3rd Party Libraries, Plugins, Extentions etc.
 --------------------------------------------------------------------------------
 
-- ExtJs 4.0.2a
+- Ext JS 4.0.2a - JavaScript Framework
     Copyright (c) http://www.sencha.com
     http://www.sencha.com/store/js/license.php Dual License
+
+- Jasmine 1.1.0 - BDD Testing Suite
+    Copyright (c) 2008-2011 Pivotal Labs
+    http://pivotal.github.com/jasmine/
 
 Credits of Wallpaper pictures, images, icons etc.
 --------------------------------------------------------------------------------

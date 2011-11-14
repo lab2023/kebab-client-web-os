@@ -9,17 +9,11 @@ Ext.define('Kebab.view.Viewport', {
     extend: 'Ext.container.Viewport',
     alias: 'widget.viewport',
 
-    id: 'viewport',
-    
-    requires : [
-        'Kebab.library.layout.FitAll'
-    ],
-
     initComponent: function() {
         var me = this;
 
         Ext.apply(me, {
-            layout:'fitall'
+            layout:'fit'
         });
 
         me.callParent(arguments);

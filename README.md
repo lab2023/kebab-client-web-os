@@ -6,7 +6,7 @@ Kebab Project 2.x Web Client Platform for Ext JS is only supported on Ext JS 4.x
     http://www.sencha.com
     http://www.sencha.com/products/extjs/download/
 
-Suggessions
+Suggestions
 -----------
 - We offer unix-linux operation systems,
 - Use Google Chrome for better development & rendering performance,

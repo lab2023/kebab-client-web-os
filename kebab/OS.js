@@ -1,32 +1,55 @@
 /**
  * @class OS
- * @extends Ext.app.Application
+ * @singleton
  * @author Tayfun Öziş ERİKAN <tayfun.ozis.erikan@lab2023.com>
  *
- * Main application class for Kebab OS
+ * OS class for Kebab
  */
 Ext.define('Kebab.OS', {
     extend: 'Ext.app.Application',
 
-    name: 'Kebab',
-    appFolder: 'kebab',
+    /**
+     * Required classes
+     */
+    requires: [
+        'Kebab.store.Tenants'
+    ],
 
+    /**
+     * OS name and namespace
+     * @type String
+     */
+    name: 'Kebab',
+
+    /**
+     * OS Viewport auto create property
+     * @type Boolean
+     */
     autoCreateViewport: true,
 
+    /**
+     * OS References and selectors
+     * @type Array
+     */
     refs: [{
             ref: 'viewport',
             selector: 'viewport'
         }
     ],
-    
-    controllers: [
-        'Login',
-        'Desktop'
-    ],
 
+    /**
+     * OS Controllers
+     * @type Array
+     */
+    controllers: [
+        'Loader',
+        'Tenant'
+    ],
+    
     /**
      * @constructor
      * Creates new OS from config options
+     * @return void
      */
     constructor: function(config) {
         var me = this;
@@ -34,19 +57,26 @@ Ext.define('Kebab.OS', {
         // Call parent constructor
         me.callParent(arguments);
 
-        Kebab.helper.log('Kebab.OS initialized...');
+        // Add OS events
+        me.addEvents({
+            'launched': true
+        });
+
+        console.log('Kebab.OS has been initialized...');
     },
 
     /**
-     * Launch the Kebab.OS application
+     * OS after launch method
      * @return void
      */
     launch: function() {
         var me = this;
 
-        // TODO check user is online
-        me.getController('Login').indexAction();
+        // Fires launched event
+        me.fireEvent('launched');
 
-        Kebab.helper.log('Kebab.OS launched...');
+        me.getController('Loader').onMsg('Kebab Web OS starting');
+
+        console.log('Kebab.OS has been started...');
     }
 });
