@@ -9,13 +9,5 @@ Ext.define('Kebab.view.Viewport', {
     extend: 'Ext.container.Viewport',
     alias: 'widget.viewport',
 
-    initComponent: function() {
-        var me = this;
-
-        Ext.apply(me, {
-            layout:'fit'
-        });
-
-        me.callParent(arguments);
-    }
+    layout:'fit'
 });

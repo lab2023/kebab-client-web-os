@@ -10,10 +10,10 @@ Ext.define('Kebab.view.loader.Mask', {
     alias : 'widget.loader_mask',
 
     config: {
-        msg: null,
+        msg: null, // Message element reference
+        zSeed: 99999, // Default z-index value
         defaultMsg: 'Loading please wait',
         animSettings: {
-            delay: 500,
             duration: 800,
             easing: 'easeOut'
         }
@@ -28,6 +28,8 @@ Ext.define('Kebab.view.loader.Mask', {
         Ext.apply(me, {
             id: 'loader-mask',
             floating :true,
+            shadow:false,
+            zIndex: me.getZSeed(),
             renderTo: Ext.getBody(),
             renderTpl: [
                 '<p>',
@@ -55,6 +57,10 @@ Ext.define('Kebab.view.loader.Mask', {
             Ext.fly('loader-mask').remove();
         },
         hide: function(cmp) {
+            // Set z-index value = 0 for component element  (send to back)
+            cmp.getEl().setZIndex(0);
+
+            // Set default loading message
             cmp.getMsg().update(cmp.getDefaultMsg());
         }
     },
@@ -65,6 +71,10 @@ Ext.define('Kebab.view.loader.Mask', {
     onShow: function() {
         var me = this;
 
+        // Set default z-index value for component element
+        me.getEl().setZIndex(me.getZSeed());
+
+        // Fade-in loader element
         me.getEl().fadeIn(Ext.apply(me.getAnimSettings(), {
             callback: function() {
                 me.fireEvent('show', me);
@@ -78,6 +88,7 @@ Ext.define('Kebab.view.loader.Mask', {
     onHide: function() {
         var me = this;
 
+        // Fade-out loader element
         me.getEl().fadeOut(
             Ext.apply(me.getAnimSettings(), {
                 callback: function() {
@@ -87,8 +98,25 @@ Ext.define('Kebab.view.loader.Mask', {
         );
     },
 
+    /**
+     * Update loader child msg element
+     * @param msg String
+     */
     onMsg: function(msg) {
         var me = this;
+
         me.getMsg().update(msg);
+    },
+
+    /**
+     * Disable component
+     */
+    onDisable: function() {
+        var me = this;
+
+        me.getMsg().setStyle({
+            background : 'transparent',
+            color : 'gray'
+        }).up('p').addCls('disabled');
     }
 });

@@ -18,17 +18,26 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Kebab Revolution 2.0.0 - Web OS</title>
+    <title>Kebab Revolution 2.0.0 - Web OS (Unit Testing)</title>
 
     <!-- include favicon here -->
     <link rel="shortcut icon" type="image/x-icon"  href="favicon.ico" />
 
     <!-- include css files here -->
+    <link rel="stylesheet" type="text/css" href="vendors/jasmine-1.1.0/jasmine.css">
     <link rel="stylesheet" type="text/css" href="vendors/ext-4.0.7-gpl/resources/css/ext-all-gray.css">
     <link rel="stylesheet" type="text/css" href="resources/css/kebab.css">
 
     <!-- include js files here -->
-    <script type="text/javascript" src="vendors/ext-4.0.7-gpl/bootstrap.js"></script>
+    <script type="text/javascript" src="vendors/jasmine-1.1.0/jasmine.js"></script>
+    <script type="text/javascript" src="vendors/jasmine-1.1.0/jasmine-html.js"></script>
+    <script type="text/javascript" src="vendors/ext-4.0.7-gpl/ext-all-debug.js"></script>
+
+    <!-- include specs here -->
+    <script type="text/javascript" src="specs/basic-specs.js"></script>
+    <script type="text/javascript" src="specs/tenants-specs.js"></script>
+
+    <!-- include app here -->
     <script type="text/javascript" src="app.js"></script>
 </head>
 <body>

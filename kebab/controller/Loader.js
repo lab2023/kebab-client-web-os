@@ -3,7 +3,7 @@
  * @extends Ext.app.Controller
  * @author Tayfun Öziş ERİKAN <tayfun.ozis.erikan@lab2023.com>
  *
- * Kebab OS Desktop controller
+ * Kebab Loader controller
  */
 Ext.define('Kebab.controller.Loader', {
     extend: 'Ext.app.Controller',
@@ -67,7 +67,7 @@ Ext.define('Kebab.controller.Loader', {
 
     /**
      * Set the loader message
-     * @param String msg
+     * @param msg String
      */
     onMsg: function(msg) {
         var me = this;
@@ -76,5 +76,12 @@ Ext.define('Kebab.controller.Loader', {
         me.getLoaderMask().onMsg(msg);
 
         return me;
+    },
+
+    onDisable: function() {
+        var me = this;
+
+        // Disable loader component
+        me.getLoaderMask().onDisable();
     }
 });

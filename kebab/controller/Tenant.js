@@ -3,7 +3,7 @@
  * @extends Ext.app.Controller
  * @author Tayfun Öziş ERİKAN <tayfun.ozis.erikan@lab2023.com>
  *
- * Kebab OS Desktop controller
+ * Kebab Tenant controller
  */
 Ext.define('Kebab.controller.Tenant', {
     extend: 'Ext.app.Controller',
@@ -33,8 +33,13 @@ Ext.define('Kebab.controller.Tenant', {
         // Call onRegister action
         me.onRegister();
 
+        me.addEvents({
+            'registered': true,
+            'notregistered': true
+        });
+
         // Listen tenant store loading complete status
-        me.getTenantsStore().on('load', me.onRegisterCompleted, me);
+        me.getTenantsStore().on('load', me._registerCompleted, me);
 
         // Call parent
         me.callParent(arguments);
@@ -46,35 +51,31 @@ Ext.define('Kebab.controller.Tenant', {
     onRegister: function() {
         var me = this;
 
+        // Load tenants store
         me.getTenantsStore().load();
     },
 
     /**
      * Register completed
+     * @private
      */
-    onRegisterCompleted: function(store, data, success) {
+    _registerCompleted: function(store, data, success) {
         var me = this, rec;
 
+        // Access loaded tenant data
         rec = store.getAt(0);
 
         // If token data correct
-        if (success && rec.data.token) {
+        if (success && rec.data.authenticity_token) {
 
-            // TODO Set all ajax or jsonp requests global token parameter eg: &token=123456
-
+            // TODO Set all ajax or jsonp requests global token parameter eg: &authenticity_token=123456
             me.application.getController('Loader')
-                .onMsg('Kebab Web OS started by <strong>' +rec.data.tenant + '</strong>')
+                .onMsg('Kebab Web OS started by <strong>' + rec.data.tenant.name + '</strong>')
                 .onHide();
 
-            me.application.getViewport().add({
-                title: rec.data.tenant,
-                frame: true,
-                html: 'Token is : ' +  rec.data.token,
-                fbar: [{
-                    text: 'Exit',
-                    scale: 'large'
-                }]
-            });
+            me.application.getController('Login').onIndex();
+
+            me.fireEvent('registered', rec.data);
 
         } else {
             me.application.getController('Loader').onMsg('Tenant not registered. Please <a href="">sign up!</a>');
@@ -83,6 +84,8 @@ Ext.define('Kebab.controller.Tenant', {
                 color : 'gray'
             });
             me.application.getController('Loader').getLoaderMask().getMsg().up('p').addCls('disabled');
+
+            me.fireEvent('notregistered');
         }
     }
 });
