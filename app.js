@@ -16,80 +16,12 @@
 ----------------------------------------------------------------------------- */
 
 /**
- * Global Kebab Configuration
- */
-var KEBAB_CONFIG = {
-    /**
-     * Kebab Kernel Version
-     * @type Object
-     */
-    version: {
-        build: 0,
-        major: 2,
-        minor: 0,
-        patch: 0,
-        shortVersion: "200",
-        version: "2.0.0"
-    },
-
-    /**
-     * Kebab System Paths
-     * @type Object
-     */
-    paths: {
-
-        /**
-         * Kebab root folder
-         * @type String
-         */
-        root: 'kebab',
-
-        /**
-         * Kebab Assets and resources folder
-         * @type String
-         */
-        resources: 'resources',
-
-        /**
-         * Kebab Vendors and 3rd. party libraries folder
-         * @type String
-         */
-        vendors: 'vendors'
-    },
-
-    /**
-     * Kebab Environment
-     * @type String
-     */
-    environment: 'development',
-
-    /**
-     * Kebab Base URL (Auto detected)
-     * @type String
-     */
-    baseURL: window.location.origin + window.location.pathname,
-
-    /**
-     * Kebab RESTful service API URL
-     * @type String
-     */
-    restAPI: 'http://localhost:4567',
-
-    /**
-     * Testing suite status (unit testing)
-     * @type Boolean
-     */
-    testing: false
-};
-
-/**
  * Ext loader configuration
  */
 Ext.Loader.setConfig({
     enabled: true,
     paths: {
-        'Kebab': KEBAB_CONFIG.paths.root,
-        'Ext.ux' : 'ext-js/examples/ux'
+        'Kebab': 'kebab'
     }
 });
 

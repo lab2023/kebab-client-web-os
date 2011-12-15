@@ -105,7 +105,7 @@ Ext.define('Kebab.view.loader.Mask', {
     onMsg: function(msg) {
         var me = this;
 
-        me.getMsg().update(msg);
+        //me.getMsg().update(msg);
     },
 
     /**

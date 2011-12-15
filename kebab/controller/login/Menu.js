@@ -5,17 +5,16 @@
  *
  * Kebab OS Login controller
  */
-Ext.define('Kebab.controller.Login', {
+Ext.define('Kebab.controller.login.Menu', {
     extend: 'Ext.app.Controller',
 
     /**
      * Controller view widgets
      */
     views: [
-        'login.Index',
         'login.Menu',
-        'login.SignIn',
-        'login.ForgotPassword'
+        'login.menu.Indicators',
+        'login.menu.TenantInfo'
     ],
 
     /**
@@ -29,18 +28,19 @@ Ext.define('Kebab.controller.Login', {
          * Control events
          */
         me.control({
-
+            'login_menu_tenantInfo': {
+                beforerender: me.onSetTenantInfo
+            }
         });
     },
 
-    /**
-     * Show login window
-     */
-    onIndex: function() {
-        var me = this,
-            view = Ext.create(me.getView('login.Index'));
-        
-        me.application.getViewport().add(view);
-        me.application.getViewport().doLayout();
+    onSetTenantInfo: function(cp)  {
+        var me = this;
+
+        var tenantData = me.getController('Tenant').getTenantsStore().getAt(0).data.tenant;
+
+        if (tenantData) {
+            cp.update(tenantData.name);
+        }
     }
 });

@@ -9,14 +9,13 @@ Ext.define('Kebab.view.login.Index', {
     extend: 'Ext.panel.Panel',
     alias : 'widget.login_index',
 
+    id: 'login-index',
+
     initComponent: function() {
         var me = this;
 
         Ext.apply(me, {
-            id: 'login-index',
-            cls: 'transparent',
-            border:false,
-            buttonAlign: 'center',
+            border: false,
             dockedItems: [{
                 xtype: 'login_menu'
             }]

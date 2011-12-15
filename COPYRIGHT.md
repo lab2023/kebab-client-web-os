@@ -18,3 +18,6 @@ Credits of 3rd Party Libraries, Plugins, Extentions etc.
 
 Credits of Wallpaper pictures, images, icons etc.
 --------------------------------------------------------------------------------
+- Simple Desktops Cube Chaos Wallpaper
+    Created by: Jonathan Gleit
+    www.simpledesktops.com - http://static.simpledesktops.com/desktops/2011/11/07/cubechaos2.png

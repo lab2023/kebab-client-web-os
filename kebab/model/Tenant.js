@@ -21,6 +21,6 @@ Ext.define('Kebab.model.Tenant', {
      */
     proxy: {
         type: 'jsonp',
-        url : Kebab.Kernel.getRestAPI() + '/tenants/register'
+        url : Kebab.Kernel.getRestAPI() + '/session/register'
     }
 });

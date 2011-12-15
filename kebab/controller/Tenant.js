@@ -68,22 +68,25 @@ Ext.define('Kebab.controller.Tenant', {
         // If token data correct
         if (success && rec.data.authenticity_token) {
 
-            // TODO Set all ajax or jsonp requests global token parameter eg: &authenticity_token=123456
-            me.application.getController('Loader')
+            // TODO Set all data proxy requests global token parameter eg: &authenticity_token=123456
+            Ext.Ajax.extraParams = {
+                authenticity_token: rec.data.authenticity_token
+            };
+
+            // Hide loader
+            me.getController('Loader')
                 .onMsg('Kebab Web OS started by <strong>' + rec.data.tenant.name + '</strong>')
                 .onHide();
 
-            me.application.getController('Login').onIndex();
+            //Show login screen
+            me.getController('login.Index').onIndex();
 
             me.fireEvent('registered', rec.data);
 
         } else {
-            me.application.getController('Loader').onMsg('Tenant not registered. Please <a href="">sign up!</a>');
-            me.application.getController('Loader').getLoaderMask().getMsg().setStyle({
-                background : 'transparent',
-                color : 'gray'
-            });
-            me.application.getController('Loader').getLoaderMask().getMsg().up('p').addCls('disabled');
+            me.getController('Loader').
+                onMsg('Tenant not registered. Please <a href="">sign up!</a>').
+                onDisable();
 
             me.fireEvent('notregistered');
         }
