@@ -6,8 +6,8 @@ describe("Basic Assumptions", function() {
         expect(Ext.getVersion().version).toEqual('4.0.7');
     });
 
-    it("has KEBAB_CONFIG global variable defined",function(){
-        expect(KEBAB_CONFIG).toBeTruthy();
+    it("has Kebab namespace defined",function(){
+        expect(Kebab).toBeTruthy();
     });
 
     it("has Kebab.Kernel initialized",function(){
