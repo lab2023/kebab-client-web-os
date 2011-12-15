@@ -20,53 +20,11 @@
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
 
-@import "compass";
-
-$loader_bg_color: #000;
-$loader_msg_color: #ccc;
+@import "variables/all";
+@import "widgets/all";
 
 body {
+    background: url('#{$wallpapers-path}#{$wallpaper-img}') no-repeat center fixed;
     overflow: hidden;
     height: 100%;
-}
-
-div#loader-mask {
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    z-index: 99999;
-    background-color: $loader_bg_color;
-
-    p {
-        width: 350px;
-        height: 160px;
-        position: absolute;
-        left: 50%;
-        top: 45%;
-        margin: -80px 0 0 -175px;
-        color: $loader_msg_color;
-        text-align: center;
-        background: url('../images/loader.png') no-repeat center top;
-
-        span {
-            display: block;
-            background: $loader_bg_color url('../images/loader-bar.gif') no-repeat center;
-            height: 60px;
-            margin-top: 110px;
-
-            strong {
-                color: lighten($loader_msg_color, 1%);
-                font-weight: bold;
-            }
-
-            a {
-                color: gray;
-            }
-        }
-    }
-
-
-    p.disabled {
-        background: url('../images/loader-disabled.png') no-repeat center top;
-    }
 }
