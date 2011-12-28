@@ -1,9 +1,9 @@
 /**
- * @class ForgotPassword
+ * @class Index
  * @extends Ext.window.Window
  * @author Tayfun Öziş ERİKAN <tayfun.ozis.erikan@lab2023.com>
  *
- * Kebab OS Login index window widget
+ * Kebab OS Login index panel widget
  */
 Ext.define('Kebab.view.login.Index', {
     extend: 'Ext.panel.Panel',
@@ -18,6 +18,9 @@ Ext.define('Kebab.view.login.Index', {
             border: false,
             dockedItems: [{
                 xtype: 'login_menu'
+            }],
+            items:[{
+                xtype: 'login_window'
             }]
         });
 
