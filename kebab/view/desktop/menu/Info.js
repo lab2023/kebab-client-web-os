@@ -5,11 +5,11 @@
  *
  * Kebab OS Login menu bar widget
  */
-Ext.define('Kebab.view.login.menu.Indicators', {
+Ext.define('Kebab.view.desktop.menu.Info', {
     extend: 'Ext.toolbar.Toolbar',
-    alias: 'widget.login_menu_indicators',
+    alias: 'widget.desktop_menu_info',
 
-    id: 'login-menu-indicators',
+    id: 'desktop-menu-info',
 
     /**
      * Component initializer
@@ -18,7 +18,6 @@ Ext.define('Kebab.view.login.menu.Indicators', {
         var me = this;
         
         Ext.apply(me, {
-            width: 500,
             defaults: {
                 scale: 'small'
             },
@@ -33,9 +32,9 @@ Ext.define('Kebab.view.login.menu.Indicators', {
      */
     buildItems: function() {
 
-        return ['->', {
+        return [{
             xtype: 'tbtext',
-            text: Ext.Date.format(new Date(), 'F j, Y, H:i')
+            text: 'Kebab WebOS'
         }];
     }
 });
