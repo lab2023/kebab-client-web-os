@@ -5,5 +5,18 @@
  http://www.lab2023.com
 ----------------------------------------------------------------------------- */
 
-$loader-bg-color: #000;
-$loader-msg-color: #ccc;
+@include extjs-window-ui(
+    'ghost',
+
+    $ui-border-radius: 0,
+    $ui-border-color: transparent,
+    $ui-inner-border-color: transparent,
+
+    $ui-header-color: transparent,
+
+    $ui-body-border-color: transparent,
+    $ui-body-background-color: transparent,
+    $ui-body-color: transparent,
+
+    $ui-background-color: transparent
+);

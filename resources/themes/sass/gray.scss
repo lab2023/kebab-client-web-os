@@ -1,3 +1,10 @@
+/* -----------------------------------------------------------------------------
+ Kebab Project 2.x (Kebab Revolution) - Web OS Client Platform for Ext JS 4.x
+ http://kebab-project.com
+ Copyright (c) 2011-2012 lab2023 - internet technologies TURKEY Inc.
+ http://www.lab2023.com
+----------------------------------------------------------------------------- */
+
 // base
 $theme-name: 'gray';
 $base-color: #ccc;
@@ -118,5 +125,5 @@ $button-toolbar-background-gradient-color-stops-pressed: null;
 $button-toolbar-background-gradient-color-stops-disabled: null;
 
 @import 'compass';
-@import 'core/all';
 @import 'ext4/default/all';
+@import 'core/all';

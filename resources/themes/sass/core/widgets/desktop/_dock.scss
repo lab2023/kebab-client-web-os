@@ -1,0 +1,32 @@
+/* -----------------------------------------------------------------------------
+ Kebab Project 2.x (Kebab Revolution) - Web OS Client Platform for Ext JS 4.x
+ http://kebab-project.com
+ Copyright (c) 2011-2012 lab2023 - internet technologies TURKEY Inc.
+ http://www.lab2023.com
+----------------------------------------------------------------------------- */
+
+#desktop-dock {
+
+    @include border-top-radius(10px);
+
+    background: rgba(0, 0, 0, 0.5) !important;
+
+    $border-values : 1px solid rgba(0, 0 , 0, 0.3) !important;
+    border-top: $border-values;
+    border-right: $border-values;
+    border-left: $border-values;
+    border-bottom: 0;
+
+    margin: 0 50px;
+    padding: 8px;
+
+    div.x-toolbar-item,
+    div.x-btn span.x-btn-inner,
+    div.x-toolbar-text {
+        color: #fff !important;
+    }
+
+    div.x-btn-over span.x-btn-inner {
+        color: #000 !important;
+    }
+}
