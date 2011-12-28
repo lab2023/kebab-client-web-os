@@ -19,10 +19,9 @@ Ext.define('Kebab.controller.Loader', {
      * Refs and selectors
      */
     refs: [{
-            ref: 'loaderMask',
-            selector: 'loader_mask'
-        }
-    ],
+        ref: 'loaderMask',
+        selector: 'loader_mask'
+    }],
     
     /**
      * Controller initializer
@@ -33,10 +32,6 @@ Ext.define('Kebab.controller.Loader', {
         // Create loader.Mask view component
         me.getView('loader.Mask').create();
 
-        me.control({
-            'loader_mask': {}
-        });
-
         // Call parent
         me.callParent(arguments);
     },
@@ -44,7 +39,7 @@ Ext.define('Kebab.controller.Loader', {
     /**
      * Show load mask and set msg
      */
-    onShow: function() {
+    show: function() {
         var me = this;
 
         // Fade in element
@@ -56,7 +51,7 @@ Ext.define('Kebab.controller.Loader', {
     /**
     * Hide load mask
     */
-    onHide: function() {
+    hide: function() {
         var me = this;
 
         // Fade out element
@@ -69,7 +64,7 @@ Ext.define('Kebab.controller.Loader', {
      * Set the loader message
      * @param msg String
      */
-    onMsg: function(msg) {
+    setMsg: function(msg) {
         var me = this;
 
         // Set loader msg
@@ -78,7 +73,7 @@ Ext.define('Kebab.controller.Loader', {
         return me;
     },
 
-    onDisable: function() {
+    disable: function() {
         var me = this;
 
         // Disable loader component

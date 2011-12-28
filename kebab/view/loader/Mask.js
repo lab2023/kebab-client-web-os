@@ -9,9 +9,10 @@ Ext.define('Kebab.view.loader.Mask', {
     extend: 'Ext.Component',
     alias : 'widget.loader_mask',
 
+    id: 'loader-mask',
+
     config: {
         msg: null, // Message element reference
-        zSeed: 99999, // Default z-index value
         defaultMsg: 'Loading please wait',
         animSettings: {
             duration: 800,
@@ -26,11 +27,9 @@ Ext.define('Kebab.view.loader.Mask', {
         me.initConfig();
 
         Ext.apply(me, {
-            id: 'loader-mask',
             floating :true,
-            shadow:false,
-            zIndex: me.getZSeed(),
-            renderTo: Ext.getBody(),
+            shadow: false,
+            autoShow: true,
             renderTpl: [
                 '<p>',
                     '<span id="{id}-msg">{msg}</span>',
@@ -55,13 +54,6 @@ Ext.define('Kebab.view.loader.Mask', {
         beforerender: function(cmp) {
             // Remove legacy loader mask element
             Ext.fly('loader-mask').remove();
-        },
-        hide: function(cmp) {
-            // Set z-index value = 0 for component element  (send to back)
-            cmp.getEl().setZIndex(0);
-
-            // Set default loading message
-            cmp.getMsg().update(cmp.getDefaultMsg());
         }
     },
 
@@ -71,11 +63,8 @@ Ext.define('Kebab.view.loader.Mask', {
     onShow: function() {
         var me = this;
 
-        // Set default z-index value for component element
-        me.getEl().setZIndex(me.getZSeed());
-
-        // Fade-in loader element
-        me.getEl().fadeIn(Ext.apply(me.getAnimSettings(), {
+        // Before show and Fade-in loader element
+        me.getEl().show().fadeIn(Ext.apply(me.getAnimSettings(), {
             callback: function() {
                 me.fireEvent('show', me);
             }
@@ -88,10 +77,13 @@ Ext.define('Kebab.view.loader.Mask', {
     onHide: function() {
         var me = this;
 
-        // Fade-out loader element
+        // Fade-out and after hide loader element
         me.getEl().fadeOut(
             Ext.apply(me.getAnimSettings(), {
                 callback: function() {
+                    me.getEl().hide();
+                    // Set default loading message
+                    me.getMsg().update(me.getDefaultMsg());
                     me.fireEvent('hide', me);
                 }
             })
@@ -105,7 +97,7 @@ Ext.define('Kebab.view.loader.Mask', {
     onMsg: function(msg) {
         var me = this;
 
-        //me.getMsg().update(msg);
+        me.getMsg().update(msg);
     },
 
     /**
