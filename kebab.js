@@ -53,14 +53,14 @@
                     }
                 });
 
-                // Set global parameter
+                // Set global parameter from all ajax requests
                 Ext.Ajax.extraParams = {
                     authenticity_token: Kebab.getTenant().authenticity_token
                 };
 
-                // Set default headers
+                // Default headers is Json
                 Ext.Ajax.defaultHeaders = {
-                    'Accept': 'application/json,application/xml',
+                    'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 };
 
