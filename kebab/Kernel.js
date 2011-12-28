@@ -13,7 +13,7 @@ Ext.define('Kebab.Kernel', {
      * Kernel root folder
      * @type String
      */
-    appFolder: 'kebab',
+    appFolder: Kebab.getRoot() + '/kebab',
 
     /**
      * Kernel name and namespace
@@ -57,45 +57,44 @@ Ext.define('Kebab.Kernel', {
              * Kebab root folder
              * @type String
              */
-            root: '',
+            root: Kebab.getRoot(),
 
             /**
              * Kernel root folder
              * @type String
              * @see Kebab.Kernel.appFolder
              */
-            kebab: 'kebab',
+            kebab: Kebab.getRoot() + '/kebab',
 
             /**
              * Kebab Assets and resources folder
              * @type String
              */
-            resources: 'resources',
+            resources: Kebab.getRoot() + '/resources',
 
             /**
              * Kebab Vendors and 3rd. party libraries folder
              * @type String
              */
-            vendors: 'vendors'
+            vendors: Kebab.getRoot() + '/vendors'
         },
 
         /**
          * Kebab Environment
          * @type String
          */
-        environment: 'development',
+        environment: Kebab.getEnvironment(),
 
         /**
          * Kebab Base URL (Auto detected)
          * @type String
          */
-        baseURL: window.location.origin,
-
+        baseURL: Kebab.getBaseURL(),
         /**
-         * Kebab RESTful service API URL
+         * Current theme name
          * @type String
          */
-        restAPI: 'http://localhost:4567',
+        theme: 'gray',
 
         /**
          * Testing suite status (unit testing)
@@ -109,23 +108,21 @@ Ext.define('Kebab.Kernel', {
      * @type Array
      */
     refs: [{
-            ref: 'viewport',
-            selector: 'viewport'
-        }
-    ],
+        ref: 'viewport',
+        selector: 'viewport'
+    }],
 
     /**
      * Kernel Controllers
      * @type Array
      */
     controllers: [
-        'System',
         'Loader',
-        'Tenant',
-        'login.Index',
-        'login.Menu'
+        'Login',
+        'Desktop',
+        'User'
     ],
-    
+
     /**
      * @constructor
      * Creates new Kernel from config options
@@ -167,7 +164,12 @@ Ext.define('Kebab.Kernel', {
             me._runTests();
         }
 
-        console.log('Kebab.Kernel has been booted...');
+        // Check user login status and show index or desktop views
+        me.getController('Login').index();
+
+        me.getController('Loader').hide();
+
+        console.log('Kebab.Kernel has been launched...');
     },
 
     /**
@@ -178,14 +180,16 @@ Ext.define('Kebab.Kernel', {
     _prepare: function() {
         var me = this, environment, restAPI, theme;
 
+        // Add Ext.ux path from ext loader
+        Ext.Loader.setPath(
+            'Ext.ux',
+            me.getPaths().vendors + '/ext-4.0.7-gpl/examples/ux'
+        );
+
         // URL parameter detector. ?dev = development mode
         environment = (window.location.search.match('(\\?|&)dev') !== null)
             ? 'development' : 'production';
         me.setEnvironment(environment);
-
-        // IF value is blank, REST_API value is equal for BASE_URL value
-        restAPI = me.getRestAPI() || me.getBaseURL();
-        me.setRestAPI(restAPI);
 
         // Testing suite detector. run-tests.html
         var testing = (window.location.pathname.match(RegExp('run-tests')) !== null) ? true : false;
@@ -193,6 +197,8 @@ Ext.define('Kebab.Kernel', {
 
         // Fires prepared event
         me.fireEvent('prepared');
+
+        console.log('Kebab.Kernel has been prepared...');
     },
 
     /**
