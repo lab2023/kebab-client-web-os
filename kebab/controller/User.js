@@ -5,9 +5,25 @@
  *
  * Kebab Kernel System controller
  */
-Ext.define('Kebab.controller.System', {
+Ext.define('Kebab.controller.User', {
     extend: 'Ext.app.Controller',
-    
+
+    /**
+     * User Models
+     * @type Array
+     */
+    models: [
+        'User'
+    ],
+
+    /**
+     * User Stores
+     * @type Array
+     */
+    stores: [
+        'Users'
+    ],
+
     /**
      * Controller initializer
      */
