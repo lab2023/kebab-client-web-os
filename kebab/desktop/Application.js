@@ -17,7 +17,7 @@ Ext.define('Kebab.desktop.Application', {
     /**
      * Application root folder
      */
-    appFolder: Kebab.getRoot() + 'kebab/desktop',
+    appFolder: Kebab.helper.root('kebab/desktop'),
 
     /**
      * Kernel Viewport auto create property

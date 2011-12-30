@@ -18,7 +18,7 @@ Ext.define('Kebab.login.view.Logo', {
         var me = this, path;
 
         Ext.apply(me, {
-            src: Kebab.getRoot() + 'resources/logo.png'
+            src: Kebab.helper.root('resources/logo.png')
         });
 
         me.callParent(arguments);

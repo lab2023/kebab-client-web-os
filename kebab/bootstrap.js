@@ -8,7 +8,6 @@
 /**
  * Prepare environment, enable loader an boot kebab automatically
  *
- * @class Kebab
  * @singleton
  */
 (function() {
@@ -37,18 +36,29 @@
 
         /**
          * Kebab global object
+         * @class Kebab
+         * @singleton
          */
         global.Kebab = {
 
             /**
              * Kebab boot loader
+             *
+             * Example:
+             *      Kebab.boot(
+             *          'Kebab.desktop.Application',
+             *          'http://static.kebab.local'
+             *      );
+             *
+             * @param {String} application To load the Kebab's application name
+             * @param {String} path The kebab's root path. The kebab root path. You can use the content delivery network (CDN)
              */
-            boot: function(application, cdn) {
+            boot: function(application, path) {
                 var me = this;
 
                 console.log(application + ' was booting...');
 
-                me.setRoot(cdn || root);
+                me.setRoot(path || root);
 
                 /**
                  * Ext loader configuration
@@ -56,18 +66,19 @@
                 Ext.Loader.setConfig({
                     enabled: true,
                     paths: {
-                        'Kebab' : me.getRoot() + 'kebab',
-                        'Ext.ux' : me.getRoot() + 'vendors/ext-4.0.7-gpl/examples/ux'
+                        'Kebab'     : me.helper.root('kebab'),
+                        'Ext.ux'    : me.helper.root('vendors/ext-4.0.7-gpl/examples/ux')
                     }
                 });
 
+                me.loadApplication(application);
                 /**
                  * Get bootstrap data from server & check tenant
                  *
                  * If dont use multi-tenant support. Remove this request lines and run Kebab.loadApplication() method
-                 */
+
                 Ext.Ajax.request({
-                    url: 'tenants/bootstrap',
+                    url: me.helper.url('tenants/bootstrap'),
                     method: 'GET',
                     success: function(response) {
                         var bootData = Ext.decode(response.responseText);
@@ -84,11 +95,13 @@
                     failure: function() {
                         window.location.href = Kebab.getBaseURL() + '/404.html?not_registered';
                     }
-                });
+                });*/
             },
 
             /**
              * Load & launch application
+             *
+             * @param {String} application To load the Kebab's application name
              */
             loadApplication: function(application) {
                 var me = this;
@@ -101,6 +114,7 @@
 
             /**
              * Get kebab environment
+             * @return {String} Current kebab environment
              */
             getEnvironment: function() {
                 return (window.location.search.match('(\\?|&)dev') !== null)
@@ -109,13 +123,15 @@
 
             /**
              * Set kebab root path
+             * @param {String} path The kebab's root path. The kebab root path. You can use the content delivery network (CDN)
              */
-            setRoot: function(cdn) {
-                root = cdn;
+            setRoot: function(path) {
+                root = path;
             },
 
             /**
              * Get kebab root path
+             * @return {String} Return value is kebab's root path.
              */
             getRoot: function() {
                 return root;
@@ -130,7 +146,7 @@
 
             /**
              * Set boot data
-             * @param data Object
+             * @param {Object} data
              */
             setBootData: function(data) {
                 bootData = data || {};
@@ -138,6 +154,7 @@
 
             /**
              * Get boot data
+             * @return bootData
              */
             getBootData: function() {
                 return bootData;
@@ -145,7 +162,7 @@
 
             /**
              * Set application instance
-             * @param application Ext.app.Application
+             * @param {Ext.app.Application} application
              */
             setApplication: function(application) {
                 var me = this;
@@ -155,11 +172,38 @@
             /**
              * Get the application instance or name value
              *
-             * @param instance Boolean
+             * @param {Boolean} instance
              */
             getApplication: function(instance) {
                 var me = this;
                 return instance ? me.application : eval(me.application);
+            },
+
+            helper: {
+
+                /**
+                 * Root path helper
+                 * @param path
+                 */
+                root: function(path) {
+                    return path ? Kebab.getRoot() + '/' + path : Kebab.getRoot();
+                },
+
+                /**
+                 * Generate full url
+                 * @param url
+                 */
+                url: function(url) {
+                    return Kebab.getBaseURL() + '/' + url;
+                },
+
+                /**
+                 * Redirector helper
+                 * @param url
+                 */
+                redirect: function(url) {
+                    window.location.href = Kebab.helper.url(url);
+                }
             },
 
             /**

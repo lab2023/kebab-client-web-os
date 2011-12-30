@@ -39,7 +39,7 @@ Ext.define('Kebab.desktop.view.menu.Indicators', {
         },{
             text: 'Exit',
             handler: function() {
-                window.location.href = "login.html";
+                Kebab.helper.redirect('login.html');
             }
         }];
     }

@@ -17,7 +17,7 @@ Ext.define('Kebab.login.Application', {
     /**
      * Application root folder
      */
-    appFolder: Kebab.getRoot() + 'kebab/login',
+    appFolder: Kebab.helper.root('kebab/login'),
 
     /**
      * Kernel Viewport auto create property
