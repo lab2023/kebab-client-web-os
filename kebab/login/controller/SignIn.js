@@ -47,38 +47,30 @@ Ext.define('Kebab.login.controller.SignIn', {
     submit: function(cp, e) {
         var me = this;
 
-        window.location.href = "desktop.html";
-
         // Just enter key is pressed
         if (e.getKey() == e.ENTER) {
             e.stopEvent();
 
-            /*var form = cp.up('form').getForm();
+            var form = cp.up('form').getForm();
 
             if (form.isValid()) {
 
-                me.showHideMask();
-
                 form.submit({
 
-                    url: 'users/sign_in.json',
+                    url: 'session',
 
                     success: function(form, action) {
 
-                        me.showHideMask(true);
-
                         if (action.result.success) {
-                           me.getController('User').getUsersStore().add(action.result);
+                           window.location.href = "desktop.html";
                         }
                     },
                     failure: function(form, action) {
 
-                        me.showHideMask(true);
-
                         Ext.Msg.alert('Failed', 'Login failed... Please try again.');
                     }
                 });
-            }*/
+            }
         }
     },
 });
