@@ -67,7 +67,7 @@
                  * If dont use multi-tenant support. Remove this request lines and run Kebab.loadApplication() method
                  */
                 Ext.Ajax.request({
-                    url: 'tenants/register',
+                    url: 'tenants/bootstrap',
                     method: 'GET',
                     success: function(response) {
                         var bootData = Ext.decode(response.responseText);
