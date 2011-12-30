@@ -45,7 +45,7 @@ Ext.define('Kebab.desktop.view.menu.Indicators', {
                     url: Kebab.helper.url('sessions'),
                     method: 'DELETE',
                     success: function() {
-                        //Kebab.helper.redirect('login.html');
+                        Kebab.helper.redirect('login.html');
                     }
                 });
             }
