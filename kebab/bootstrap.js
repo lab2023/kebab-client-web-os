@@ -13,10 +13,10 @@
 (function() {
 
     /**
-     * Kebab base variables
+     * Kebab base settings
      */
-    var global      = this,                           // DOM root
-        bootData    = {                               // Current tenant data. IF not use tenant setup this object manually
+    var global   = this,                           // DOM root
+        bootData = {                               // Current tenant data. IF not use tenant setup this object manually
             authenticity_token : '1q2w3e4r5t6y7u8i9o0p!^+%&/',
             tenant: {
                 id: 0,
@@ -28,8 +28,8 @@
                available_locales: ['en', 'tr', 'ru']
             }
         },
-        root        = '',                           // Cdn & root path, Eg : http://static.kebab.local
-        baseURL     = ''                            // Base URL (if blank: Auto detected)
+        root    = '',                           // Cdn & root path, Eg : http://static.kebab.local
+        baseURL = '';                           // Base URL (if blank: Auto detected)
 
     // Kebab is not defined!
     if (typeof Kebab === 'undefined') {
@@ -40,6 +40,12 @@
          * @singleton
          */
         global.Kebab = {
+
+            /**
+             * Booting status
+             * @type {Boolean}
+             */
+            booted: false,
 
             /**
              * Kebab boot loader
@@ -60,6 +66,7 @@
 
                 console.log(application + ' was booting...');
 
+                // Set root path
                 me.setRoot(path || root);
 
                 /**
@@ -72,6 +79,8 @@
                         'Ext.ux' : me.helper.root('vendors/ext-4.0.7-gpl/examples/ux')
                     }
                 });
+
+                Ext.require('Kebab');
 
                 /**
                  * Get bootstrap data from server & check tenant
@@ -95,9 +104,12 @@
                         }
                     },
                     failure: function() {
-                        me.helper.redirect('404.html?not_registered');
+                        me.helper.redirect('500.html');
                     }
                 });
+
+                // Set booted status true
+                me.booted = true;
             },
 
             /**
@@ -108,7 +120,10 @@
             loadApplication: function(application) {
                 var me = this;
 
+                // Require applicatiom
                 Ext.require(application);
+
+                // Set application
                 me.setApplication(application);
 
                 console.log(application + ' was loaded...');
@@ -225,7 +240,7 @@
                 /**
                  * Application helper
                  * Get application name or instance
-                 *
+                 *d
                  * @param {Boolean} instance If set true return the application name
                  * @return {String/Ext.app.Application}
                  */
@@ -248,12 +263,29 @@
                  * Wallpaper helper
                  * Change the body wallpaper
                  *
+                 * @param {String} css
+                 */
+                loadCss: function(css) {
+                    Ext.DomHelper.append(
+                        Ext.getHead(), {
+                            tag: 'link',
+                            type: 'text/css',
+                            rel: 'stylesheet',
+                            href: Kebab.helper.root(css)
+                        }
+                    );
+                },
+
+                /**
+                 * Wallpaper helper
+                 * Change the body wallpaper
+                 *
                  * @param {String} img
                  */
-                wallpaper: function(img) {
-                    var backgroundImage = Kebab.helper.root('resources/wallpapers/' + img)
+                loadWallpaper: function(img) {
+                    var imgUrl = Kebab.helper.root('resources/wallpapers/' + img);
                     Ext.getBody().setStyle({
-                        backgroundImage: 'url( ' + backgroundImage + ')',
+                        backgroundImage: 'url( ' + imgUrl + ')',
                         backgroundPosition: 'center',
                         backgroundRepeat: 'no-repeat',
                         backgroundAttachment: 'fixed'
@@ -263,6 +295,8 @@
 
             /**
              * Initialize test suite & execute all specs
+             *
+             * @private
              */
             _runTests: function() {
                 var me = this;
