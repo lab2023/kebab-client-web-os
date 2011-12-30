@@ -19,6 +19,7 @@ Ext.define('Kebab.desktop.view.Menu', {
         
         Ext.apply(me, {
             dock: 'top',
+            bodyStyle: 'background: #eee !important; border-bottom:1px solid #ccc !important;', // TODO move css
             height: 32,
             defaults: {
                 border:false

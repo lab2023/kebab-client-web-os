@@ -18,6 +18,7 @@ Ext.define('Kebab.desktop.view.menu.Info', {
         var me = this;
         
         Ext.apply(me, {
+            style: 'background:transparent !important; border:0 !important;', // TODO move css
             defaults: {
                 scale: 'small'
             },

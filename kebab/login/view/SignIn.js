@@ -58,6 +58,7 @@ Ext.define('Kebab.login.view.SignIn', {
     buildButtons: function() {
         return [{
             text: 'Sign in',
+            action: 'submit',
             formBind: true,
             disabled: true
         }];

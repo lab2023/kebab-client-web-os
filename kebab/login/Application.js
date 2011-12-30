@@ -20,13 +20,13 @@ Ext.define('Kebab.login.Application', {
     appFolder: Kebab.helper.root('kebab/login'),
 
     /**
-     * Kernel Viewport auto create property
+     * Application viewport auto create property
      * @type Boolean
      */
     autoCreateViewport: true,
 
     /**
-     * OS References and selectors
+     * Application References and selectors
      * @type Array
      */
     refs: [{
@@ -35,7 +35,7 @@ Ext.define('Kebab.login.Application', {
     }],
 
     /**
-     * Kernel Controllers
+     * Application Controllers
      * @type Array
      */
     controllers: [
@@ -45,11 +45,10 @@ Ext.define('Kebab.login.Application', {
     ],
 
     /**
-     * Kernel after launch method
+     * Application after launch method
      * @return void
      */
     launch: function() {
-
         console.log('Kebab.login.Application was launched...');
     }
 });

@@ -28,8 +28,8 @@
                available_locales: ['en', 'tr', 'ru']
             }
         },
-        root        = '',                           // Kebab cdn & root path, Eg : http://static.kebab.local
-        baseURL     = window.location.origin;       // Kebab Base URL (Auto detected)
+        root        = '',                           // Cdn & root path, Eg : http://static.kebab.local
+        baseURL     = ''                            // Base URL (if blank: Auto detected)
 
     // Kebab is not defined!
     if (typeof Kebab === 'undefined') {
@@ -91,11 +91,11 @@
                             me.loadApplication(application);
 
                         } else {
-                            window.location.href = Kebab.getBaseURL() + '/404.html?not_registered';
+                            me.helper.redirect('404.html?not_registered')
                         }
                     },
                     failure: function() {
-                        window.location.href = Kebab.getBaseURL() + '/404.html?not_registered';
+                        me.helper.redirect('404.html?not_registered');
                     }
                 });
             },
@@ -143,7 +143,8 @@
              * Get kebab base url
              */
             getBaseURL: function() {
-                return baseURL;
+                return baseURL ?
+                    baseURL : window.location.protocol + '//' + window.location.hostname;
             },
 
             /**
@@ -191,9 +192,10 @@
 
                 /**
                  * Root path helper
+                 * Get the generated full root path
                  *
                  * @param path
-                 * @return {String} Generated full path
+                 * @return {String} Generated full root path
                  */
                 root: function(path) {
                     return path ? Kebab.getRoot() + '/' + path : Kebab.getRoot();
@@ -201,16 +203,18 @@
 
                 /**
                  * Generate full url
+                 * Get the generated full url (baseUrl + url)
                  *
                  * @param url
                  * @return {String} Generated full url
                  */
                 url: function(url) {
-                    return Kebab.getBaseURL() + '/' + url;
+                    return url ? Kebab.getBaseURL() + '/' + url : Kebab.getBaseURL();
                 },
 
                 /**
                  * Redirector helper
+                 * Redirect page any url
                  *
                  * @param url
                  */
@@ -220,6 +224,7 @@
 
                 /**
                  * Application helper
+                 * Get application name or instance
                  *
                  * @param {Boolean} instance If set true return the application name
                  * @return {String/Ext.app.Application}
@@ -230,12 +235,29 @@
 
                 /**
                  * Bootdata helper
+                 * Get bootData object or value
                  *
                  * @param {String} key Get the boot data key
                  * @return {Object/String} bootData
                  */
                 bootData: function(key) {
                     return Kebab.getBootData(key);
+                },
+
+                /**
+                 * Wallpaper helper
+                 * Change the body wallpaper
+                 *
+                 * @param {String} img
+                 */
+                wallpaper: function(img) {
+                    var backgroundImage = Kebab.helper.root('resources/wallpapers/' + img)
+                    Ext.getBody().setStyle({
+                        backgroundImage: 'url( ' + backgroundImage + ')',
+                        backgroundPosition: 'center',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundAttachment: 'fixed'
+                    });
                 }
             },
 

@@ -30,6 +30,10 @@ Ext.define('Kebab.login.controller.SignIn', {
             // Sign-in form textfield items
             'login_signIn > textfield': {
                 specialkey: me.submit
+            },
+            // Sign-in form textfield items
+            'login_signIn button[action="submit"]': {
+                click: me.submit
             }
         });
 
@@ -40,15 +44,14 @@ Ext.define('Kebab.login.controller.SignIn', {
     /**
      * Sign-in user
      *
-     * @param cp Ext.form.field.Text
-     * @param cp Ext.button.Button
+     * @param cp Ext.form.field.Text Fired component
+     * @param cp Ext.button.Button Fired component
      * @param e Ext.EventObject
      */
     submit: function(cp, e) {
-        var me = this;
 
         // Just enter key is pressed
-        if (e.getKey() == e.ENTER) {
+        if (e.getKey() == e.ENTER || cp.action == 'submit') {
             e.stopEvent();
 
             var form = cp.up('form').getForm();
@@ -56,21 +59,16 @@ Ext.define('Kebab.login.controller.SignIn', {
             if (form.isValid()) {
 
                 form.submit({
-
+                    waitMsg: 'Signing, please wait...',
                     url: 'sessions',
-
-                    success: function(form, action) {
-
-                        if (action.result.success) {
-                           window.location.href = "desktop.html";
-                        }
+                    success: function() {
+                        Kebab.helper.redirect('desktop.html');
                     },
-                    failure: function(form, action) {
-
+                    failure: function() {
                         Ext.Msg.alert('Failed', 'Login failed... Please try again.');
                     }
                 });
             }
         }
-    },
+    }
 });

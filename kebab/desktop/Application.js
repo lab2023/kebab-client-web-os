@@ -20,13 +20,13 @@ Ext.define('Kebab.desktop.Application', {
     appFolder: Kebab.helper.root('kebab/desktop'),
 
     /**
-     * Kernel Viewport auto create property
+     * Application viewport auto create property
      * @type Boolean
      */
     autoCreateViewport: true,
 
     /**
-     * OS References and selectors
+     * Application references and selectors
      * @type Array
      */
     refs: [{
@@ -35,7 +35,7 @@ Ext.define('Kebab.desktop.Application', {
     }],
 
     /**
-     * Kernel Controllers
+     * Application Controllers
      * @type Array
      */
     controllers: [
@@ -44,13 +44,21 @@ Ext.define('Kebab.desktop.Application', {
         'Dock'
     ],
 
+    constructor: function() {
+        var me = this;
+        // Call parent constructor
+        me.callParent(arguments);
+
+        if (!Kebab.helper.bootData('user')) {
+            Kebab.helper.redirect('login.html?authorization_required');
+        }
+    },
+
     /**
-     * Kernel after launch method
+     * Application after launch method
      * @return void
      */
     launch: function() {
-        var me = this;
-
         console.log('Kebab.desktop.Application was launched...');
     }
 });

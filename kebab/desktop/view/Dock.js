@@ -25,6 +25,8 @@ Ext.define('Kebab.desktop.view.Dock', {
         var me = this;
         
         Ext.apply(me, {
+            style: 'border-radius: 10px !important; margin: 10px 50px; ' +
+                'padding: 5px; border:1px solid #ccc !important;', // TODO move css
             dock: 'bottom',
             autoWidth: false,
             defaults: {

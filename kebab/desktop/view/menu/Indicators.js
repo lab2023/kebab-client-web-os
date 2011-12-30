@@ -18,6 +18,7 @@ Ext.define('Kebab.desktop.view.menu.Indicators', {
         var me = this;
         
         Ext.apply(me, {
+            style: 'background:transparent !important; border:0 !important;', // TODO move css
             defaults: {
                 scale: 'small'
             },
@@ -39,7 +40,14 @@ Ext.define('Kebab.desktop.view.menu.Indicators', {
         },{
             text: 'Exit',
             handler: function() {
-                Kebab.helper.redirect('login.html');
+
+                Ext.Ajax.request({ // TODO move controller
+                    url: Kebab.helper.url('sessions'),
+                    method: 'DELETE',
+                    success: function() {
+                        //Kebab.helper.redirect('login.html');
+                    }
+                });
             }
         }];
     }
