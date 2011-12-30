@@ -17,6 +17,7 @@ Ext.define('Kebab.desktop.view.Index', {
         Ext.apply(me, {
             margin: 5,
             frame: true,
+            bodyStyle: 'background: transparent !important;',
             dockedItems: [{
                 xtype: 'desktop_menu'
             },{

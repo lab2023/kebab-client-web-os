@@ -34,7 +34,10 @@ Ext.define('Kebab.desktop.view.menu.Info', {
 
         return [{
             xtype: 'tbtext',
-            text: Kebab.getBootData().tenant.name
+            text: Kebab.helper.bootData('tenant').name
+        }, '-', {
+            xtype: 'tbtext',
+            text: ' Hello ' + Kebab.helper.bootData('user').name
         }];
     }
 });

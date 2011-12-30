@@ -44,6 +44,8 @@
             /**
              * Kebab boot loader
              *
+             * Load
+             *
              * Example:
              *      Kebab.boot(
              *          'Kebab.desktop.Application',
@@ -66,17 +68,17 @@
                 Ext.Loader.setConfig({
                     enabled: true,
                     paths: {
-                        'Kebab'     : me.helper.root('kebab'),
-                        'Ext.ux'    : me.helper.root('vendors/ext-4.0.7-gpl/examples/ux')
+                        'Kebab' : me.helper.root('kebab'),
+                        'Ext.ux' : me.helper.root('vendors/ext-4.0.7-gpl/examples/ux')
                     }
                 });
 
-                me.loadApplication(application);
                 /**
                  * Get bootstrap data from server & check tenant
                  *
-                 * If dont use multi-tenant support. Remove this request lines and run Kebab.loadApplication() method
-
+                 * If dont use multi-tenant support.
+                 * Remove this request lines and run direct Kebab.loadApplication(application) method
+                */
                 Ext.Ajax.request({
                     url: me.helper.url('tenants/bootstrap'),
                     method: 'GET',
@@ -95,7 +97,7 @@
                     failure: function() {
                         window.location.href = Kebab.getBaseURL() + '/404.html?not_registered';
                     }
-                });*/
+                });
             },
 
             /**
@@ -131,7 +133,7 @@
 
             /**
              * Get kebab root path
-             * @return {String} Return value is kebab's root path.
+             * @return {String} Return value is kebab's root path
              */
             getRoot: function() {
                 return root;
@@ -154,10 +156,12 @@
 
             /**
              * Get boot data
-             * @return bootData
+             *
+             * @param {String} key Get the boot data key
+             * @return {Object/String} bootData
              */
-            getBootData: function() {
-                return bootData;
+            getBootData: function(key) {
+                return key ? bootData[key] : bootData;
             },
 
             /**
@@ -173,17 +177,23 @@
              * Get the application instance or name value
              *
              * @param {Boolean} instance
+             * @return {String/Ext.app.Application}
              */
             getApplication: function(instance) {
                 var me = this;
                 return instance ? me.application : eval(me.application);
             },
 
+            /**
+             * Kebab helpers
+             */
             helper: {
 
                 /**
                  * Root path helper
+                 *
                  * @param path
+                 * @return {String} Generated full path
                  */
                 root: function(path) {
                     return path ? Kebab.getRoot() + '/' + path : Kebab.getRoot();
@@ -191,7 +201,9 @@
 
                 /**
                  * Generate full url
+                 *
                  * @param url
+                 * @return {String} Generated full url
                  */
                 url: function(url) {
                     return Kebab.getBaseURL() + '/' + url;
@@ -199,10 +211,31 @@
 
                 /**
                  * Redirector helper
+                 *
                  * @param url
                  */
                 redirect: function(url) {
                     window.location.href = Kebab.helper.url(url);
+                },
+
+                /**
+                 * Application helper
+                 *
+                 * @param {Boolean} instance If set true return the application name
+                 * @return {String/Ext.app.Application}
+                 */
+                application: function(instance) {
+                    return Kebab.getApplication(instance);
+                },
+
+                /**
+                 * Bootdata helper
+                 *
+                 * @param {String} key Get the boot data key
+                 * @return {Object/String} bootData
+                 */
+                bootData: function(key) {
+                    return Kebab.getBootData(key);
                 }
             },
 

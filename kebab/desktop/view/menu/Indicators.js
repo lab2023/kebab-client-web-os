@@ -33,7 +33,7 @@ Ext.define('Kebab.desktop.view.menu.Indicators', {
     buildItems: function() {
 
         return ['->',{
-            text: 'En'
+            text: Kebab.helper.bootData('locale').default_locale.toUpperCase()
         },{
             text: Ext.Date.format(new Date(), 'F j, Y, H:i')
         },{

@@ -10,13 +10,16 @@
     <meta charset="utf-8">
     <title>Kebab Web OS - Login</title>
 
+    <meta content="authenticity_token" name="csrf-param" />
+    <meta content="your_token_here" name="csrf-token" />
+
     <!-- include css files here -->
-    <link rel="stylesheet" type="text/css" href="vendors/ext-4.0.7-gpl/resources/css/ext-all-gray.css" />
+    <link rel="stylesheet" type="text/css" href="http://static.kebab.local/vendors/ext-4.0.7-gpl/resources/css/ext-all-gray.css" />
 
     <!-- include js files here -->
-    <script type="text/javascript" src="vendors/ext-4.0.7-gpl/bootstrap.js"></script>
-    <script type="text/javascript" src="kebab/bootstrap.js"></script>
-    <script type="text/javascript">Kebab.boot('Kebab.login.Application');</script>
+    <script type="text/javascript" src="http://static.kebab.local/vendors/ext-4.0.7-gpl/bootstrap.js"></script>
+    <script type="text/javascript" src="http://static.kebab.local/kebab/bootstrap.js"></script>
+    <script type="text/javascript">Kebab.boot('Kebab.login.Application', 'http://static.kebab.local');</script>
 </head>
 <body>
 </body>

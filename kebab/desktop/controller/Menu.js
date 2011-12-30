@@ -14,7 +14,7 @@ Ext.define('Kebab.desktop.controller.Menu', {
     views: [
         'Menu',
         'menu.Indicators',
-        'menu.Info',
+        'menu.Info'
     ],
 
     refs: [{
