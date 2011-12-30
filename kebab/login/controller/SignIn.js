@@ -57,7 +57,7 @@ Ext.define('Kebab.login.controller.SignIn', {
 
                 form.submit({
 
-                    url: 'session',
+                    url: 'sessions',
 
                     success: function(form, action) {
 
