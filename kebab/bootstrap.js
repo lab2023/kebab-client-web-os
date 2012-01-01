@@ -69,6 +69,9 @@
                 // Set root path
                 me.setRoot(path || root);
 
+                // Load core resources
+                me.helper.loadCSS('resources/css/kernel.css');
+
                 /**
                  * Ext loader configuration
                  */
@@ -79,8 +82,6 @@
                         'Ext.ux' : me.helper.root('vendors/ext-4.0.7-gpl/examples/ux')
                     }
                 });
-
-                Ext.require('Kebab');
 
                 /**
                  * Get bootstrap data from server & check tenant
@@ -260,20 +261,24 @@
                 },
 
                 /**
-                 * Wallpaper helper
-                 * Change the body wallpaper
+                 * Stylesheet loader helper
+                 * Load css file(s) from document head
                  *
-                 * @param {String} css
+                 * @param {String} arguments
                  */
-                loadCss: function(css) {
-                    Ext.DomHelper.append(
-                        Ext.getHead(), {
-                            tag: 'link',
-                            type: 'text/css',
-                            rel: 'stylesheet',
-                            href: Kebab.helper.root(css)
-                        }
-                    );
+                loadCSS: function() {
+                    var docHead = Ext.getHead();
+
+                    for(var css in arguments) {
+                        Ext.DomHelper.append(
+                            docHead, {
+                                tag: 'link',
+                                type: 'text/css',
+                                rel: 'stylesheet',
+                                href: Kebab.helper.root(arguments[css])
+                            }
+                        );
+                    }
                 },
 
                 /**
@@ -300,6 +305,11 @@
              */
             _runTests: function() {
                 var me = this;
+
+                // TODO: Load jasmine javsacript files
+
+                // Load jasmine css file
+                me.helper.loadCSS('vendors/jasmine-1.1.0/jasmine.css');
 
                 // Jasmine Initializer
                 jasmine.getEnv().addReporter(new jasmine.TrivialReporter());

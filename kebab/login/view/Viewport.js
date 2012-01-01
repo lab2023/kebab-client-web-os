@@ -15,7 +15,7 @@ Ext.define('Kebab.login.view.Viewport', {
         Ext.apply(me, {
             bodyStyle: 'text-align:center; background:transparent !important;',
             width: 300,
-            height: 370,
+            height: 380,
             padding: 10,
             draggable: false,
             closable: false,
@@ -47,23 +47,29 @@ Ext.define('Kebab.login.view.Viewport', {
         return [{
             xtype: 'login_logo'
         },{
-            xtype: 'login_signIn'
+            xtype: 'panel',
+            layout: 'card',
+            style: 'background: transparent !important;',
+            bodyStyle: 'background: transparent !important;',
+            frame: false,
+            border: false,
+            margin: 10,
+            activeItem: 0,
+            items: [{
+                xtype: 'login_signIn'
+            }, {
+                xtype: 'login_passwordReset'
+            }]
         }];
     },
 
     buildButtons: function() {
         return [{
+            action: 'password_reset',
             text: 'Password Reset',
-            width: 125,
-            tooltip: 'Reset and send new password',
-            handler: function() {  // TODO use controller handling
-                Ext.Msg.prompt('Password Reset', 'Please enter your email here:', function(btn, text){
-                    if (btn == 'ok'){
-                        // TODO fire event
-                    }
-                });
-            }
+            width: 125
         },{
+            action: 'languages',
             text: 'Select Language',
             width: 125,
             tooltip: 'Select your language',

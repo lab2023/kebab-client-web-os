@@ -13,12 +13,15 @@ Ext.define('Kebab.login.controller.Index', {
      */
     views: [
         'Logo',
-        'Menu',
+        'Menu'
     ],
 
     refs: [{
         ref: 'menu',
         selector: 'login_menu'
+    },{
+        ref: 'wrapper',
+        selector: 'viewport panel'
     }],
 
     /**
@@ -28,10 +31,29 @@ Ext.define('Kebab.login.controller.Index', {
         var me = this;
 
          me.control({
-
+             // Reset password form show button
+              'viewport button[action="password_reset"]': {
+                  click: me.showResetPassword
+              },
+             // Reset password form show button
+             'viewport panel form button[action="cancel"]': {
+                 click: me.showSignIn
+             }
          });
 
         // Call parent
         me.callParent(arguments);
+    },
+
+    showSignIn: function(btn, e) {
+        var me = this;
+        btn.up('form').getForm().reset();
+        me.getWrapper().getLayout().setActiveItem(0);
+    },
+
+    showResetPassword: function(btn, e) {
+        var me = this;
+        btn.up('window').down('form').getForm().reset();
+        me.getWrapper().getLayout().setActiveItem(1);
     }
 });

@@ -44,14 +44,25 @@ Ext.define('Kebab.desktop.Application', {
         'Dock'
     ],
 
+    /**
+     * Application constructor
+     */
     constructor: function() {
         var me = this;
-        // Call parent constructor
-        me.callParent(arguments);
 
+        // User authorization control
         if (!Kebab.helper.bootData('user')) {
             Kebab.helper.redirect('login.html?authorization_required');
         }
+
+        // Load application resources
+        Kebab.helper.loadCSS('resources/css/desktop.css');
+
+        // TODO: Set default wallpaper
+        // Kebab.helper.loadWallpaper('');
+
+        // Call parent constructor
+        me.callParent(arguments);
     },
 
     /**

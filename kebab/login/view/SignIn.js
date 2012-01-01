@@ -20,8 +20,8 @@ Ext.define('Kebab.login.view.SignIn', {
         Ext.apply(me, {
             title: 'Welcome to Kebab Web OS',
             frame: true,
-            margin: 10,
             padding: 10,
+            height: 135,
             buttonAlign: 'center',
             defaultType: 'textfield',
             defaults: {
@@ -29,7 +29,7 @@ Ext.define('Kebab.login.view.SignIn', {
             },
             items: me.buildItems(),
             buttons: me.buildButtons()
-        });
+        }, null);
 
         me.callParent(arguments);
     },

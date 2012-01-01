@@ -15,11 +15,11 @@ Ext.define('Kebab.login.view.Logo', {
      * Component initializer
      */
     initComponent: function() {
-        var me = this, path;
+        var me = this;
 
         Ext.apply(me, {
-            src: Kebab.helper.root('resources/logo.png')
-        });
+            src: Kebab.helper.root('resources/images/logo.png')
+        }, null);
 
         me.callParent(arguments);
     }

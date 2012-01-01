@@ -26,27 +26,46 @@ Ext.define('Kebab.login.controller.PasswordReset', {
     init: function() {
         var me = this;
 
-        me.control({});
+        me.control({
+            // Sign-in form textfield items
+            'login_passwordReset button[action="submit"]': {
+                click: me.submit
+            }
+        });
 
         // Call parent
         me.callParent(arguments);
     },
 
     /**
-     * Show password reset dialog
+     * Sign-in user
+     *
+     * @param cp Ext.form.field.Text Fired component
+     * @param cp Ext.button.Button Fired component
+     * @param e Ext.EventObject
      */
-    show: function() {
+    submit: function(cp, e) {
         var me = this;
 
-        me.getPasswordReset().show();
-    },
+        // Just enter key is pressed
+        if (e.getKey() == e.ENTER || cp.action == 'submit') {
+            e.stopEvent();
 
-    /**
-     * Hide password reset dialog
-     */
-    hide: function() {
-        var me = this;
+            var form = cp.up('form').getForm();
 
-        me.getPasswordReset().hide();
+            if (form.isValid()) {
+
+                form.submit({
+                    waitMsg: 'Please wait...',
+                    url: 'passwords',
+                    success: function() {
+                        Ext.Msg.alert('Successful', 'Your password has been reset.<br />Please check your email account.');
+                    },
+                    failure: function() {
+                        Ext.Msg.alert('Failed', 'Login failed... Please try again.');
+                    }
+                });
+            }
+        }
     }
 });

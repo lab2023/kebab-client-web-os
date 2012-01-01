@@ -42,13 +42,14 @@ Ext.define('Kebab.login.controller.SignIn', {
     },
 
     /**
-     * Sign-in user
+     * User's password reset
      *
      * @param cp Ext.form.field.Text Fired component
      * @param cp Ext.button.Button Fired component
      * @param e Ext.EventObject
      */
     submit: function(cp, e) {
+        var me = this;
 
         // Just enter key is pressed
         if (e.getKey() == e.ENTER || cp.action == 'submit') {
@@ -57,9 +58,9 @@ Ext.define('Kebab.login.controller.SignIn', {
             var form = cp.up('form').getForm();
 
             if (form.isValid()) {
-
+                
                 form.submit({
-                    waitMsg: 'Signing, please wait...',
+                    waitMsg: 'Please wait...',
                     url: 'sessions',
                     success: function() {
                         Kebab.helper.redirect('desktop.html');

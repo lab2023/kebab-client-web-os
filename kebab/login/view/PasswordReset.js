@@ -18,14 +18,18 @@ Ext.define('Kebab.login.view.PasswordReset', {
         var me = this;
 
         Ext.apply(me, {
-            border: false,
+            title: 'Password Reset',
+            frame: true,
+            padding: 10,
+            height: 135,
             buttonAlign: 'center',
             defaultType: 'textfield',
             defaults: {
                 anchor: '100%'
             },
-            items: me.buildItems()
-        });
+            items: me.buildItems(),
+            buttons: me.buildButtons()
+        }, null);
 
         me.callParent(arguments);
     },
@@ -33,11 +37,25 @@ Ext.define('Kebab.login.view.PasswordReset', {
     buildItems: function() {
         return [{
             border: false,
-            html: 'Enter your email, and we\'ll email to your new password'
+            xtype: 'displayfield',
+            value: 'Enter your email, and we\'ll email to your new password'
         },{
             emptyText: 'Type your e-mail here',
-            name: 'user[email]',
+            name: 'email',
+            vtype: 'email',
             allowBlank: false
+        }];
+    },
+
+    buildButtons: function() {
+        return [{
+            text: 'Cancel',
+            action: 'cancel'
+        },{
+            text: 'Send',
+            action: 'submit',
+            formBind: true,
+            disabled: true
         }];
     }
 });

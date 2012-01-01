@@ -45,6 +45,22 @@ Ext.define('Kebab.login.Application', {
     ],
 
     /**
+     * Application constructor
+     */
+    constructor: function() {
+        var me = this;
+
+        // Load application resources
+        Kebab.helper.loadCSS('resources/css/login.css');
+
+        // TODO: Set default wallpaper
+        // Kebab.helper.loadWallpaper('');
+
+        // Call parent constructor
+        me.callParent(arguments);
+    },
+
+    /**
      * Application after launch method
      * @return void
      */
