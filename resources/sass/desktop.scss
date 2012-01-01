@@ -5,17 +5,4 @@
  http://www.lab2023.com
 ----------------------------------------------------------------------------- */
 
-/*Loader*/
-@import "loader";
-
-/*Login*/
-@import "login/index";
-@import "login/menu";
-@import "login/window";
-
-/*Desktop*/
-@import "desktop/index";
-@import "desktop/menu";
-@import "desktop/menu/info";
-@import "desktop/menu/indicators";
-@import "desktop/dock";
+@import "compass";
