@@ -65,7 +65,7 @@ Ext.define('Kebab.login.controller.SignIn', {
                         Kebab.helper.redirect('desktop.html');
                     },
                     failure: function() {
-                        Ext.Msg.alert('Failed', 'Login failed... Please try again.');
+                        Kebab.helper.notify('Failed', 'Login failed... Please try again.');
                     }
                 });
             }

@@ -6,3 +6,15 @@
 ----------------------------------------------------------------------------- */
 
 @import "compass";
+
+// Notifications
+.kebab-notification .x-window-header {
+    background-color: transparent;
+}
+.kebab-notification .x-window-body {
+    text-align: center;
+    padding: 10px 5px 20px 5px;
+    width: 200px;
+    background-color: transparent;
+    border: 0;
+}

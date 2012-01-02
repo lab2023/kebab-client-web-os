@@ -75,9 +75,15 @@ var global   = this,        // DOM root
                     paths: {
                         'Kebab' : me.helper.root('kebab'),
                         'Apps' : me.helper.root('apps'),
-                        'Ext.ux' : me.helper.root('vendors/ext-4.0.7-gpl/examples/ux')
+                        'Ext.ux' : me.helper.root('vendors/ext-ux')
                     }
                 });
+
+                // Require kebab kernel classes
+                Ext.require('Kebab.kernel.Base');
+
+                me.loadApplication(application);
+                return;
 
                 /**
                  * Get bootstrap data from server & check tenant
@@ -258,6 +264,26 @@ var global   = this,        // DOM root
                  */
                 bootData: function(key) {
                     return Kebab.getBootData(key);
+                },
+
+                notify: function(title, msg, type) {
+
+                    Ext.create('Ext.ux.window.Notification', {
+                        corner: 'tr',
+                        paddingX: 15,
+                        paddingY: 50,
+                        slideInDelay: 800,
+                        slideDownDelay: 1500,
+                        autoDestroyDelay: 4000,
+                        resizable: false,
+                        slideInAnimation: 'elasticIn',
+                        slideDownAnimation: 'elasticIn',
+                        cls: 'kebab-notification',
+                        autoShow: true,
+                        iconCls: !Ext.isDefined(type) ? 'icon-info' : 'icon-' + type,
+                        title: title || 'Notification',
+                        html: msg || 'Lorem ipsum dolor sit amet'
+                    });
                 },
 
                 /**

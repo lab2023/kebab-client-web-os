@@ -58,10 +58,11 @@ Ext.define('Kebab.login.controller.PasswordReset', {
                     waitMsg: 'Please wait...',
                     url: 'passwords',
                     success: function() {
-                        Ext.Msg.alert('Successful', 'Your password has been reset.<br />Please check your email account.');
+                        Kebab.helper.notify('Successful', 'Your password has been reset. Please check your email account.');
+                        me.getController('Index').showSignIn(cp, e);
                     },
                     failure: function() {
-                        Ext.Msg.alert('Failed', 'Login failed... Please try again.');
+                        Kebab.helper.notify('Failed', 'Operation failed... Please try again.');
                     }
                 });
             }

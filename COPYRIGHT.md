@@ -5,8 +5,7 @@ Kebab Project 2.x (Kebab Revolution) - Web OS Client Platform for Ext JS 4.x
     http://www.lab2023.com - http://www.kebab-project.com/cms/licensing
 ================================================================================
 
-Credits of 3rd Party Libraries, Plugins, Extentions etc.
---------------------------------------------------------------------------------
+# Credits of 3rd Party Libraries, Plugins, Extentions etc.
 
 - Ext JS 4.0.2a - JavaScript Framework
     Copyright (c) http://www.sencha.com
@@ -16,5 +15,8 @@ Credits of 3rd Party Libraries, Plugins, Extentions etc.
     Copyright (c) 2008-2011 Pivotal Labs
     http://pivotal.github.com/jasmine/
 
-Credits of Wallpaper pictures, images, icons etc.
---------------------------------------------------------------------------------
+- Notification / Toastwindow extension for Ext JS 4.x
+   Copyright (c) 2011 Eirik Lorentsen
+   http://www.eirik.net/
+
+# Credits of Wallpaper pictures, images, icons etc.

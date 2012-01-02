@@ -4,3 +4,16 @@
  Copyright (c) 2011-2012 lab2023 - internet technologies TURKEY Inc.
  http://www.lab2023.com
 ----------------------------------------------------------------------------- */
+/* line 11, ../sass/kernel.scss */
+.kebab-notification .x-window-header {
+  background-color: transparent;
+}
+
+/* line 14, ../sass/kernel.scss */
+.kebab-notification .x-window-body {
+  text-align: center;
+  padding: 10px 5px 20px 5px;
+  width: 200px;
+  background-color: transparent;
+  border: 0;
+}
