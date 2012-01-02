@@ -51,14 +51,13 @@ Ext.define('Kebab.login.controller.SignIn', {
     submit: function(cp, e) {
         var me = this;
 
-        // Just enter key is pressed
+        // Just enter key is pressed or submit button cicked
         if (e.getKey() == e.ENTER || cp.action == 'submit') {
             e.stopEvent();
 
             var form = cp.up('form').getForm();
 
             if (form.isValid()) {
-                
                 form.submit({
                     waitMsg: 'Please wait...',
                     url: 'sessions',

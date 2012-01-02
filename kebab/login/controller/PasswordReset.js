@@ -54,7 +54,6 @@ Ext.define('Kebab.login.controller.PasswordReset', {
             var form = cp.up('form').getForm();
 
             if (form.isValid()) {
-
                 form.submit({
                     waitMsg: 'Please wait...',
                     url: 'passwords',

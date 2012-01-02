@@ -10,14 +10,4 @@ describe("Basic Assumptions", function() {
         expect(Kebab).toBeTruthy();
     });
 
-    it("has Kebab.Kernel initialized",function(){
-        expect(Kebab.Kernel).toBeDefined();
-    });
-
-    it("has Kebab Kernel version 2.0.0", function() {
-        expect(Kebab.Kernel).toBeDefined();
-        expect(Kebab.Kernel.getVersion()).toBeTruthy();
-        expect(Kebab.Kernel.getVersion().version).toEqual('2.0.0');
-    });
-
 });

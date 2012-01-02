@@ -14,22 +14,23 @@
 
     /**
      * Kebab base settings
+     * TODO jsdoc
      */
-    var global   = this,                           // DOM root
-        bootData = {                               // Current tenant data. IF not use tenant setup this object manually
-            authenticity_token : '1q2w3e4r5t6y7u8i9o0p!^+%&/',
+var global   = this,        // DOM root
+        bootData = {        // Current tenant data. IF not use tenant setup this object manually
+            authenticity_token : 'your_token_here',
             tenant: {
                 id: 0,
                 name: 'lab2023 - internet technologies',
                 host: 'default.kebab.local'
             },
             locale: {
-               default_locale: 'true',
+               default_locale: 'tr',
                available_locales: ['en', 'tr', 'ru']
             }
         },
-        root    = '',                           // Cdn & root path, Eg : http://static.kebab.local
-        baseURL = '';                           // Base URL (if blank: Auto detected)
+        root    = '',       // Cdn & root path, for example: http://static.kebab.local
+        baseURL = '';       // Base URL (if blank: Auto detected)
 
     // Kebab is not defined!
     if (typeof Kebab === 'undefined') {
@@ -40,12 +41,6 @@
          * @singleton
          */
         global.Kebab = {
-
-            /**
-             * Booting status
-             * @type {Boolean}
-             */
-            booted: false,
 
             /**
              * Kebab boot loader
@@ -79,6 +74,7 @@
                     enabled: true,
                     paths: {
                         'Kebab' : me.helper.root('kebab'),
+                        'Apps' : me.helper.root('apps'),
                         'Ext.ux' : me.helper.root('vendors/ext-4.0.7-gpl/examples/ux')
                     }
                 });
@@ -88,7 +84,7 @@
                  *
                  * If dont use multi-tenant support.
                  * Remove this request lines and run direct Kebab.loadApplication(application) method
-                */
+                 */
                 Ext.Ajax.request({
                     url: me.helper.url('tenants/bootstrap'),
                     method: 'GET',
@@ -109,8 +105,6 @@
                     }
                 });
 
-                // Set booted status true
-                me.booted = true;
             },
 
             /**
@@ -120,6 +114,11 @@
              */
             loadApplication: function(application) {
                 var me = this;
+
+                // Set all data proxy requests global token parameter eg: &authenticity_token=123456
+                Ext.Ajax.extraParams = {
+                    authenticity_token: me.helper.bootData('authenticity_token')
+                };
 
                 // Require applicatiom
                 Ext.require(application);
@@ -183,7 +182,7 @@
 
             /**
              * Set application instance
-             * @param {Ext.app.Application} application
+             * @param {String} application
              */
             setApplication: function(application) {
                 var me = this;
@@ -214,7 +213,8 @@
                  * @return {String} Generated full root path
                  */
                 root: function(path) {
-                    return path ? Kebab.getRoot() + '/' + path : Kebab.getRoot();
+                    var ps = Kebab.getRoot() == '' ? '' : '/'; // Path seperator
+                    return path ? Kebab.getRoot() + ps + path : Kebab.getRoot();
                 },
 
                 /**
