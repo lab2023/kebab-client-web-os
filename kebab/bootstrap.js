@@ -82,9 +82,6 @@ var global   = this,        // DOM root
                 // Require kebab kernel classes
                 Ext.require('Kebab.kernel.Base');
 
-                me.loadApplication(application);
-                return;
-
                 /**
                  * Get bootstrap data from server & check tenant
                  *
