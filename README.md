@@ -21,7 +21,7 @@ Unzip all contents your web root and run index.html file. That's all!
 # Links
 
 * [Web Site](http://www.kebab-project.com)
-* [Documentation]https://github.com/kebab-project/client-web-os/wiki
+* [Documentation](https://github.com/kebab-project/client-web-os/wiki)
 * [Forum](http://kebab-project.2299591.n4.nabble.com/Kebab-Project-2-0-x-Revolution-f3832977.html)
 * [Online IRC - Chat](http://webchat.freenode.net/?channels=kebabproject)
 
