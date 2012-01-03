@@ -47,7 +47,7 @@ Ext.define('Kebab.login.controller.PasswordReset', {
     submit: function(cp, e) {
         var me = this;
 
-        // Just enter key is pressed
+        // Just enter key is pressed or submit button clicked
         if (e.getKey() == e.ENTER || cp.action == 'submit') {
             e.stopEvent();
 

@@ -1,11 +1,14 @@
-// System boot data seed
 {
     "success":true,
     "authenticity_token":"3kMnOWKLZz+3YF7PD07tTGb4t11gi1jt4khoqNy8Pzw=",
     "tenant":{
-        "host":"lab2023.kebab.local",
-        "id":2,
-        "name":"lab2023 Inc."
+        "id":0,
+        "name":"lab2023 - internet technologies",
+        "host":"lab2023.kebab.local"
+    },
+    "user": {
+        "id": 0,
+        "name" : "Sample User"
     },
     "locale":{
         "default_locale":"en",

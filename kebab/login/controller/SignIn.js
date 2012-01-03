@@ -49,9 +49,8 @@ Ext.define('Kebab.login.controller.SignIn', {
      * @param e Ext.EventObject
      */
     submit: function(cp, e) {
-        var me = this;
 
-        // Just enter key is pressed or submit button cicked
+        // Just enter key is pressed or submit button clicked
         if (e.getKey() == e.ENTER || cp.action == 'submit') {
             e.stopEvent();
 

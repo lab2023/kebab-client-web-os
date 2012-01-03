@@ -14,23 +14,18 @@
 
     /**
      * Kebab base settings
-     * TODO jsdoc
+     *
+     * @param {Object} global The DOM object
+     * @param {String} booting Boot data registering flag. Set "remote" or "local". Default "remote"
+     * @param {Object} bootData Current boot data. Set for after registering request.
+     * @param {String} global Cdn & root path, for example: http://static.kebab.local
+     * @param {String} global Base URL (if blank: Auto detected)
      */
-var global   = this,        // DOM root
-        bootData = {        // Current tenant data. IF not use tenant setup this object manually
-            authenticity_token : 'your_token_here',
-            tenant: {
-                id: 0,
-                name: 'lab2023 - internet technologies',
-                host: 'default.kebab.local'
-            },
-            locale: {
-               default_locale: 'tr',
-               available_locales: ['en', 'tr', 'ru']
-            }
-        },
-        root    = '',       // Cdn & root path, for example: http://static.kebab.local
-        baseURL = '';       // Base URL (if blank: Auto detected)
+    var global          = this,
+        defaultBootType = "remote",
+        bootData        = {},
+        root            = "",
+        baseURL         = "";
 
     // Kebab is not defined!
     if (typeof Kebab === 'undefined') {
@@ -43,71 +38,98 @@ var global   = this,        // DOM root
         global.Kebab = {
 
             /**
+             * System boot flag
+             *
+             * @type {Boolean}
+             */
+            bootStatus: false,
+
+            /**
              * Kebab boot loader
              *
              * Load
              *
              * Example:
-             *      Kebab.boot(
-             *          'Kebab.desktop.Application',
-             *          'http://static.kebab.local'
-             *      );
+             *  Kebab.boot(
+             *      'Kebab.desktop.Application',
+             *      'http://static.kebab.local'
+             *  );
              *
              * @param {String} application To load the Kebab's application name
              * @param {String} path The kebab's root path. The kebab root path. You can use the content delivery network (CDN)
+             * @param {String} bootType The kebab's booting type. Set "remote" or "local". Default "remote"
              */
-            boot: function(application, path) {
+            boot: function(application, path, bootType) {
                 var me = this;
 
-                console.log(application + ' was booting...');
+                // Set kebab booting type
+                me.setBootType(bootType || defaultBootType);
 
-                // Set root path
-                me.setRoot(path || root);
+                // Check booting status
+                if (!me.bootStatus) {
 
-                // Load core resources
-                me.helper.loadCSS('resources/css/kernel.css');
-
-                /**
-                 * Ext loader configuration
-                 */
-                Ext.Loader.setConfig({
-                    enabled: true,
-                    paths: {
-                        'Kebab' : me.helper.root('kebab'),
-                        'Apps' : me.helper.root('apps'),
-                        'Ext.ux' : me.helper.root('vendors/ext-ux')
+                    // Dependency check
+                    if (typeof Ext === 'undefined') {
+                        me.helper.redirect('500.html?extjs_required');
                     }
-                });
 
-                // Require kebab kernel classes
-                Ext.require('Kebab.kernel.Base');
+                    console.log(application + ' was booting...');
 
-                /**
-                 * Get bootstrap data from server & check tenant
-                 *
-                 * If dont use multi-tenant support.
-                 * Remove this request lines and run direct Kebab.loadApplication(application) method
-                 */
+                    // Set root path
+                    me.setRoot(path || root);
+
+                    // Load core resources
+                    me.helper.loadCSS('resources/css/kernel.css');
+
+                    // Ext loader configuration
+                    Ext.Loader.setConfig({
+                        enabled: true,
+                        paths: {
+                            'Kebab' : me.helper.root('kebab'),
+                            'Apps' : me.helper.root('apps'),
+                            'Ext.ux' : me.helper.root('vendors/ext-ux')
+                        }
+                    });
+
+                    // Require kebab kernel classes
+                    Ext.require('Kebab.kernel.Base');
+
+                    // Get bootstrap data
+                    me.requestBootstrap(application);
+
+                } else {
+                    console.warn('System already booted...');
+                }
+
+            },
+
+            /**
+             * Get bootstrap data from server & check tenant.
+             * If dont use multi-tenant support. set bootType is "local"
+             * @param {String} application Application name
+             */
+            requestBootstrap: function(application) {
+                var me = this,
+                    requestURL = Kebab.helper.bootType('remote')
+                                    ? me.helper.url('tenants/bootstrap') : me.helper.root('seeds/boot-data.json');
+
                 Ext.Ajax.request({
-                    url: me.helper.url('tenants/bootstrap'),
+                    url: requestURL,
                     method: 'GET',
                     success: function(response) {
                         var bootData = Ext.decode(response.responseText);
 
                         if (bootData.success && bootData.authenticity_token) {
-
                             me.setBootData(bootData);
                             me.loadApplication(application);
-
                         } else {
                             me.helper.redirect('404.html?not_registered')
                         }
                     },
                     failure: function() {
-                        me.helper.redirect('500.html');
+                        //me.helper.redirect('500.html');
                     }
                 });
-
             },
 
             /**
@@ -118,18 +140,49 @@ var global   = this,        // DOM root
             loadApplication: function(application) {
                 var me = this;
 
-                // Set all data proxy requests global token parameter eg: &authenticity_token=123456
-                Ext.Ajax.extraParams = {
-                    authenticity_token: me.helper.bootData('authenticity_token')
-                };
+                // Check booting status
+                if (!me.bootStatus) {
 
-                // Require applicatiom
-                Ext.require(application);
+                    // Set all data proxy requests global token parameter eg: &authenticity_token=123456
+                    Ext.Ajax.extraParams = {
+                        authenticity_token: me.helper.bootData('authenticity_token')
+                    };
 
-                // Set application
-                me.setApplication(application);
+                    // Load Ext JS focale file
+                    me.helper.loadJS(Ext.util.Format.format(
+                        'vendors/ext-4.0.7-gpl/locale/ext-lang-{0}.js',
+                        me.helper.bootData('locale').default_locale || 'en' // Default en
+                    ));
 
-                console.log(application + ' was loaded...');
+                    // Require applicatiom
+                    Ext.require(application);
+
+                    // Set application
+                    me.setApplication(application);
+
+                    // Set boot status flag
+                    me.bootStatus = true;
+
+                    console.log(application + ' was loaded...');
+                } else {
+                    console.warn(me.getApplication(true) + ' already loaded...');
+                }
+            },
+
+            /**
+             * Set kebab boot type
+             * @param {String} type The kebab boot type.
+             */
+            setBootType: function(type) {
+                bootType = type;
+            },
+
+            /**
+             * Get kebab boot type
+             * @return {String} Return value is kebab's boot type
+             */
+            getBootType: function() {
+                return bootType;
             },
 
             /**
@@ -263,8 +316,25 @@ var global   = this,        // DOM root
                     return Kebab.getBootData(key);
                 },
 
-                notify: function(title, msg, type) {
+                /**
+                 * Boot type helper
+                 * Get boot type value
+                 *
+                 * @param {String} type Boot type "remote" or "local"
+                 * @return {String/Boolean} bootData Remote or local or true/false
+                 */
+                bootType: function(type) {
+                    return type ? (Kebab.getBootType() == type) : Kebab.getBootType();
+                },
 
+                /**
+                 * Notification helper
+                 *
+                 * @param {String} title
+                 * @param {String} msg
+                 * @param {String} type
+                 */
+                notify: function(title, msg, type) {
                     Ext.create('Ext.ux.window.Notification', {
                         corner: 'tr',
                         paddingX: 15,
@@ -305,6 +375,25 @@ var global   = this,        // DOM root
                 },
 
                 /**
+                 * Javascript loader helper
+                 * Load js file(s) from document head
+                 *
+                 * @param {String} arguments
+                 */
+                loadJS: function() {
+                    var docHead = Ext.getHead(),
+                        scriptCount = arguments.length,
+                        loadedCount = 0;
+
+                    for(var js in arguments) {
+                        var scriptTag = document.createElement('script');
+                        scriptTag.type = 'text/javascript';
+                        scriptTag.src = Kebab.helper.root(arguments[js]);
+                        docHead.appendChild(scriptTag);
+                    }
+                },
+
+                /**
                  * Wallpaper helper
                  * Change the body wallpaper
                  *
@@ -329,27 +418,43 @@ var global   = this,        // DOM root
             _runTests: function() {
                 var me = this;
 
-                // TODO: Load jasmine javsacript files
+                // Load jasmine js files
+                me.helper.loadJS(
+                    'vendors/jasmine-1.1.0/jasmine.js',
+                    'vendors/jasmine-1.1.0/jasmine-html.js'
+                );
+
+                // TODO load specs
 
                 // Load jasmine css file
                 me.helper.loadCSS('vendors/jasmine-1.1.0/jasmine.css');
 
-                // Jasmine Initializer
-                jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
-                jasmine.getEnv().execute();
+                Ext.defer(function() {
 
-                // Override Jasmine styles
-                Ext.select('.jasmine_reporter').setStyle({
-                    'z-index': '100000',
-                    'background': 'rgba(0, 0, 0, .6)',
-                    'position': 'fixed',
-                    'width': '100%',
-                    'bottom': '0',
-                    'padding': '15px',
-                    'margin': 'auto'
-                });
+                    // Dependency check
+                    if (typeof jasmine === 'undefined') {
+                        //me.helper.redirect('500.html?jasmine_required');
+                    } else {
 
-                console.log('Testing suite has been initialized...');
+                        // Jasmine Initializer
+                        jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
+                        jasmine.getEnv().execute();
+
+                        // Override Jasmine styles
+                        Ext.select('.jasmine_reporter').setStyle({
+                            'z-index': '100000',
+                            'background': 'rgba(0, 0, 0, .6)',
+                            'position': 'fixed',
+                            'width': '100%',
+                            'bottom': '0',
+                            'padding': '15px',
+                            'margin': 'auto'
+                        });
+
+                        console.log('Testing suite has been initialized...');
+                    }
+
+                }, 200);
             }
         };
     }
