@@ -25,7 +25,15 @@ Unzip all contents your web root and run index.html file. That's all!
 * [Forum](http://kebab-project.2299591.n4.nabble.com/Kebab-Project-2-0-x-Revolution-f3832977.html)
 * [Online IRC - Chat](http://webchat.freenode.net/?channels=kebabproject)
 
-# Changelog
+# Change Log
+
+## v.2.0.0.dev2
+
+* DONE: Create new notification component and helper
+* PROCESSING: I18n & multilanguage support for client-side
+* PROCESSING: Create new translator helper
+* Web desktop appearance improvements
+* Create new os loader component and solve z-index problems
 
 ## v.2.0.0.dev1
 
