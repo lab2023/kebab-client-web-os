@@ -10,6 +10,13 @@ Ext.define('Kebab.desktop.Application', {
     extend: 'Ext.app.Application',
 
     /**
+     * Application configurations
+     */
+    config: {
+        user: {}
+    },
+
+    /**
      * Application namespace
      */
     name: 'Kebab.desktop',
@@ -31,7 +38,7 @@ Ext.define('Kebab.desktop.Application', {
      */
     refs: [{
         ref: 'viewport',
-        selector: 'viewport'
+        selector: 'desktop_viewport'
     }],
 
     /**
@@ -50,9 +57,14 @@ Ext.define('Kebab.desktop.Application', {
     constructor: function() {
         var me = this;
 
+        // Init application config
+        me.initConfig(arguments);
+
         // User authorization control
         if (!Kebab.helper.bootData('user')) {
             Kebab.helper.redirect('login.html?authorization_required');
+        } else {
+            me.setUser(Kebab.helper.bootData('user'));
         }
 
         // Load application resources
@@ -70,6 +82,10 @@ Ext.define('Kebab.desktop.Application', {
      * @return void
      */
     launch: function() {
+        var me = this;
+
+        Kebab.helper.notify('Hi, ' + me.getUser().name, 'Welcome to Kebab Web OS');
+
         console.log('Kebab.desktop.Application was launched...');
     }
 });

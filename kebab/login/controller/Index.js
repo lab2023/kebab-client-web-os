@@ -21,7 +21,7 @@ Ext.define('Kebab.login.controller.Index', {
         selector: 'login_menu'
     },{
         ref: 'wrapper',
-        selector: 'viewport panel'
+        selector: 'login_viewport panel'
     }],
 
     /**
@@ -32,11 +32,11 @@ Ext.define('Kebab.login.controller.Index', {
 
          me.control({
              // Reset password form show button
-              'viewport button[action="password_reset"]': {
+              'login_viewport button[action="password_reset"]': {
                   click: me.showResetPassword
               },
-             // Reset password form show button
-             'viewport panel form button[action="cancel"]': {
+             // Reset password form cancel button
+             'login_passwordReset button[action="cancel"]': {
                  click: me.showSignIn
              }
          });

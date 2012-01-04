@@ -332,10 +332,9 @@
                  *
                  * @param {String} title
                  * @param {String} msg
-                 * @param {String} type
                  */
-                notify: function(title, msg, type) {
-                    Ext.create('Ext.ux.window.Notification', {
+                notify: function(title, msg) {
+                    var win = Ext.create('Ext.ux.window.Notification', {
                         corner: 'tr',
                         paddingX: 15,
                         paddingY: 50,
@@ -347,9 +346,12 @@
                         slideDownAnimation: 'elasticIn',
                         cls: 'kebab-notification',
                         autoShow: true,
-                        iconCls: !Ext.isDefined(type) ? 'icon-info' : 'icon-' + type,
+                        closable: false,
                         title: title || 'Notification',
                         html: msg || 'Lorem ipsum dolor sit amet'
+                    });
+                    win.getEl().on('click', function() {
+                        win.close();
                     });
                 },
 
@@ -360,7 +362,8 @@
                  * @param {String} arguments
                  */
                 loadCSS: function() {
-                    var docHead = Ext.getHead();
+                    var docHead = Ext.getHead(),
+                        disableCaching = Kebab.getEnvironment() == 'development' ? '?' + Ext.id() : '';
 
                     for(var css in arguments) {
                         Ext.DomHelper.append(
@@ -368,7 +371,7 @@
                                 tag: 'link',
                                 type: 'text/css',
                                 rel: 'stylesheet',
-                                href: Kebab.helper.root(arguments[css])
+                                href: Kebab.helper.root(arguments[css]) + disableCaching
                             }
                         );
                     }
@@ -382,13 +385,14 @@
                  */
                 loadJS: function() {
                     var docHead = Ext.getHead(),
+                        disableCaching = Kebab.getEnvironment() == 'development' ? '?' + Ext.id() : '';
                         scriptCount = arguments.length,
                         loadedCount = 0;
 
                     for(var js in arguments) {
                         var scriptTag = document.createElement('script');
                         scriptTag.type = 'text/javascript';
-                        scriptTag.src = Kebab.helper.root(arguments[js]);
+                        scriptTag.src = Kebab.helper.root(arguments[js]) + disableCaching;
                         docHead.appendChild(scriptTag);
                     }
                 },

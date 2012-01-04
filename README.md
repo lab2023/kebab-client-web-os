@@ -32,7 +32,7 @@ Unzip all contents your web root and run index.html file. That's all!
 * DONE: Create new notification component and helper
 * PROCESSING: I18n & multilanguage support for client-side
 * PROCESSING: Create new translator helper
-* Web desktop appearance improvements
+* General appearance improvements
 * Create new os loader component and solve z-index problems
 
 ## v.2.0.0.dev1
