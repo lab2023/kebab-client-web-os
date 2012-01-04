@@ -31,7 +31,7 @@ Ext.define('Kebab.login.Application', {
      */
     refs: [{
         ref: 'viewport',
-        selector: 'viewport'
+        selector: 'login_viewport'
     }],
 
     /**

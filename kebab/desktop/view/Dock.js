@@ -25,7 +25,7 @@ Ext.define('Kebab.desktop.view.Dock', {
         var me = this;
         
         Ext.apply(me, {
-            style: 'border-radius: 10px !important; margin: 10px 50px; ' +
+            style: 'border-radius: 10px !important; margin: 0 50px 5px;' +
                 'padding: 5px; border:1px solid #ccc !important;', // TODO move css
             dock: 'bottom',
             autoWidth: false,
@@ -49,7 +49,10 @@ Ext.define('Kebab.desktop.view.Dock', {
             reorderable: false,
             text: 'Kebab'
         },{
-            text: 'App 1'
+            text: 'App 1',
+            handler: function() {
+                Ext.require('Apps.profile.Application');
+            }
         },{
             text: 'App 2'
         },{

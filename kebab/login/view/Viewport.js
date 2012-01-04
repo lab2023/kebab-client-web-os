@@ -7,7 +7,7 @@
  */
 Ext.define('Kebab.login.view.Viewport', {
     extend: 'Ext.window.Window',
-    alias: 'widget.viewport',
+    alias: 'widget.login_viewport',
 
     initComponent: function() {
         var me = this;
