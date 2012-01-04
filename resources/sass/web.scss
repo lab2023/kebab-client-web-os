@@ -1,0 +1,36 @@
+/* -----------------------------------------------------------------------------
+ Kebab Project 2.x (Kebab Revolution) - Web OS Client Platform for Ext JS 4.x
+ http://kebab-project.com
+ Copyright (c) 2011-2012 lab2023 - internet technologies TURKEY Inc.
+ http://www.lab2023.com
+----------------------------------------------------------------------------- */
+
+@import "compass";
+
+body {
+    padding: 50px;
+    color: black;
+    font-size: 12px;
+    font-family: tahoma, arial, verdana, sans-serif;
+}
+
+#wrapper {
+
+    margin: auto;
+    width: 600px;
+    text-align: center;
+
+    blockquote {
+        font-style: italic;
+    }
+
+    #contents {
+        margin: 20px;
+    }
+
+    #logo {
+        img {
+            border: 0;
+        }
+    }
+}
