@@ -35,10 +35,10 @@ Ext.define('Kebab.desktop.view.menu.Info', {
 
         return [{
             xtype: 'tbtext',
-            text: Kebab.helper.bootData('tenant').name
+            text: Kebab.helper.config('tenant').name
         }, '-', {
             xtype: 'tbtext',
-            text: ' Hello ' + Kebab.helper.bootData('user').name
+            text: ' Hello ' + Kebab.helper.config('user').name
         }];
     }
 });

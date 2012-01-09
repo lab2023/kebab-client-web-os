@@ -11,7 +11,7 @@
         "name" : "Sample User"
     },
     "locale":{
-        "default_locale":"en",
-        "available_locales": ["en", "ru", "tr"]
+        "default_locale":"tr",
+        "available_locales": ["en", "tr", "ru"]
     }
 }

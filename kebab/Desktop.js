@@ -5,16 +5,8 @@
  *
  * Kebab Desktop
  */
-Ext.define('Kebab.desktop.Application', {
-    singleton: true,
+Ext.define('Kebab.Desktop', {
     extend: 'Ext.app.Application',
-
-    /**
-     * Application configurations
-     */
-    config: {
-        user: {}
-    },
 
     /**
      * Application namespace
@@ -31,6 +23,14 @@ Ext.define('Kebab.desktop.Application', {
      * @type Boolean
      */
     autoCreateViewport: true,
+
+    /**
+     * Application locales
+     * @type {Array}
+     */
+    requires: [
+        'Kebab.desktop.locale.I18n'
+    ],
 
     /**
      * Application references and selectors
@@ -61,10 +61,8 @@ Ext.define('Kebab.desktop.Application', {
         me.initConfig(arguments);
 
         // User authorization control
-        if (!Kebab.helper.bootData('user')) {
+        if (!Kebab.helper.config('user')) {
             Kebab.helper.redirect('login.html?authorization_required');
-        } else {
-            me.setUser(Kebab.helper.bootData('user'));
         }
 
         // Load application resources
@@ -84,8 +82,11 @@ Ext.define('Kebab.desktop.Application', {
     launch: function() {
         var me = this;
 
-        Kebab.helper.notify('Hi, ' + me.getUser().name, 'Welcome to Kebab Web OS');
+        Kebab.helper.notify(
+            Kebab.desktop.I18n.t('hello', Kebab.helper.config('user').name),
+            Kebab.desktop.I18n.t('welcome')
+        );
 
-        console.log('Kebab.desktop.Application was launched...');
+        console.log('Kebab.Desktop was launched...');
     }
 });

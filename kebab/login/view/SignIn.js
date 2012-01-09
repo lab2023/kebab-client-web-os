@@ -18,7 +18,7 @@ Ext.define('Kebab.login.view.SignIn', {
         var me = this;
 
         Ext.apply(me, {
-            title: 'Welcome to Kebab Web OS',
+            title: Kebab.login.I18n.t('welcome'),
             frame: true,
             padding: 10,
             height: 135,

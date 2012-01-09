@@ -18,7 +18,7 @@ Ext.define('Kebab.login.view.Menu', {
         var me = this;
 
         Ext.apply(me, {
-            html: Kebab.getBootData().tenant.name,
+            html: Kebab.helper.config('tenant').name,
             style: 'width: 100%; padding: 8px; background: #eee; ' +
                 'border-bottom:1px solid #ccc !important; position:fixed; top:0' // TODO move css
         });

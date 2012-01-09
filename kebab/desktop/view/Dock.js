@@ -45,13 +45,13 @@ Ext.define('Kebab.desktop.view.Dock', {
      */
     buildItems: function() {
 
+
         return [{
             reorderable: false,
             text: 'Kebab'
         },{
             text: 'App 1',
             handler: function() {
-                Ext.require('Apps.profile.Application');
             }
         },{
             text: 'App 2'
