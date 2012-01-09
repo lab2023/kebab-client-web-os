@@ -5,9 +5,17 @@
  *
  * Kebab Desktop
  */
-Ext.define('Kebab.login.Application', {
-    singleton: true,
+Ext.define('Kebab.Login', {
     extend: 'Ext.app.Application',
+
+    /**
+     * Application mixins
+     *
+     * @type {Object}
+     */
+    mixins: {
+        i18n: 'Kebab.kernel.I18n'
+    },
 
     /**
      * Application namespace
@@ -21,13 +29,21 @@ Ext.define('Kebab.login.Application', {
 
     /**
      * Application viewport auto create property
-     * @type Boolean
+     * @type {Boolean}
      */
     autoCreateViewport: true,
 
     /**
+    * Application locales
+    * @type {Array}
+    */
+    requires: [
+        'Kebab.login.locale.I18n'
+    ],
+
+    /**
      * Application References and selectors
-     * @type Array
+     * @type {Array}
      */
     refs: [{
         ref: 'viewport',
@@ -36,7 +52,7 @@ Ext.define('Kebab.login.Application', {
 
     /**
      * Application Controllers
-     * @type Array
+     * @type {Array}
      */
     controllers: [
         'Index',
@@ -65,6 +81,6 @@ Ext.define('Kebab.login.Application', {
      * @return void
      */
     launch: function() {
-        console.log('Kebab.login.Application was launched...');
+        console.log('Kebab.Login was launched...');
     }
 });
