@@ -20,7 +20,15 @@
     <!-- include js files here -->
     <script type="text/javascript" src="vendors/ext-4.0.7-gpl/bootstrap.js"></script>
     <script type="text/javascript" src="kebab/bootstrap.js"></script>
-    <script type="text/javascript">Kebab.boot('Kebab.Register', '');</script>
+    <script type="text/javascript">
+        Kebab.boot('Kebab.Register', {
+            authenticity_token: "your_token_here",
+            locale :{
+                "default_locale": "en",
+                "available_locales": ["en", "tr", "ru"]
+            }
+        });
+    </script>
 </head>
 <body>
 </body>

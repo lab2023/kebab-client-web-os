@@ -161,7 +161,7 @@
              */
             getRoot: function() {
                 var me = this;
-                return me.getConfig('root');
+                return me.getConfig('root') || '';
             },
 
             /**
@@ -205,8 +205,8 @@
                  * @return {String} Generated full root path
                  */
                 root: function(path) {
-                    var ps = Kebab.getConfig('root') == '' ? '' : '/'; // Path seperator
-                    return path ? Kebab.getConfig('root') + ps + path : Kebab.getConfig('root');
+                    var ps = Kebab.getRoot('root') == '' ? '' : '/'; // Path seperator
+                    return path ? Kebab.getRoot('root') + ps + path : Kebab.getRoot('root');
                 },
 
                 /**
