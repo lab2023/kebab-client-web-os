@@ -6,7 +6,7 @@
 ----------------------------------------------------------------------------- */
 /* line 10, ../sass/web.scss */
 body {
-  padding: 50px;
+  padding: 50px !important;
   color: black;
   font-size: 12px;
   font-family: tahoma, arial, verdana, sans-serif;

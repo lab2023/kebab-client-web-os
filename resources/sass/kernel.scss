@@ -7,6 +7,11 @@
 
 @import "compass";
 
+// Base Styles
+strong {
+    font-weight: bold;
+}
+
 // Notifications
 .kebab-notification .x-window-header {
     background-color: transparent;
@@ -17,4 +22,9 @@
     padding: 5px 5px 10px 5px;
     background-color: transparent;
     border: 0;
+}
+
+// Ext JS overrides
+.x-form-field {
+    @include border-radius(3px);
 }

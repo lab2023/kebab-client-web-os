@@ -5,15 +5,30 @@
  http://www.lab2023.com
 ----------------------------------------------------------------------------- */
 /* line 11, ../sass/kernel.scss */
+strong {
+  font-weight: bold;
+}
+
+/* line 16, ../sass/kernel.scss */
 .kebab-notification .x-window-header {
   background-color: transparent;
   text-align: center;
 }
 
-/* line 15, ../sass/kernel.scss */
+/* line 20, ../sass/kernel.scss */
 .kebab-notification .x-window-body {
   text-align: center;
   padding: 5px 5px 10px 5px;
   background-color: transparent;
   border: 0;
+}
+
+/* line 28, ../sass/kernel.scss */
+.x-form-field {
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -o-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -khtml-border-radius: 3px;
+  border-radius: 3px;
 }
