@@ -6,26 +6,20 @@
 ----------------------------------------------------------------------------- */
 
 /**
- * Prepare environment, enable loader an boot kebab automatically
+ * This file is part of Kebab
+ *
+ * Prepare environment, enable loader and boot kebab automatically
  *
  * @singleton
  */
 (function() {
 
     /**
-     * Kebab base settings
+     * The DOM object
      *
-     * @param {Object} global The DOM object
-     * @param {String} booting Boot data registering flag. Set "remote" or "local". Default "remote"
-     * @param {Object} bootData Current boot data. Set for after registering request.
-     * @param {String} global Cdn & root path, for example: http://static.kebab.local
-     * @param {String} global Base URL (if blank: Auto detected)
+     * @type {Object}
      */
-    var global          = this,
-        defaultBootType = "remote",
-        bootData        = {},
-        root            = "",
-        baseURL         = "";
+    var global = this;
 
     // Kebab is not defined!
     if (typeof Kebab === 'undefined') {
@@ -38,7 +32,33 @@
         global.Kebab = {
 
             /**
-             * System boot flag
+             * System base configuration
+             *
+             * @param {Object} bootData Current boot data.
+             * @param {String} root Cdn & root path, for example: http://static.kebab.local
+             * @param {String} baseURL Base URL (if blank: Auto detected)
+             */
+            config: {
+                authenticity_token: "your_token_here",
+                tenant:{
+                    "id": 0,
+                    "name": "lab2023 - internet technologies",
+                    "host": "lab2023.kebab.local"
+                },
+                user: {
+                    "id": 0,
+                    "name" : "Sample User"
+                },
+                locale :{
+                    "default_locale": "en",
+                    "available_locales": ["en", "tr", "ru"]
+                },
+                root :  "",
+                baseURL: ""
+            },
+
+            /**
+             * System boot status flag
              *
              * @type {Boolean}
              */
@@ -56,133 +76,55 @@
              *  );
              *
              * @param {String} application To load the Kebab's application name
-             * @param {String} path The kebab's root path. The kebab root path. You can use the content delivery network (CDN)
-             * @param {String} bootType The kebab's booting type. Set "remote" or "local". Default "remote"
+             * @param {Object} config The kebab system configuration
              */
-            boot: function(application, path, bootType) {
+            boot: function(application, config) {
                 var me = this;
 
-                // Set kebab booting type
-                me.setBootType(bootType || defaultBootType);
+                console.log(application + ' was booting...');
 
-                // Check booting status
-                if (!me.bootStatus) {
+                // Setup system config
+                me.setConfig(config || me.config);
 
-                    // Dependency check
-                    if (typeof Ext === 'undefined') {
-                        me.helper.redirect('500.html?extjs_required');
-                    }
-
-                    console.log(application + ' was booting...');
-
-                    // Set root path
-                    me.setRoot(path || root);
-
-                    // Load core resources
-                    me.helper.loadCSS('resources/css/kernel.css');
-
-                    // Ext loader configuration
-                    Ext.Loader.setConfig({
-                        enabled: true,
-                        paths: {
-                            'Kebab' : me.helper.root('kebab'),
-                            'Apps' : me.helper.root('apps'),
-                            'Ext.ux' : me.helper.root('vendors/ext-ux')
-                        }
-                    });
-
-                    // Require kebab kernel classes
-                    Ext.require('Kebab.kernel.Base');
-
-                    // Get bootstrap data
-                    me.requestBootstrap(application);
-
-                } else {
-                    console.warn('System already booted...');
+                // Dependency check
+                if (typeof Ext === 'undefined') {
+                    me.helper.redirect('500.html?extjs_required');
                 }
 
-            },
-
-            /**
-             * Get bootstrap data from server & check tenant.
-             * If dont use multi-tenant support. set bootType is "local"
-             * @param {String} application Application name
-             */
-            requestBootstrap: function(application) {
-                var me = this,
-                    requestURL = Kebab.helper.bootType('remote')
-                                    ? me.helper.url('tenants/bootstrap') : me.helper.root('seeds/boot-data.json');
-
-                Ext.Ajax.request({
-                    url: requestURL,
-                    method: 'GET',
-                    success: function(response) {
-                        var bootData = Ext.decode(response.responseText);
-
-                        if (bootData.success && bootData.authenticity_token) {
-                            me.setBootData(bootData);
-                            me.loadApplication(application);
-                        } else {
-                            me.helper.redirect('404.html?not_registered')
-                        }
-                    },
-                    failure: function() {
-                        //me.helper.redirect('500.html');
+                // Ext Loader configuration
+                Ext.Loader.setConfig({
+                    enabled: true,
+                    paths: {
+                        'Kebab' : me.helper.root('kebab'),
+                        'Apps' : me.helper.root('apps'),
+                        'Ext.ux' : me.helper.root('vendors/ext-ux')
                     }
                 });
-            },
 
-            /**
-             * Load & launch application
-             *
-             * @param {String} application To load the Kebab's application name
-             */
-            loadApplication: function(application) {
-                var me = this;
+                // Load core resources
+                me.helper.loadCSS('resources/css/kernel.css');
 
-                // Check booting status
-                if (!me.bootStatus) {
+                // Load Ext JS focale file
+                me.helper.loadJS(Ext.util.Format.format(
+                    'vendors/ext-4.0.7-gpl/locale/ext-lang-{0}.js',
+                    me.helper.config('locale').default_locale || 'en' // Default en
+                ));
+
+                Ext.require('Kebab.kernel.Base');
+
+                // Require the application
+                Ext.require(application);
+
+                // DOM ready ?
+                Ext.onReady(function(){
+                    // Create and set application
+                    me.setApplication(Ext.create(application));
 
                     // Set all data proxy requests global token parameter eg: &authenticity_token=123456
                     Ext.Ajax.extraParams = {
-                        authenticity_token: me.helper.bootData('authenticity_token')
+                        authenticity_token: me.helper.config('authenticity_token')
                     };
-
-                    // Load Ext JS focale file
-                    me.helper.loadJS(Ext.util.Format.format(
-                        'vendors/ext-4.0.7-gpl/locale/ext-lang-{0}.js',
-                        me.helper.bootData('locale').default_locale || 'en' // Default en
-                    ));
-
-                    // Require applicatiom
-                    Ext.require(application);
-
-                    // Set application
-                    me.setApplication(application);
-
-                    // Set boot status flag
-                    me.bootStatus = true;
-
-                    console.log(application + ' was loaded...');
-                } else {
-                    console.warn(me.getApplication(true) + ' already loaded...');
-                }
-            },
-
-            /**
-             * Set kebab boot type
-             * @param {String} type The kebab boot type.
-             */
-            setBootType: function(type) {
-                bootType = type;
-            },
-
-            /**
-             * Get kebab boot type
-             * @return {String} Return value is kebab's boot type
-             */
-            getBootType: function() {
-                return bootType;
+                });
             },
 
             /**
@@ -195,45 +137,40 @@
             },
 
             /**
-             * Set kebab root path
-             * @param {String} path The kebab's root path. The kebab root path. You can use the content delivery network (CDN)
+             * Set system configuration
+             * @param {Object} config
              */
-            setRoot: function(path) {
-                root = path;
+            setConfig: function(config) {
+                var me = this;
+                me.config = config || me.config;
             },
 
             /**
-             * Get kebab root path
-             * @return {String} Return value is kebab's root path
-             */
-            getRoot: function() {
-                return root;
-            },
-
-            /**
-             * Get kebab base url
-             */
-            getBaseURL: function() {
-                return baseURL ?
-                    baseURL : window.location.protocol + '//' + window.location.hostname;
-            },
-
-            /**
-             * Set boot data
-             * @param {Object} data
-             */
-            setBootData: function(data) {
-                bootData = data || {};
-            },
-
-            /**
-             * Get boot data
+             * Get system configuration
              *
              * @param {String} key Get the boot data key
              * @return {Object/String} bootData
              */
-            getBootData: function(key) {
-                return key ? bootData[key] : bootData;
+            getConfig: function(key) {
+                var me = this;
+                return key ? me.config[key] : me.config;
+            },
+
+            /**
+             * Get system root
+             */
+            getRoot: function() {
+                var me = this;
+                return me.getConfig('root');
+            },
+
+            /**
+             * Get system base url
+             */
+            getBaseURL: function() {
+                var me = this;
+                return me.getConfig('baseURL') ?
+                    me.getConfig('baseURL') : window.location.protocol + '//' + window.location.hostname;
             },
 
             /**
@@ -246,14 +183,13 @@
             },
 
             /**
-             * Get the application instance or name value
+             * Get the application instance
              *
-             * @param {Boolean} instance
-             * @return {String/Ext.app.Application}
+             * @return {Object} Ext.app.Application
              */
-            getApplication: function(instance) {
+            getApplication: function() {
                 var me = this;
-                return instance ? me.application : eval(me.application);
+                return me.application
             },
 
             /**
@@ -269,8 +205,8 @@
                  * @return {String} Generated full root path
                  */
                 root: function(path) {
-                    var ps = Kebab.getRoot() == '' ? '' : '/'; // Path seperator
-                    return path ? Kebab.getRoot() + ps + path : Kebab.getRoot();
+                    var ps = Kebab.getConfig('root') == '' ? '' : '/'; // Path seperator
+                    return path ? Kebab.getConfig('root') + ps + path : Kebab.getConfig('root');
                 },
 
                 /**
@@ -297,34 +233,22 @@
                 /**
                  * Application helper
                  * Get application name or instance
-                 *d
-                 * @param {Boolean} instance If set true return the application name
-                 * @return {String/Ext.app.Application}
+                 *
+                 * @return {Object} Ext.app.Application
                  */
-                application: function(instance) {
-                    return Kebab.getApplication(instance);
+                application: function() {
+                    return Kebab.getApplication();
                 },
 
                 /**
-                 * Bootdata helper
-                 * Get bootData object or value
+                 * Config helper
+                 * Get system configuration object or value
                  *
-                 * @param {String} key Get the boot data key
+                 * @param {String} key Get the config data key
                  * @return {Object/String} bootData
                  */
-                bootData: function(key) {
-                    return Kebab.getBootData(key);
-                },
-
-                /**
-                 * Boot type helper
-                 * Get boot type value
-                 *
-                 * @param {String} type Boot type "remote" or "local"
-                 * @return {String/Boolean} bootData Remote or local or true/false
-                 */
-                bootType: function(type) {
-                    return type ? (Kebab.getBootType() == type) : Kebab.getBootType();
+                config: function(key) {
+                    return Kebab.getConfig(key);
                 },
 
                 /**
@@ -334,6 +258,7 @@
                  * @param {String} msg
                  */
                 notify: function(title, msg) {
+
                     var win = Ext.create('Ext.ux.window.Notification', {
                         corner: 'tr',
                         paddingX: 15,
@@ -457,7 +382,6 @@
 
                         console.log('Testing suite has been initialized...');
                     }
-
                 }, 200);
             }
         };
