@@ -1,20 +1,7 @@
-/**
- * @class Base
- * @singleton
- * @author Tayfun Öziş ERİKAN <tayfun.ozis.erikan@lab2023.com>
- *
- * Kebab Kernel Base class and requirements
- */
-Ext.define('Kebab.kernel.Base', {
-    singleton: true,
-    extend: 'Ext.util.Observable',
-
-    requires: [
-        'Ext.ux.window.Notification'
-    ],
-
-    timeZones: [
-        { value:"Casablanca",   name:"(GMT+00:00) Casablanca" },
+{
+    "success":true,
+    "data": [
+        { value:"Casablanca", name:"(GMT+00:00) Casablanca" },
         { value:"Dublin", name:"(GMT+00:00) Dublin" },
         { value:"Edinburgh", name:"(GMT+00:00) Edinburgh" },
         { value:"Lisbon", name:"(GMT+00:00) Lisbon" },
@@ -165,4 +152,4 @@ Ext.define('Kebab.kernel.Base', {
         { value:"Azores", name:"(GMT-01:00) Azores" },
         { value:"Cape Verde Is.", name:"(GMT-01:00) Cape Verde Is." }
     ]
-});
+}

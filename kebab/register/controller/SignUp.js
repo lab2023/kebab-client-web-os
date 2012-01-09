@@ -66,12 +66,12 @@ Ext.define('Kebab.register.controller.SignUp', {
 
                 form.submit({
                     waitMsg: 'Please wait...',
-                    url: 'sessions',
+                    url: 'tenants',
                     success: function() {
                         Kebab.helper.redirect('desktop.html');
                     },
                     failure: function() {
-                        Kebab.helper.notify('Failed', 'Login failed... Please try again.');
+                        Kebab.helper.notify('Failed', 'Register failed... Please try again.');
                     }
                 });
             }
