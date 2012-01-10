@@ -81,50 +81,68 @@
             boot: function(application, config) {
                 var me = this;
 
-                console.log(application + ' was booting...');
+                if (!me.bootStatus) {
 
-                // Setup system config
-                me.setConfig(config || me.config);
+                    console.log(application + ' was booting...');
 
-                // Dependency check
-                if (typeof Ext === 'undefined') {
-                    me.helper.redirect('500.html?extjs_required');
-                }
+                    // Setup system config
+                    me.setConfig(config || me.config);
 
-                // Ext Loader configuration
-                Ext.Loader.setConfig({
-                    enabled: true,
-                    paths: {
-                        'Kebab' : me.helper.root('kebab'),
-                        'Apps' : me.helper.root('apps'),
-                        'Ext.ux' : me.helper.root('vendors/ext-ux')
+                    // Dependency check
+                    if (typeof Ext === 'undefined') {
+                        me.helper.redirect('500.html?extjs_required');
                     }
-                });
 
-                // Load core resources
-                me.helper.loadCSS('resources/css/kernel.css');
+                    // Ext Loader configuration
+                    Ext.Loader.setConfig({
+                        enabled: true,
+                        paths: {
+                            'Kebab' : me.helper.root('kebab'),
+                            'Apps' : me.helper.root('apps'),
+                            'Ext.ux' : me.helper.root('vendors/ext-ux')
+                        }
+                    });
 
-                // Load Ext JS focale file
-                me.helper.loadJS(Ext.util.Format.format(
-                    'vendors/ext-4.0.7-gpl/locale/ext-lang-{0}.js',
-                    me.helper.config('locale').default_locale || 'en' // Default en
-                ));
+                    // Load core resources
+                    me.helper.loadCSS('resources/css/kernel.css');
 
-                Ext.require('Kebab.kernel.Base');
+                    // Load Ext JS focale file
+                    me.helper.loadJS(Ext.util.Format.format(
+                        'vendors/ext-4.0.7-gpl/locale/ext-lang-{0}.js',
+                        me.helper.config('locale').default_locale || 'en' // Default en
+                    ));
 
-                // Require the application
-                Ext.require(application);
+                    Ext.require('Kebab.kernel.Base');
 
-                // DOM ready ?
-                Ext.onReady(function(){
-                    // Create and set application
-                    me.setApplication(Ext.create(application));
+                    // Require the application
+                    Ext.require(application);
 
-                    // Set all data proxy requests global token parameter eg: &authenticity_token=123456
-                    Ext.Ajax.extraParams = {
-                        authenticity_token: me.helper.config('authenticity_token')
-                    };
-                });
+                    // DOM ready ?
+                    Ext.onReady(function(){
+                        // Create and set application
+                        me.setApplication(Ext.create(application));
+
+                        // Set all data proxy requests global token parameter eg: &authenticity_token=123456
+                        Ext.Ajax.extraParams = {
+                            authenticity_token: me.helper.config('authenticity_token')
+                        };
+
+                        // Set boot status is true
+                        me.bootStatus = true;
+                    });
+
+                } else {
+                    console.warn('System already started...');
+                }
+            },
+
+            reboot: function(url) {
+                var me = this;
+                url ? me.helper.redirect(url) : window.location.reload();
+            },
+
+            reload: function(url) {
+                window.location.reload();
             },
 
             /**
