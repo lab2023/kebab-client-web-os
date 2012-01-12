@@ -10,6 +10,7 @@ Ext.define('Kebab.kernel.Base', {
     extend: 'Ext.util.Observable',
 
     requires: [
+        'Kebab.kernel.EventBusManager',
         'Ext.ux.window.Notification'
     ],
 
