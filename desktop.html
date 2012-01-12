@@ -32,7 +32,15 @@
             },
             user: {
                 "id": 1,
-                "name" : "Sample User"
+                "name" : "Sample User",
+                "privileges": [
+                    {"id": 1, "sys_name:": "login"},
+                    {"id": 2, "sys_name:": "logout"}
+                ],
+                "applications": [
+                    {"id": 1, "sys_name:": "profile", "sys_department":"system"},
+                    {"id": 2, "sys_name:": "feedback", "sys_department": "system"}
+                ]
             },
             locale :{
                 "default_locale": "en",
