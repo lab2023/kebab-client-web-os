@@ -48,7 +48,8 @@ Ext.define('Kebab.Desktop', {
     controllers: [
         'Index',
         'Menu',
-        'Dock'
+        'Dock',
+        'Application'
     ],
 
     /**
@@ -88,5 +89,5 @@ Ext.define('Kebab.Desktop', {
         );
 
         console.log('Kebab.Desktop was launched...');
-    }
+    },
 });
