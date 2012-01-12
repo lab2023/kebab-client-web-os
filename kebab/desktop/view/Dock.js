@@ -50,11 +50,13 @@ Ext.define('Kebab.desktop.view.Dock', {
             reorderable: false,
             text: 'Kebab'
         },{
-            text: 'App 1',
-            handler: function() {
-            }
+            text: 'Profile',
+            ref: 'launcher',
+            application: 'Apps.Profile'
         },{
-            text: 'App 2'
+            text: 'Feedback',
+            ref: 'launcher',
+            application: 'Apps.Feedback'
         },{
             text: 'App 3'
         },{
