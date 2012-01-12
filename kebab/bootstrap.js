@@ -41,13 +41,21 @@
             config: {
                 authenticity_token: "your_token_here",
                 tenant:{
-                    "id": 0,
+                    "id": 1,
                     "name": "lab2023 - internet technologies",
                     "host": "lab2023.kebab.local"
                 },
                 user: {
-                    "id": 0,
-                    "name" : "Sample User"
+                    "id": 1,
+                    "name" : "Sample User",
+                    "privileges": [
+                        {"id": 1, "sys_name:": "login"},
+                        {"id": 2, "sys_name:": "logout"}
+                    ],
+                    "apps": [
+                        {"id": 1, "sys_name:": "profile", "sys_department":"system"},
+                        {"id": 2, "sys_name:": "feedback", "sys_department": "system"}
+                    ]
                 },
                 locale :{
                     "default_locale": "en",
