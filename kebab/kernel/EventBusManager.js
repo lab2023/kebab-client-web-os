@@ -31,7 +31,7 @@ Ext.define('Kebab.kernel.EventBusManager', {
      * @param {Object} config
      */
     constructor: function (config) {
-        var me = this, el;
+        var me = this;
 
         // Init the class configuration
         me.initConfig(config);
