@@ -1,9 +1,9 @@
 /**
- * @class Desktop
+ * @class I18n
  * @singleton
  * @author Tayfun Öziş ERİKAN <tayfun.ozis.erikan@lab2023.com>
  *
- * Kebab Desktop
+ * Kebab Desktop i18n class
  */
 Ext.define('Kebab.desktop.locale.I18n', {
     alternateClassName: 'Kebab.desktop.I18n',

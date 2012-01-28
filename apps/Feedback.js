@@ -8,15 +8,10 @@
 Ext.define('Apps.Feedback', {
     extend: 'Ext.app.Application',
 
-    id: 'Apps.Feedback',
-
-    config: {
-        ownerApp: null,
-        launcher: Ext.create('Ext.button.Button', {
-            text: 'Launch Profile App',
-            renderTo: Ext.getBody()
-        })
-    },
+    /**
+     * Application Id
+     */
+    id: 'Feedback',
 
     /**
      * Application namespace
@@ -29,10 +24,19 @@ Ext.define('Apps.Feedback', {
     appFolder: Kebab.helper.root('apps/feedback'),
 
     /**
+     * Application Config
+     */
+    config: {
+        runningMode: 'single',
+        constrainTo: null,
+        animateTarget: null
+    },
+
+    /**
      * Application viewport auto create property
      * @type Boolean
      */
-    autoCreateViewport: true,
+    autoCreateViewport: false,
 
     /**
      * Application references and selectors
@@ -49,6 +53,15 @@ Ext.define('Apps.Feedback', {
      */
     controllers: [
         'Test'
+    ],
+
+    /**
+     * Application locales
+     * @type {Array}
+     */
+    requires: [
+        'Apps.feedback.view.Viewport',
+        'Apps.feedback.locale.I18n'
     ],
 
     /**
@@ -69,6 +82,25 @@ Ext.define('Apps.Feedback', {
      */
     launch: function() {
         var me = this;
+
+        Ext.create('Apps.feedback.view.Viewport', {
+            animateTarget: me.getAnimateTarget() ? me.getAnimateTarget() : Ext.getBody(),
+            constrainTo: me.getConstrainTo() ? me.getConstrainTo() : Ext.getBody(),
+            application: me
+        });
+
+        if (me.getRunningMode() == 'single') {
+            Ext.create('Ext.button.Button', {
+                renderTo: Ext.getBody(),
+                margin: 10,
+                scale: 'large',
+                text: 'Launcher',
+                handler: function(btn) {
+                    me.getViewport().animateTarget = btn.id;
+                    me.getViewport().show();
+                }
+            });
+        }
 
         console.log('Apps.Feedback was launched...');
     }

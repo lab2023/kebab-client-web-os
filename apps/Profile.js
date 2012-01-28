@@ -8,15 +8,10 @@
 Ext.define('Apps.Profile', {
     extend: 'Ext.app.Application',
 
-    id: 'Apps.Profile',
-
-    config: {
-        ownerApp: null,
-        launcher: Ext.create('Ext.button.Button', {
-            text: 'Launch Profile App',
-            renderTo: Ext.getBody()
-        })
-    },
+    /**
+     * Application Id
+     */
+    id: 'Profile',
 
     /**
      * Application namespace
@@ -29,10 +24,19 @@ Ext.define('Apps.Profile', {
     appFolder: Kebab.helper.root('apps/profile'),
 
     /**
+     * Application Config
+     */
+    config: {
+        runningMode: 'single',
+        constrainTo: null,
+        animateTarget: null
+    },
+
+    /**
      * Application viewport auto create property
      * @type Boolean
      */
-    autoCreateViewport: true,
+    autoCreateViewport: false,
 
     /**
      * Application references and selectors
@@ -49,6 +53,15 @@ Ext.define('Apps.Profile', {
      */
     controllers: [
         'Test'
+    ],
+
+    /**
+     * Application locales
+     * @type {Array}
+     */
+    requires: [
+        'Apps.profile.view.Viewport',
+        'Apps.profile.locale.I18n'
     ],
 
     /**
@@ -69,6 +82,26 @@ Ext.define('Apps.Profile', {
      */
     launch: function() {
         var me = this;
+
+        Ext.create('Apps.profile.view.Viewport', {
+            closeAction: 'hide',
+            animateTarget: me.getAnimateTarget() ? me.getAnimateTarget() : Ext.getBody(),
+            constrainTo: me.getConstrainTo() ? me.getConstrainTo() : Ext.getBody(),
+            application: me
+        });
+
+        if (me.getRunningMode() == 'single') {
+            Ext.create('Ext.button.Button', {
+                renderTo: Ext.getBody(),
+                margin: 10,
+                scale: 'large',
+                text: 'Launcher',
+                handler: function(btn) {
+                    me.getViewport().animateTarget = btn.id;
+                    me.getViewport().show();
+                }
+            });
+        }
 
         console.log('Apps.Profile was launched...');
     }

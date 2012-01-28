@@ -15,7 +15,7 @@ Ext.define('Kebab.register.view.SignUp', {
      * Component initializer
      */
     initComponent: function() {
-        var me = this
+        var me = this;
 
         Ext.apply(me, {
             style: 'margin:auto;',
@@ -184,9 +184,5 @@ Ext.define('Kebab.register.view.SignUp', {
             name: 'Russian',
             value: 'ru'
         }];
-    },
-
-    buildTimeZonesData: function() {
-        return
     }
 });

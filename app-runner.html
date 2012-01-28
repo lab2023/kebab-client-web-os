@@ -22,7 +22,14 @@
     <!-- include js files here -->
     <script type="text/javascript" src="vendors/ext-4.0.7-gpl/bootstrap.js"></script>
     <script type="text/javascript" src="kebab/bootstrap.js"></script>
-    <script type="text/javascript">Kebab.boot('Apps.Profile', '');</script>
+    <script type="text/javascript">
+        try {
+            var app = 'Apps.' + Ext.urlDecode(window.location.search).app;
+            Kebab.boot(app, '');
+        } catch (e) {
+            alert('Application not loaded');
+        }
+    </script>
 </head>
 <body>
 </body>

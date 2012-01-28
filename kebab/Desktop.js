@@ -49,7 +49,8 @@ Ext.define('Kebab.Desktop', {
         'Index',
         'Menu',
         'Dock',
-        'Application'
+        'Application',
+        'User'
     ],
 
     /**
@@ -84,10 +85,10 @@ Ext.define('Kebab.Desktop', {
         var me = this;
 
         Kebab.helper.notify(
-            Kebab.desktop.I18n.t('hello', Kebab.helper.config('user').name),
-            Kebab.desktop.I18n.t('welcome')
+            Kebab.desktop.I18n.t('welcome'),
+            Kebab.desktop.I18n.t('hello', Kebab.helper.config('user').name)
         );
 
         console.log('Kebab.Desktop was launched...');
-    },
+    }
 });

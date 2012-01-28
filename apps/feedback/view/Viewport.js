@@ -9,18 +9,22 @@ Ext.define('Apps.feedback.view.Viewport', {
     extend: 'Ext.window.Window',
     alias: 'widget.feedback_viewport',
 
+    id: 'feedback-viewport',
+    appViewport: true,
+
     initComponent: function() {
         var me = this;
 
         Ext.apply(me, {
-            width: 400,
-            autoShow: true,
-            height: 300,
+            title: Apps.feedback.I18n.t('appTitle'),
+            width: 500,
+            height: 400,
             constrain: true,
-            shadow: false,
-            title: 'Feedback Application',
-            closeAction: 'hide'
-        });
+            maximizable: true,
+            minimizable: true,
+            autoShow: true
+        }, null);
+
         me.callParent(arguments);
     }
 });

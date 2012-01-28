@@ -3,10 +3,10 @@
  * @singleton
  * @author Tayfun Öziş ERİKAN <tayfun.ozis.erikan@lab2023.com>
  *
- * Kebab Login i18n class
+ * Profile Application i18n class
  */
-Ext.define('Kebab.login.locale.I18n', {
-    alternateClassName: 'Kebab.login.I18n',
+Ext.define('Apps.feedback.locale.I18n', {
+    alternateClassName: 'Apps.feedback.I18n',
     singleton: true,
 
     /**
@@ -23,8 +23,8 @@ Ext.define('Kebab.login.locale.I18n', {
      * @type {Array}
      */
     requires: [
-        'Kebab.login.locale.EN',
-        'Kebab.login.locale.TR',
-        'Kebab.login.locale.RU'
+        'Apps.feedback.locale.EN',
+        'Apps.feedback.locale.TR',
+        'Apps.feedback.locale.RU'
     ]
 });

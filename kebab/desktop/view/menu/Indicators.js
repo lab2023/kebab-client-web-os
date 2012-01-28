@@ -18,7 +18,6 @@ Ext.define('Kebab.desktop.view.menu.Indicators', {
         var me = this;
         
         Ext.apply(me, {
-            style: 'background:transparent !important; border:0 !important;', // TODO move css
             defaults: {
                 scale: 'small'
             },
@@ -38,9 +37,18 @@ Ext.define('Kebab.desktop.view.menu.Indicators', {
         },{
             text: Ext.Date.format(new Date(), 'F j, Y, H:i')
         },{
-            text: 'Exit',
+            text: '(-) ' + Kebab.helper.config('user').name,
+            launcher: {
+                appId: 'Profile'
+            }
+        },{
+            text: '(@) Feedback',
+            launcher: {
+                appId: 'Feedback'
+            }
+        },{
+            text: '(*) Exit',
             handler: function() {
-
                 Ext.Ajax.request({ // TODO move controller
                     url: Kebab.helper.url('sessions'),
                     method: 'DELETE',

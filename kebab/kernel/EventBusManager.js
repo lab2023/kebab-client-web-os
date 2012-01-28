@@ -79,5 +79,5 @@ Ext.define('Kebab.kernel.EventBusManager', {
     addBus: function (bus) {
         var me = this;
         me.getBusManager().add(bus);
-    },
+    }
 });

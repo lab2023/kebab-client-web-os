@@ -231,8 +231,8 @@
                  * @return {String} Generated full root path
                  */
                 root: function(path) {
-                    var ps = Kebab.getRoot('root') == '' ? '' : '/'; // Path seperator
-                    return path ? Kebab.getRoot('root') + ps + path : Kebab.getRoot('root');
+                    var ps = Kebab.getRoot() == '' ? '' : '/'; // Path seperator
+                    return path ? Kebab.getRoot() + ps + path : Kebab.getRoot();
                 },
 
                 /**
@@ -280,18 +280,20 @@
                 /**
                  * Notification helper
                  *
-                 * @param {String} title
                  * @param {String} msg
+                 * @param {String} title
                  */
-                notify: function(title, msg) {
+                notify: function(msg, title, keep) {
 
                     var win = Ext.create('Ext.ux.window.Notification', {
                         corner: 'tr',
                         paddingX: 15,
                         paddingY: 50,
+                        width: 200,
                         slideInDelay: 800,
                         slideDownDelay: 1500,
                         autoDestroyDelay: 4000,
+                        autoDestroy: !keep || false,
                         resizable: false,
                         slideInAnimation: 'elasticIn',
                         slideDownAnimation: 'elasticIn',

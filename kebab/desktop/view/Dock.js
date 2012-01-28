@@ -15,7 +15,7 @@ Ext.define('Kebab.desktop.view.Dock', {
      * Required classes
      */
     requires: [
-        'Ext.ux.BoxReorderer'
+        //'Ext.ux.BoxReorderer' TODO Enable for ext-4.1.0 stable release
     ],
 
     /**
@@ -33,9 +33,9 @@ Ext.define('Kebab.desktop.view.Dock', {
                 scale: 'large',
                 reorderable: true
             },
-            plugins: Ext.create('Ext.ux.BoxReorderer'),
+            //plugins: Ext.create('Ext.ux.BoxReorderer'), TODO Enable for ext-4.1.0 stable release
             items: me.buildItems()
-        });
+        }, null);
 
         me.callParent(arguments);
     },
@@ -45,23 +45,29 @@ Ext.define('Kebab.desktop.view.Dock', {
      */
     buildItems: function() {
 
-
         return [{
             reorderable: false,
-            text: 'Kebab'
+            text: 'Applications',
+            menu: [{
+                text: 'Profile',
+                launcher: {
+                    appId: 'Profile'
+                }
+
+            },{
+                text: 'Feedback',
+                launcher: {
+                    appId: 'Feedback'
+                }
+            }]
         },{
+            id: 'Profile-launcher',
             text: 'Profile',
-            ref: 'launcher',
-            application: 'Apps.Profile'
-        },{
-            text: 'Feedback',
-            ref: 'launcher',
-            application: 'Apps.Feedback'
-        },{
-            text: 'App 3'
-        },{
-            text: 'App 4'
+            launcher: {
+                pinned: true,
+                appId: 'Profile'
+            }
         }];
-        
+
     }
 });

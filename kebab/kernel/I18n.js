@@ -34,6 +34,11 @@ Ext.define('Kebab.kernel.I18n', {
             // Create new loca  le class from default locale
             var locale = Ext.create(localeClassName);
 
+            locale[key].replace(Ext.String.formatRe, function(m, i) {
+                console.log(values[i]);
+                return values[i];
+            });
+
             // Translate and replace text
             translatedText = Ext.isDefined(key)
                 ? locale[key].replace(Ext.String.formatRe, function(m, i) {
@@ -43,10 +48,11 @@ Ext.define('Kebab.kernel.I18n', {
 
         } catch (e) {
             // Translations not found
+            translatedText += ': "' + key+ '" ';
             console.warn(localeClassName + ' not found...');
             console.warn(localeClassName + ' "' + key + '" key is not found...');
         }
 
-        return translatedText
+        return translatedText;
     }
 });

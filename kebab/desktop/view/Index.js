@@ -22,7 +22,7 @@ Ext.define('Kebab.desktop.view.Index', {
             },{
                 xtype: 'desktop_dock'
             }]
-        });
+        }, null);
 
         me.callParent(arguments);
     }
