@@ -22,7 +22,7 @@ Ext.define('Kebab.desktop.view.menu.Info', {
                 scale: 'small'
             },
             items: me.buildItems()
-        });
+        }, null);
 
         me.callParent(arguments);
     },
@@ -31,10 +31,15 @@ Ext.define('Kebab.desktop.view.menu.Info', {
      * Build the dock items
      */
     buildItems: function() {
+        var me = this;
 
         return [{
             xtype: 'tbtext',
+            style: 'font-size: 110%; font-weight: 800 !important',
             text: Kebab.helper.config('tenant').name
+        },{
+            xtype: 'tbtext',
+            hidden: true
         }];
     }
 });

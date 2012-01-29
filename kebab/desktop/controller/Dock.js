@@ -18,6 +18,9 @@ Ext.define('Kebab.desktop.controller.Dock', {
     refs: [{
         ref: 'dock',
         selector: 'desktop_dock'
+    },{
+        ref: 'applicationsLauncher',
+        selector: 'desktop_dock button[applicationsLauncher]'
     }],
 
     /**
@@ -30,31 +33,105 @@ Ext.define('Kebab.desktop.controller.Dock', {
         me.callParent(arguments);
     },
 
-    addLauncher: function(launcherBtn) {
-        var me = this;
+    /**
+     *
+     * @param data
+     */
+    addLauncher: function(data) {
+        var me = this,
+            launcher = Ext.apply(data, {
+                id: me.generateId(data.launcher.appId)
+            });
 
-        if (!me.getDock().items.get(launcherBtn.id))
-            me.getDock().add(launcherBtn);
+        if (!me.getDock().items.get(launcher.id))
+            me.getDock().add(launcher);
 
-        return me.getDock().items.get(launcherBtn.id);
+        return me.getDock().items.get(launcher.id);
     },
 
+    /**
+     *
+     * @param appId
+     */
     removeLauncher: function(appId) {
         var me = this,
-            launcherBtn = me.getDock().items.get(appId + '-launcher');
+            launcher = me.getDock().items.get(me.generateId(appId));
 
-        if (!launcherBtn.launcher.pinned && launcherBtn) {
-            me.getDock().remove(launcherBtn);
+        if (!launcher.pinned && launcher) {
+            me.getDock().remove(launcher);
+        } else {
+            me.deactivateLauncher(launcher);
         }
     },
 
-    getLauncher: function(appId) {
+    /**
+     *
+     * @param appId
+     */
+    populateLaunchers: function(appId) {
         var me = this;
-        return me.getDock().items.get(appId + '-launcher');
+
+        // Each launchers
+        me.getLaunchers().each(function(launcher) {
+            if (launcher.id == me.generateId(appId)) {
+                me.activateLauncher(launcher);
+            } else {
+                me.deactivateLauncher(launcher);
+            }
+        });
     },
 
+    /**
+     *
+     * @param appId
+     */
+    activateLauncher: function(launcher) {
+        launcher.addClsWithUI(launcher.overCls);
+        launcher.onMouseLeave = function(e) {
+            launcher.fireEvent('mouseout', launcher, e);
+        };
+    },
+
+    /**
+     *
+     * @param appId
+     */
+    deactivateLauncher: function(launcher) {
+        launcher.removeClsWithUI(launcher.overCls);
+    },
+
+    /**
+     * getLauncher
+     * @param appId
+     */
+    getLauncher: function(appId) {
+        var me = this;
+        return me.getDock().items.get(me.generateId(appId));
+    },
+
+    /**
+     * getLaunchers
+     */
+    getLaunchers: function() {
+        var me = this;
+        return me.getDock().items;
+    },
+
+    /**
+     * findLauncher
+     * @param key
+     * @param value
+     */
     findLauncher: function(key, value) {
         var me = this;
         return me.getDock().items.filter(key, value);
+    },
+
+    /**
+     * generateId
+     * @param id
+     */
+    generateId: function(id) {
+        return id.toLowerCase() + '-launcher';
     }
 });

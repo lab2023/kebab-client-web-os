@@ -46,6 +46,7 @@ Ext.define('Kebab.desktop.view.Dock', {
     buildItems: function() {
 
         return [{
+            applicationsLauncher: true,
             reorderable: false,
             text: 'Applications',
             menu: [{
@@ -60,12 +61,12 @@ Ext.define('Kebab.desktop.view.Dock', {
                     appId: 'Feedback'
                 }
             }]
-        },{
-            id: 'Profile-launcher',
-            text: 'Profile',
+        }, {
+            id: 'feedback-launcher',
+            pinned: true,
+            text: 'Feedback',
             launcher: {
-                pinned: true,
-                appId: 'Profile'
+                appId: 'Feedback'
             }
         }];
 

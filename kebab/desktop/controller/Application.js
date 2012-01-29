@@ -29,20 +29,9 @@ Ext.define('Kebab.desktop.controller.Application', {
             },
             // Listener application viewports
             'component[appViewport]': {
-                destroy: me.exitApplication,
-                beforerender: me.applicationViewportBeforeRender,
-                render: me.applicationViewportRender,
-                show: function(vp) {
-                    console.log('App window show');
-                },
-                hide: function(vp) {
-                    var launcherBtn = me.getController('Dock').getLauncher(vp.application.id);
-
-                    if (launcherBtn) {
-                        launcherBtn.getEl().setStyle('font-weight', '400');
-                    }
-                    console.log('App window hide');
-                }
+                close: me.closeApplication, // Exit
+                render: me.applicationViewportRender, // Ready
+                activate: me.applicationViewportActivate // Bring to front
             }
         });
 
@@ -50,80 +39,96 @@ Ext.define('Kebab.desktop.controller.Application', {
         me.callParent(arguments);
     },
 
+    /**
+     * Launch  application
+     * @param cp
+     */
     launchApplication: function(cp) {
         var me = this,
             appId = cp.launcher.appId,
             appClassName = 'Apps.' + cp.launcher.appId,
-            appTitle = cp.text,
             appManager = me.getAppManager(),
             appZIndexManager = me.getAppZIndexManager(),
             activeApp = appManager.get(appId);
 
-        if(!Ext.isDefined(activeApp)) {
+        if(!activeApp) {
+
+            console.warn('NEW');
 
             // Add launcher button to dock
-            var launcherBtn = me.getController('Dock').addLauncher({
-                id: appId + '-launcher',
-                text: appTitle,
+            var launcher = me.getController('Dock').addLauncher({
+                text: 'Loading...',
                 disabled: true,
+                cls: 'x-over',
                 launcher: {
                     appId: appId
                 }
             });
 
-            try { // Create and auto launch application
-                Ext.create(appClassName, {
+            try {
+                // Create and auto launch application
+                var application = Ext.create(appClassName, {
                     params: cp.launcher.params,
-                    runningMode:'multi',
-                    animateTarget:launcherBtn.id,
-                    constrainTo:'desktop-index-body',
-                    listeners:{
-                        launch:function (app) {
-                            // Add managers after launch
-                            appManager.add(app);
-                            launcherBtn.enable();
-                            Kebab.helper.notify('Application launched...', appTitle);
-                        }
-                    }
+                    runningMode: 'multi',
+                    animateTarget: cp.id,
+                    constrainTo:'desktop-index-body'
+                });
+
+                // Add managers after launch
+                appManager.add(application);
+
+                application.on('launch', function() {
+                    console.log('launch event fired: ' + appId);
                 });
             } catch (e) {
-                Kebab.helper.notify('Application not launched...', appTitle, true);
+                Kebab.helper.notify('Application not launched...', 'Error', true);
                 me.getController('Dock').removeLauncher(appId);
             }
 
         } else {
+            console.warn('SHOW: ' + activeApp.getViewport().title);
             activeApp.getViewport().show();
         }
 
     },
 
+    /**
+     * Get application
+     * @param appName
+     */
     getApplication: function(appName) {
         var me = this;
         return me.getAppManager().get(appName);
     },
 
-    exitApplication: function(wp) {
+    /**
+     * Exit application
+     * @param vp
+     */
+    closeApplication: function(vp) {
         var me = this,
-            appId = wp.application.id,
-            appManager = me.getAppManager(),
-            appZIndexManager = me.getAppZIndexManager(),
-            app = appManager.get(appId);
-
-        if (app) {
-            me.getController('Dock').removeLauncher(appId);
-            appZIndexManager.unregister(wp);
-            appManager.remove(app);
-            app.destroy();
-            delete(app);
-        }
+            app = vp.application;
+            me.getController('Dock').removeLauncher(app.id);
+            me.getController('Menu').getInfo().items.getAt(1).hide();
+            me.getAppZIndexManager().unregister(vp);
+            vp.destroy();
+            me.getAppManager().remove(app);
+            console.warn('App destroyed');
     },
 
+    /**
+     * applicationViewportRender
+     * @param vp
+     */
     applicationViewportRender: function(vp) {
         var me = this,
-            launcherBtn = me.getController('Dock').getLauncher(vp.application.id);
+            launcher = me.getController('Dock').getLauncher(vp.application.id);
+        me.getAppZIndexManager().register(vp);
 
-        if (launcherBtn) {
-            launcherBtn.getEl().highlight();
+        if (launcher) {
+            launcher.enable();
+            launcher.setText(vp.title);
+            launcher.getEl().highlight();
         }
 
         // replace normal window close fadeOut animation:
@@ -132,17 +137,28 @@ Ext.define('Kebab.desktop.controller.Application', {
             vp.getEl().disableShadow();
             vp.getEl().fadeOut({
                 callback: function() {
-                    vp.destroy();
+                    vp.fireEvent('close', vp);
                 }
             });
         };
+
+        Kebab.helper.notify('Application launched...', vp.title);
     },
 
-    applicationViewportBeforeRender: function(vp) {
+    /**
+     * applicationViewportActivate
+     * @param vp
+     */
+    applicationViewportActivate: function(vp) {
         var me = this;
-        me.getAppZIndexManager().register(vp);
+        console.log('activated=' + vp.title);
+        me.getController('Dock').populateLaunchers(vp.application.id);
+        me.getController('Menu').getInfo().items.getAt(1).show().setText(vp.title);
     },
 
+    /**
+     *
+     */
     hideAll: function() {
         var me = this;
         me.getAppManager().hideAll();

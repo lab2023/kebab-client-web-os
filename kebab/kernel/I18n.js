@@ -31,13 +31,8 @@ Ext.define('Kebab.kernel.I18n', {
             localeClassName = Ext.getDisplayName(me).replace('I18n', me.locale);
 
         try {
-            // Create new loca  le class from default locale
+            // Create new locale class from default locale
             var locale = Ext.create(localeClassName);
-
-            locale[key].replace(Ext.String.formatRe, function(m, i) {
-                console.log(values[i]);
-                return values[i];
-            });
 
             // Translate and replace text
             translatedText = Ext.isDefined(key)

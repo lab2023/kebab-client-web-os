@@ -33,7 +33,8 @@ Ext.define('Apps.profile.view.Viewport', {
                         hello: 'test'
                     }
                 }
-            }]
+            }],
+            fbar: [{text: 'a'}]
         }, null);
 
         me.callParent(arguments);

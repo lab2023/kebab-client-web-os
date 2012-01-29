@@ -14,13 +14,13 @@ Ext.define('Apps.profile.controller.Test', {
     init: function() {
         var me = this;
 
-         me.control({
+         me.control(/*{
              'profile_viewport': {
                  drag: function() {
                       console.log('Apps.Profile viewport dragged');
                  }
              }
-         });
+         }*/);
 
         // Call parent
         me.callParent(arguments);
