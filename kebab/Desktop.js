@@ -68,7 +68,7 @@ Ext.define('Kebab.Desktop', {
             Kebab.helper.redirect('login.html?authorization_required');
         }
 
-        // Load application resources
+        // Load application css resources
         Kebab.helper.loadCSS(['resources/css/desktop.css']);
 
         // TODO: Set default wallpaper

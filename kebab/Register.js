@@ -64,7 +64,7 @@ Ext.define('Kebab.Register', {
             Kebab.helper.redirect('plans.html?plan_required');
         }
 
-        // Load application resources
+        // Load application css resources
         Kebab.helper.loadCSS(['resources/css/register.css']);
 
         // Call parent constructor
