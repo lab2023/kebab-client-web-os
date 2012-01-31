@@ -72,6 +72,12 @@ Ext.define('Apps.Feedback', {
 
         me.initConfig(config);
 
+        // Load application resources if single mode
+        if (me.getRunningMode() == 'single') {
+            Kebab.helper.loadCSS([me.appFolder + '/resources/css/base.css']);
+        }
+        Kebab.helper.loadCSS([me.appFolder + '/resources/css/style.css']);
+
         // Call parent constructor
         me.callParent(arguments);
     },

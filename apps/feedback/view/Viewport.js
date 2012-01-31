@@ -16,6 +16,7 @@ Ext.define('Apps.feedback.view.Viewport', {
         var me = this;
 
         Ext.apply(me, {
+            iconCls: 'feedback-viewport',
             title: Apps.feedback.I18n.t('appTitle'),
             width: 500,
             height: 400,

@@ -16,6 +16,7 @@ Ext.define('Apps.profile.view.Viewport', {
         var me = this;
 
         Ext.apply(me, {
+            iconCls: 'profile-viewport',
             title: Apps.profile.I18n.t('appTitle'),
             width: 400,
             height: 300,

@@ -17,18 +17,14 @@
     <link rel="shortcut icon" type="image/x-icon"  href="resources/favicon.ico" />
 
     <!-- include css files here -->
-    <link rel="stylesheet" type="text/css" href="vendors/ext-4.0.7-gpl/resources/css/ext-all-gray.css" />
+    <link rel="stylesheet" type="text/css" href="vendors/ext-4.1.0-beta-2/resources/css/ext-all-gray.css" />
 
     <!-- include js files here -->
-    <script type="text/javascript" src="vendors/ext-4.0.7-gpl/bootstrap.js"></script>
+    <script type="text/javascript" src="vendors/ext-4.1.0-beta-2/ext-all-debug.js"></script>
     <script type="text/javascript" src="kebab/bootstrap.js"></script>
     <script type="text/javascript">
-        try {
-            var app = 'Apps.' + Ext.urlDecode(window.location.search).app;
-            Kebab.boot(app, '');
-        } catch (e) {
-            alert('Application not loaded');
-        }
+        var app = 'Apps.' + Ext.urlDecode(window.location.search).app;
+                    Kebab.boot(app, '');
     </script>
 </head>
 <body>
