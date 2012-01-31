@@ -19,7 +19,11 @@
      *
      * @type {Object}
      */
-    var global = this;
+    var global = this,
+        extJs = {
+            version: "4.1.0-beta-2",
+            path: "ext-4.1.0-beta-2"
+        };
 
     // Kebab is not defined!
     if (typeof Kebab === 'undefined') {
@@ -78,10 +82,32 @@
              * Load
              *
              * Example:
-             *  Kebab.boot(
-             *      'Kebab.desktop.Application',
-             *      'http://static.kebab.local'
-             *  );
+             *   Kebab.boot('Kebab.Desktop', {
+             *        authenticity_token: "your_token_here",
+             *        tenant:{
+             *            "id": 1,
+             *            "name": "lab2023 - internet technologies",
+             *            "host": "lab2023.kebab.local"
+             *        },
+             *        user: {
+             *            "id": 1,
+             *            "email": "user@example.com",
+             *            "name": "Sample User",
+             *            "locale": "en",
+             *            "privileges": [
+             *                {"id": 1, "user_id": 1, "sys_name:": "login"},
+             *                {"id": 2, "user_id": 1, "sys_name:": "logout"}
+             *            ],
+             *            "applications": [
+             *                {"id": 1, "user_id": 1, "sys_name:": "profile", "sys_department":"system"},
+             *                {"id": 2, "user_id": 1, "sys_name:": "feedback", "sys_department": "system"}
+             *            ]
+             *        },
+             *        locale :{
+             *            "default_locale": "en",
+             *            "available_locales": ["en", "tr", "ru"]
+             *        }
+             *    });
              *
              * @param {String} application To load the Kebab's application name
              * @param {Object} config The kebab system configuration
@@ -98,7 +124,7 @@
 
                     // Dependency check
                     if (typeof Ext === 'undefined') {
-                        me.helper.redirect('500.html?extjs_required');
+                        me.helper.redirect('500.html?extJs_required=' + extJs.version);
                     }
 
                     // Ext Loader configuration
@@ -116,7 +142,7 @@
 
                     // Load Ext JS focale file
                     me.helper.loadJS(Ext.util.Format.format(
-                        'vendors/ext-4.0.7-gpl/locale/ext-lang-{0}.js',
+                        'vendors/' + extJs.path + '/locale/ext-lang-{0}.js',
                         me.helper.config('locale').default_locale || 'en' // Default en
                     ));
 
@@ -312,42 +338,42 @@
                  * Stylesheet loader helper
                  * Load css file(s) from document head
                  *
-                 * @param {String} arguments
+                 * @param {Array} paths
                  */
-                loadCSS: function() {
+                loadCSS: function(paths) {
                     var docHead = Ext.getHead(),
                         disableCaching = Kebab.getEnvironment() == 'development' ? '?' + Ext.id() : '';
 
-                    for(var css in arguments) {
+                    Ext.each(paths, function(cssPath) {
                         Ext.DomHelper.append(
                             docHead, {
                                 tag: 'link',
                                 type: 'text/css',
                                 rel: 'stylesheet',
-                                href: Kebab.helper.root(arguments[css]) + disableCaching
+                                href: Kebab.helper.root(cssPath) + disableCaching
                             }
                         );
-                    }
+                    });
                 },
 
                 /**
                  * Javascript loader helper
                  * Load js file(s) from document head
                  *
-                 * @param {String} arguments
+                 * @param {Array} paths
                  */
-                loadJS: function() {
+                loadJS: function(paths) {
                     var docHead = Ext.getHead(),
-                        disableCaching = Kebab.getEnvironment() == 'development' ? '?' + Ext.id() : '';
+                        disableCaching = Kebab.getEnvironment() == 'development' ? '?' + Ext.id() : '',
                         scriptCount = arguments.length,
                         loadedCount = 0;
 
-                    for(var js in arguments) {
+                    Ext.each(paths, function(jsPath) {
                         var scriptTag = document.createElement('script');
                         scriptTag.type = 'text/javascript';
-                        scriptTag.src = Kebab.helper.root(arguments[js]) + disableCaching;
+                        scriptTag.src = Kebab.helper.root(jsPath) + disableCaching;
                         docHead.appendChild(scriptTag);
-                    }
+                    });
                 },
 
                 /**
