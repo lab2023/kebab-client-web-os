@@ -6,13 +6,5 @@ Ext.define('Kebab.desktop.model.User', {
         {name: 'name', type: 'string'},
         {name: 'email', type: 'string'},
         {name: 'locale', type: 'string'}
-    ],
-
-    hasMany: [{
-        model: 'Kebab.desktop.model.Application',
-        name: 'applications'
-    },{
-        model: 'Kebab.desktop.model.Privilege',
-        name: 'privileges'
-    }]
+    ]
 });

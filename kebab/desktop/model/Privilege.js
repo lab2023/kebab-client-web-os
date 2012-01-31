@@ -3,9 +3,6 @@ Ext.define('Kebab.desktop.model.Privilege', {
 
     fields: [
         {name: 'id', type: 'int'},
-        {name: 'user_id', type: 'int'},
         {name: 'sys_name', type: 'string'}
-    ],
-
-    belongsTo: 'Kebab.desktop.model.User'
+    ]
 });

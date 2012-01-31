@@ -10,7 +10,7 @@ Ext.define('Kebab.desktop.controller.Application', {
 
     config: {
         appManager: Ext.create('Ext.util.MixedCollection'),
-        appZIndexManager: Ext.create('Ext.ZIndexManager')
+        appZIndexManager: Ext.WindowManager
     },
 
     /**
@@ -29,9 +29,13 @@ Ext.define('Kebab.desktop.controller.Application', {
             },
             // Listener application viewports
             'component[appViewport]': {
-                close: me.closeApplication, // Exit
-                render: me.applicationViewportRender, // Ready
-                activate: me.applicationViewportActivate // Bring to front
+                close: me.closeApplication, // App viewport close and exit
+                render: me.applicationViewportRender, // App viewport Ready
+                activate: me.applicationViewportActivate, // Bring to front app viewport
+                minimize: me.applicationViewportMinimize, // Minimize app viewport
+                deactivate: function() {
+                    console.log('deactivated'); // TODO
+                }
             }
         });
 
@@ -43,13 +47,14 @@ Ext.define('Kebab.desktop.controller.Application', {
      * Launch  application
      * @param cp
      */
-    launchApplication: function(cp) {
+    launchApplication: function(cp, e) {
         var me = this,
             appId = cp.launcher.appId,
             appClassName = 'Apps.' + cp.launcher.appId,
-            appManager = me.getAppManager(),
-            appZIndexManager = me.getAppZIndexManager(),
-            activeApp = appManager.get(appId);
+            activeApp = me.getApplication(appId);
+
+        // dblclick can call again...
+        e.stopEvent();
 
         if(!activeApp) {
 
@@ -57,8 +62,9 @@ Ext.define('Kebab.desktop.controller.Application', {
 
             // Add launcher button to dock
             var launcher = me.getController('Dock').addLauncher({
-                text: 'Loading...',
+                tooltip: 'Loading...',
                 disabled: true,
+                iconCls: appId.toLowerCase() + '-launcher',
                 cls: 'x-over',
                 launcher: {
                     appId: appId
@@ -75,11 +81,7 @@ Ext.define('Kebab.desktop.controller.Application', {
                 });
 
                 // Add managers after launch
-                appManager.add(application);
-
-                application.on('launch', function() {
-                    console.log('launch event fired: ' + appId);
-                });
+                me.getAppManager().add(application);
             } catch (e) {
                 Kebab.helper.notify('Application not launched...', 'Error', true);
                 me.getController('Dock').removeLauncher(appId);
@@ -94,11 +96,27 @@ Ext.define('Kebab.desktop.controller.Application', {
 
     /**
      * Get application
-     * @param appName
+     * @param appId
      */
-    getApplication: function(appName) {
+    getApplication: function(appId) {
         var me = this;
-        return me.getAppManager().get(appName);
+        return me.getAppManager().get(appId);
+    },
+
+    /**
+     * Get application viewports
+     * @param appId
+     */
+    getApplicationViewports: function() {
+        var me = this,
+            appViewports = [];
+        me.getAppZIndexManager().each(function(viewport) {
+            if (viewport.appViewport) {
+                appViewports.push(viewport)
+            }
+        });
+
+        return appViewports;
     },
 
     /**
@@ -110,7 +128,6 @@ Ext.define('Kebab.desktop.controller.Application', {
             app = vp.application;
             me.getController('Dock').removeLauncher(app.id);
             me.getController('Menu').getInfo().items.getAt(1).hide();
-            me.getAppZIndexManager().unregister(vp);
             vp.destroy();
             me.getAppManager().remove(app);
             console.warn('App destroyed');
@@ -123,11 +140,10 @@ Ext.define('Kebab.desktop.controller.Application', {
     applicationViewportRender: function(vp) {
         var me = this,
             launcher = me.getController('Dock').getLauncher(vp.application.id);
-        me.getAppZIndexManager().register(vp);
 
         if (launcher) {
             launcher.enable();
-            launcher.setText(vp.title);
+            launcher.setTooltip(vp.title);
             launcher.getEl().highlight();
         }
 
@@ -142,7 +158,10 @@ Ext.define('Kebab.desktop.controller.Application', {
             });
         };
 
-        Kebab.helper.notify('Application launched...', vp.title);
+        // TODO animation bug
+        Ext.defer(function() {
+            Kebab.helper.notify('Application launched...', vp.title);
+        }, 200);
     },
 
     /**
@@ -152,15 +171,43 @@ Ext.define('Kebab.desktop.controller.Application', {
     applicationViewportActivate: function(vp) {
         var me = this;
         console.log('activated=' + vp.title);
-        me.getController('Dock').populateLaunchers(vp.application.id);
+        me.getController('Dock').activateLauncher(vp.application.id);
         me.getController('Menu').getInfo().items.getAt(1).show().setText(vp.title);
+    },
+
+    /**
+     * applicationViewportActivate
+     * @param vp
+     */
+    applicationViewportMinimize: function(vp) {
+        var me = this,
+            launcherId = me.getController('Dock').generateLauncherId(vp.application.id);
+        vp.animateTarget = launcherId;
+        vp.minimized = true;
+        vp.hide();
     },
 
     /**
      *
      */
-    hideAll: function() {
+    hideAllApplicationViewports: function() {
         var me = this;
-        me.getAppManager().hideAll();
-    }
+
+        Ext.each(me.getApplicationViewports(), function(viewport) {
+            me.applicationViewportMinimize(viewport);
+        });
+    },
+
+    cascadeApplicationViewports: function() {
+        var me = this,
+            x = 0, y = 0;
+
+        me.getAppZIndexManager().eachBottomUp(function(vp) {
+            if (vp.appViewport && vp.isWindow && vp.isVisible() && !vp.maximized) {
+                vp.setPosition(x, y);
+                x += 20;
+                y += 20;
+            }
+        });
+    },
 });
