@@ -29,6 +29,15 @@ Ext.define('Kebab.desktop.controller.Dock', {
     init: function() {
         var me = this;
 
+        me.control({
+            // Listener launcher components
+            'button[showDesktop]': {
+                click: function() {
+                    me.getController('Application').hideAllApplicationViewports();
+                }
+            },
+        });
+
         // Call parent
         me.callParent(arguments);
     },
@@ -39,14 +48,14 @@ Ext.define('Kebab.desktop.controller.Dock', {
      */
     addLauncher: function(data) {
         var me = this,
-            launcher = Ext.apply(data, {
-                id: me.generateId(data.launcher.appId)
+            launcherData = Ext.apply(data, {
+                id: me.generateLauncherId(data.launcher.appId)
             });
 
-        if (!me.getDock().items.get(launcher.id))
-            me.getDock().add(launcher);
+        if (!me.getDock().items.get(launcherData.id))
+            me.getDock().add(launcherData);
 
-        return me.getDock().items.get(launcher.id);
+        return me.getDock().items.get(launcherData.id);
     },
 
     /**
@@ -55,7 +64,7 @@ Ext.define('Kebab.desktop.controller.Dock', {
      */
     removeLauncher: function(appId) {
         var me = this,
-            launcher = me.getDock().items.get(me.generateId(appId));
+            launcher = me.getDock().items.get(me.generateLauncherId(appId));
 
         if (!launcher.pinned && launcher) {
             me.getDock().remove(launcher);
@@ -68,36 +77,24 @@ Ext.define('Kebab.desktop.controller.Dock', {
      *
      * @param appId
      */
-    populateLaunchers: function(appId) {
-        var me = this;
+    activateLauncher: function(appId) {
+        var me = this,
+            launcher = me.getLauncher(appId);
 
-        // Each launchers
         me.getLaunchers().each(function(launcher) {
-            if (launcher.id == me.generateId(appId)) {
-                me.activateLauncher(launcher);
-            } else {
+            if (!launcher.applicationsLauncher) {
                 me.deactivateLauncher(launcher);
             }
         });
+        launcher.addClsWithUI('dock-launcher-activated');
     },
 
     /**
      *
-     * @param appId
-     */
-    activateLauncher: function(launcher) {
-        launcher.addClsWithUI(launcher.overCls);
-        launcher.onMouseLeave = function(e) {
-            launcher.fireEvent('mouseout', launcher, e);
-        };
-    },
-
-    /**
-     *
-     * @param appId
+     * @param launcher
      */
     deactivateLauncher: function(launcher) {
-        launcher.removeClsWithUI(launcher.overCls);
+        launcher.removeClsWithUI('dock-launcher-activated');
     },
 
     /**
@@ -106,7 +103,7 @@ Ext.define('Kebab.desktop.controller.Dock', {
      */
     getLauncher: function(appId) {
         var me = this;
-        return me.getDock().items.get(me.generateId(appId));
+        return me.getDock().items.get(me.generateLauncherId(appId));
     },
 
     /**
@@ -128,10 +125,10 @@ Ext.define('Kebab.desktop.controller.Dock', {
     },
 
     /**
-     * generateId
+     * generateLauncherId
      * @param id
      */
-    generateId: function(id) {
+    generateLauncherId: function(id) {
         return id.toLowerCase() + '-launcher';
     }
 });
