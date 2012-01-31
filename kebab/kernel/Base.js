@@ -14,7 +14,21 @@ Ext.define('Kebab.kernel.Base', {
         'Ext.ux.window.Notification'
     ],
 
-    timeZones: [
+    constructor: function() {
+        var me = this;
+
+        me._initUtils();
+    },
+
+    _initUtils: function() {
+
+        // add ucFirst
+        String.prototype.ucFirst = function() {
+            return this.charAt(0).toUpperCase() + this.substr(1);
+        }
+    },
+
+    timeZonesData: [
         { value:"Casablanca",   name:"(GMT+00:00) Casablanca" },
         { value:"Dublin", name:"(GMT+00:00) Dublin" },
         { value:"Edinburgh", name:"(GMT+00:00) Edinburgh" },

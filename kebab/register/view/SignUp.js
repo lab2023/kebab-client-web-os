@@ -146,7 +146,7 @@ Ext.define('Kebab.register.view.SignUp', {
                 queryMode: 'local',
                 store: Ext.create('Ext.data.Store', {
                     fields: ['name', 'value'],
-                    data : Kebab.kernel.Base.timeZones
+                    data : Kebab.kernel.Base.timeZonesData
                 }),
                 listeners: {
                     beforerender: function(c) {
