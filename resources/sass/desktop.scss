@@ -6,3 +6,9 @@
 ----------------------------------------------------------------------------- */
 
 @import "compass";
+
+#desktop-dock {
+    div.x-dock-launcher-activated * {
+        border: 1px solid #ccc;
+    }
+}

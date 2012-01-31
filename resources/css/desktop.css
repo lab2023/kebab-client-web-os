@@ -4,3 +4,7 @@
  Copyright (c) 2011-2012 lab2023 - internet technologies TURKEY Inc.
  http://www.lab2023.com
 ----------------------------------------------------------------------------- */
+/* line 11, ../sass/desktop.scss */
+#desktop-dock div.x-dock-launcher-activated * {
+  border-bottom: 1px dashed #ccc;
+}
