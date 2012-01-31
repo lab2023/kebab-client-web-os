@@ -50,6 +50,7 @@ Ext.define('Kebab.Desktop', {
         'Menu',
         'Dock',
         'Application',
+        'Launchpad',
         'User'
     ],
 
@@ -68,7 +69,7 @@ Ext.define('Kebab.Desktop', {
         }
 
         // Load application resources
-        Kebab.helper.loadCSS('resources/css/desktop.css');
+        Kebab.helper.loadCSS(['resources/css/desktop.css']);
 
         // TODO: Set default wallpaper
         // Kebab.helper.loadWallpaper('');

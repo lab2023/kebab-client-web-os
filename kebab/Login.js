@@ -67,7 +67,7 @@ Ext.define('Kebab.Login', {
         var me = this;
 
         // Load application resources
-        Kebab.helper.loadCSS('resources/css/login.css');
+        Kebab.helper.loadCSS(['resources/css/login.css']);
 
         // TODO: Set default wallpaper
         // Kebab.helper.loadWallpaper('');

@@ -65,7 +65,7 @@ Ext.define('Kebab.Register', {
         }
 
         // Load application resources
-        Kebab.helper.loadCSS('resources/css/register.css');
+        Kebab.helper.loadCSS(['resources/css/register.css']);
 
         // Call parent constructor
         me.callParent(arguments);
