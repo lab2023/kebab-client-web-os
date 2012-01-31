@@ -22,7 +22,7 @@ Ext.define('Kebab.desktop.view.menu.Indicators', {
                 scale: 'small'
             },
             items: me.buildItems()
-        });
+        },null);
 
         me.callParent(arguments);
     },

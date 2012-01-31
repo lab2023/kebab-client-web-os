@@ -5,5 +5,5 @@
  * Kebab Login Application EN translations
  */
 Ext.define('Kebab.login.locale.EN', {
-    welcome: 'Welcome to Kebab Web OS',
+    welcome: 'Welcome to Kebab Web OS'
 });
