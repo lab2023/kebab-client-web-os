@@ -25,5 +25,13 @@ Ext.define('Kebab.desktop.view.Index', {
         }, null);
 
         me.callParent(arguments);
+    },
+
+    listeners: {
+        render: function(p) {
+            p.body.on('contextmenu', function(e) {
+                p.fireEvent('bodycontextmenu', e);
+            });
+        }
     }
 });
