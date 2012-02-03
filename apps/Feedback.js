@@ -52,7 +52,7 @@ Ext.define('Apps.Feedback', {
      * @type Array
      */
     controllers: [
-        'Test'
+        'Index'
     ],
 
     /**
@@ -60,7 +60,7 @@ Ext.define('Apps.Feedback', {
      * @type {Array}
      */
     requires: [
-        'Apps.feedback.view.Viewport',
+        'Apps.feedback.view.Viewport',  // TODO change load xhr to dom
         'Apps.feedback.locale.I18n'
     ],
 
@@ -73,9 +73,6 @@ Ext.define('Apps.Feedback', {
         me.initConfig(config);
 
         // Load application resources if single mode
-        if (me.getRunningMode() == 'single') {
-            Kebab.helper.loadCSS([me.appFolder + '/resources/css/base.css']);
-        }
         Kebab.helper.loadCSS([me.appFolder + '/resources/css/style.css']);
 
         // Call parent constructor
@@ -96,14 +93,27 @@ Ext.define('Apps.Feedback', {
         });
 
         if (me.getRunningMode() == 'single') {
-            Ext.create('Ext.button.Button', {
+            Ext.create('Kebab.Launcher', {
+                style: 'cursor: pointer;',
                 renderTo: Ext.getBody(),
                 margin: 10,
-                scale: 'large',
-                text: 'Launcher',
-                handler: function(btn) {
-                    me.getViewport().animateTarget = btn.id;
-                    me.getViewport().show();
+                size: 96,
+                tooltip: Apps.feedback.I18n.t('appTitle'),
+                launcher: {
+                    appId: 'Feedback'
+                },
+                listeners: {
+                    render: function(cp) {
+                        var vp = me.getViewport();
+                        vp.animateTarget = cp.id;
+                        vp.doClose = function ()  {
+                            vp.hide();
+                        };
+                        cp.getEl().on('click', function() {
+                            var vp = me.getViewport();
+                            vp.show();
+                        });
+                    }
                 }
             });
         }

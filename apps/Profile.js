@@ -60,7 +60,7 @@ Ext.define('Apps.Profile', {
      * @type {Array}
      */
     requires: [
-        'Apps.profile.view.Viewport',
+        'Apps.profile.view.Viewport', // TODO change load xhr to dom
         'Apps.profile.locale.I18n'
     ],
 
@@ -73,9 +73,6 @@ Ext.define('Apps.Profile', {
         me.initConfig(config);
 
         // Load application resources if single mode
-        if (me.getRunningMode() == 'single') {
-            Kebab.helper.loadCSS([me.appFolder + '/resources/css/base.css']);
-        }
         Kebab.helper.loadCSS([me.appFolder + '/resources/css/style.css']);
 
         // Call parent constructor
@@ -97,14 +94,27 @@ Ext.define('Apps.Profile', {
         });
 
         if (me.getRunningMode() == 'single') {
-            Ext.create('Ext.button.Button', {
+            Ext.create('Kebab.Launcher', {
+                style: 'cursor: pointer;',
                 renderTo: Ext.getBody(),
                 margin: 10,
-                scale: 'large',
-                text: 'Launcher',
-                handler: function(btn) {
-                    me.getViewport().animateTarget = btn.id;
-                    me.getViewport().show();
+                size: 96,
+                tooltip: Apps.profile.I18n.t('appTitle'),
+                launcher: {
+                    appId: 'Profile'
+                },
+                listeners: {
+                    render: function(cp) {
+                        var vp = me.getViewport();
+                        vp.animateTarget = cp.id;
+                        vp.doClose = function ()  {
+                            vp.hide();
+                        };
+                        cp.getEl().on('click', function() {
+                            var vp = me.getViewport();
+                            vp.show();
+                        });
+                    }
                 }
             });
         }
