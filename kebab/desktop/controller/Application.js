@@ -8,6 +8,10 @@
 Ext.define('Kebab.desktop.controller.Application', {
     extend: 'Ext.app.Controller',
 
+    requires: [
+        'Ext.util.MixedCollection',
+    ],
+
     config: {
         appManager: Ext.create('Ext.util.MixedCollection'),
         appZIndexManager: Ext.WindowManager
@@ -27,15 +31,18 @@ Ext.define('Kebab.desktop.controller.Application', {
             'component[launcher]': {
                 click: me.launchApplication
             },
+            'component[action="showDesktop"]': {
+                click: me.hideAllApplicationViewports
+            },
+            'component[action="cascadeApps"]': {
+                click: me.cascadeApplicationViewports
+            },
             // Listener application viewports
             'component[appViewport]': {
                 close: me.closeApplication, // App viewport close and exit
                 render: me.applicationViewportRender, // App viewport Ready
                 activate: me.applicationViewportActivate, // Bring to front app viewport
-                minimize: me.applicationViewportMinimize, // Minimize app viewport
-                deactivate: function() {
-                    console.log('deactivated'); // TODO
-                }
+                minimize: me.applicationViewportMinimize // Minimize app viewport
             }
         });
 
@@ -56,42 +63,49 @@ Ext.define('Kebab.desktop.controller.Application', {
         // dblclick can call again...
         e.stopEvent();
 
-        if(!activeApp) {
+        if (!cp.isDisabled()) { // dblclick can call again...
 
-            console.warn('NEW');
+            if(!activeApp) {
 
-            // Add launcher button to dock
-            var launcher = me.getController('Dock').addLauncher({
-                tooltip: 'Loading...',
-                disabled: true,
-                iconCls: appId.toLowerCase() + '-launcher',
-                cls: 'x-over',
-                launcher: {
-                    appId: appId
-                }
-            });
+                cp.disable();
 
-            try {
-                // Create and auto launch application
-                var application = Ext.create(appClassName, {
-                    params: cp.launcher.params,
-                    runningMode: 'multi',
-                    animateTarget: cp.id,
-                    constrainTo:'desktop-index-body'
+                // Add launcher button to dock
+                var launcher = me.getController('Dock').addLauncher({
+                    tooltip: 'Loading...',
+                    xtype: 'kebab_launcher',
+                    launcher: {
+                        appId: appId
+                    }
                 });
 
-                // Add managers after launch
-                me.getAppManager().add(application);
-            } catch (e) {
-                Kebab.helper.notify('Application not launched...', 'Error', true);
-                me.getController('Dock').removeLauncher(appId);
+                try {
+                    // Create and auto launch application
+                    var application = Ext.create(appClassName, {
+                        params: cp.launcher.params,
+                        runningMode: 'multi',
+                        animateTarget: cp.getEl(),
+                        constrainTo:'desktop-index-body'
+                    });
+
+                    // Add managers after launch
+                    me.getAppManager().add(application);
+
+                    Ext.defer(function(){
+                        cp.enable()
+                    }, 200);
+
+                } catch (e) {
+                    Kebab.helper.notify('Application not launched...', 'Error', true);
+                    me.getController('Dock').removeLauncher(appId);
+                }
+
+            } else {
+                activeApp.getViewport().show();
+                if (cp.isDisabled()) {
+                    cp.enable();
+                }
             }
-
-        } else {
-            console.warn('SHOW: ' + activeApp.getViewport().title);
-            activeApp.getViewport().show();
         }
-
     },
 
     /**
@@ -105,7 +119,6 @@ Ext.define('Kebab.desktop.controller.Application', {
 
     /**
      * Get application viewports
-     * @param appId
      */
     getApplicationViewports: function() {
         var me = this,
@@ -127,10 +140,9 @@ Ext.define('Kebab.desktop.controller.Application', {
         var me = this,
             app = vp.application;
             me.getController('Dock').removeLauncher(app.id);
-            me.getController('Menu').getInfo().items.getAt(1).hide();
+            me.getController('Menu').getInfo().items.getAt(1).hide(); // TODO move menu controller
             vp.destroy();
             me.getAppManager().remove(app);
-            console.warn('App destroyed');
     },
 
     /**
@@ -142,9 +154,12 @@ Ext.define('Kebab.desktop.controller.Application', {
             launcher = me.getController('Dock').getLauncher(vp.application.id);
 
         if (launcher) {
-            launcher.enable();
-            launcher.setTooltip(vp.title);
-            launcher.getEl().highlight();
+            launcher.setTooltip(Kebab.helper.i18n(vp.application.id, 'app').t('appTitle')); // Set tooltip
+            launcher.getEl().frame(); // Blink
+            launcher.addCls('shakeIt'); // Shake it baby!
+            Ext.defer(function() {
+                launcher.removeCls('shakeIt'); // Stop shake fx
+            },1200);
         }
 
         // replace normal window close fadeOut animation:
@@ -158,10 +173,10 @@ Ext.define('Kebab.desktop.controller.Application', {
             });
         };
 
-        // TODO animation bug
-        Ext.defer(function() {
-            Kebab.helper.notify('Application launched...', vp.title);
-        }, 200);
+        vp.onEsc = function ()  {
+            vp.onEsc = Ext.emptyFn; // dblclick can call again...
+            vp.fireEvent('minimize', vp);
+        };
     },
 
     /**
@@ -170,8 +185,10 @@ Ext.define('Kebab.desktop.controller.Application', {
      */
     applicationViewportActivate: function(vp) {
         var me = this;
-        console.log('activated=' + vp.title);
+
         me.getController('Dock').activateLauncher(vp.application.id);
+
+        // TODO move menu controller
         me.getController('Menu').getInfo().items.getAt(1).show().setText(vp.title);
     },
 
@@ -180,15 +197,15 @@ Ext.define('Kebab.desktop.controller.Application', {
      * @param vp
      */
     applicationViewportMinimize: function(vp) {
-        var me = this,
-            launcherId = me.getController('Dock').generateLauncherId(vp.application.id);
-        vp.animateTarget = launcherId;
+        var me = this;
+        vp.animateTarget = me.getController('Dock').generateLauncherId(vp.application.id);
         vp.minimized = true;
         vp.hide();
     },
 
     /**
      *
+     * // TODO convert hideAll and change method name showDesktop and move Index controller
      */
     hideAllApplicationViewports: function() {
         var me = this;
@@ -200,7 +217,8 @@ Ext.define('Kebab.desktop.controller.Application', {
 
     cascadeApplicationViewports: function() {
         var me = this,
-            x = 0, y = 0;
+            x = Ext.fly('desktop-index-body').getX() + 5,
+            y = Ext.fly('desktop-index-body').getY() + 5;
 
         me.getAppZIndexManager().eachBottomUp(function(vp) {
             if (vp.appViewport && vp.isWindow && vp.isVisible() && !vp.maximized) {
@@ -209,5 +227,5 @@ Ext.define('Kebab.desktop.controller.Application', {
                 y += 20;
             }
         });
-    },
+    }
 });
