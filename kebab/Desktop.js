@@ -29,6 +29,7 @@ Ext.define('Kebab.Desktop', {
      * @type {Array}
      */
     requires: [
+        'Kebab.desktop.config.Config',
         'Kebab.desktop.locale.I18n'
     ],
 
