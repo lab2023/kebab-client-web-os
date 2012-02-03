@@ -118,7 +118,7 @@
 
                 if (!me.bootStatus) {
 
-                    console.log(application + ' was booting...');
+                    console.log(application + ' being booting...');
 
                     // Setup system config
                     me.setConfig(config || me.config);
@@ -181,7 +181,7 @@
                 url ? me.helper.redirect(url) : window.location.reload();
             },
 
-            reload: function(url) {
+            reload: function() {
                 window.location.reload();
             },
 
