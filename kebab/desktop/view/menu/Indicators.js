@@ -11,6 +11,10 @@ Ext.define('Kebab.desktop.view.menu.Indicators', {
 
     id: 'desktop-menu-indicators',
 
+    requires: [
+        'Ext.picker.Date'
+    ],
+
     /**
      * Component initializer
      */
@@ -35,19 +39,28 @@ Ext.define('Kebab.desktop.view.menu.Indicators', {
         return ['->',{
             text: Kebab.helper.config('locale').default_locale.toUpperCase()
         },{
-            text: Ext.Date.format(new Date(), 'F j, Y, H:i')
+            text: Ext.Date.format(new Date(), 'F j, Y, H:i'),
+            menu: [Ext.create('Ext.panel.Panel', {
+                frame: true,
+                items: [{
+                    xtype: 'datepicker'
+                }]
+            })]
         },{
-            text: '(-) ' + Kebab.helper.config('user').name,
+            iconCls: 'icon-kernel-user',
+            tooltip: Kebab.helper.config('user').name,
             launcher: {
                 appId: 'Profile'
             }
         },{
-            text: '(@) Feedback',
+            iconCls: 'icon-kernel-bug',
+            tooltip: Kebab.desktop.I18n.t('sendFeedback'),
             launcher: {
                 appId: 'Feedback'
             }
         },{
-            text: '(*) Exit',
+            iconCls: 'icon-kernel-power',
+            tooltip: Kebab.desktop.I18n.t('shutdown'),
             handler: function() {
                 Ext.Ajax.request({ // TODO move controller
                     url: Kebab.helper.url('sessions'),
