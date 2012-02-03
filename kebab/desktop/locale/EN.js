@@ -6,5 +6,13 @@
  */
 Ext.define('Kebab.desktop.locale.EN', {
     hello: 'Hi, {0}',
-    welcome: 'Welcome to Kebab Web OS'
+    welcome: 'Welcome to Kebab Web OS',
+
+    sendFeedback: 'Send feedback',
+    shutdown: 'Shutdown and exit',
+
+    // Departments
+    departments: 'Application Departments',
+    system: 'System',
+    customization: 'Customization'
 });

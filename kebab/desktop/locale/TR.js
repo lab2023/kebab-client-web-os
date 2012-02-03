@@ -6,5 +6,13 @@
  */
 Ext.define('Kebab.desktop.locale.TR', {
     hello: 'Merhaba, {0}',
-    welcome: 'Kebab Web OS\' a hoşgeldiniz'
+    welcome: 'Kebab Web OS\' a hoşgeldiniz',
+
+    sendFeedback: 'Geri bildirim gönderin',
+    shutdown: 'Kapatın ve çıkın',
+
+    // Departments
+    departments: 'Uygulama Türleri',
+    system: 'System',
+    customization: 'Özelleştirme',
 });
