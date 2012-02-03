@@ -2,7 +2,7 @@
 root = File.dirname(__FILE__)
 
 # environment: Environment
-environment = :development
+environment = :production
 
 # Require any additional compass plugins here.
 
