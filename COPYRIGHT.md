@@ -16,7 +16,11 @@ Kebab Project 2.x (Kebab Revolution) - Web OS Client Platform for Ext JS 4.x
     http://pivotal.github.com/jasmine/
 
 - Notification / Toastwindow extension for Ext JS 4.x
-   Copyright (c) 2011 Eirik Lorentsen
-   http://www.eirik.net/
+    Copyright (c) 2011 Eirik Lorentsen
+    http://www.eirik.net/
 
 # Credits of Wallpaper pictures, images, icons etc.
+
+- FatCow - Farm-Fresh Web Icons
+    Copyright (c) Copyright 2012 FatCow Web Hosting
+    http://www.fatcow.com/free-icons
