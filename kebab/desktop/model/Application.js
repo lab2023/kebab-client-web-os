@@ -4,6 +4,9 @@ Ext.define('Kebab.desktop.model.Application', {
     fields: [
         {name: 'id', type: 'int'},
         {name: 'sys_name', type: 'string'},
-        {name: 'sys_department', type: 'string'}
+        {name: 'sys_department', type: 'string'},
+        {name: 'appTitle', type: 'string'},
+        {name: 'appDepartment', type: 'string'},
+        {name: 'keepDock', type: 'boolean'}
     ]
 });
