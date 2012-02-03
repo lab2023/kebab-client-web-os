@@ -71,8 +71,8 @@ Ext.define('Kebab.desktop.controller.Application', {
 
                 // Add launcher button to dock
                 var launcher = me.getController('Dock').addLauncher({
-                    tooltip: 'Loading...',
                     xtype: 'kebab_launcher',
+                    tooltip: 'Loading...',
                     launcher: {
                         appId: appId
                     }
@@ -90,9 +90,10 @@ Ext.define('Kebab.desktop.controller.Application', {
                     // Add managers after launch
                     me.getAppManager().add(application);
 
+                    // Enable launcher component
                     Ext.defer(function(){
                         cp.enable()
-                    }, 200);
+                    }, 150);
 
                 } catch (e) {
                     Kebab.helper.notify('Application not launched...', 'Error', true);
