@@ -16,6 +16,7 @@ Ext.define('Kebab.desktop.view.Index', {
 
         Ext.apply(me, {
             border: false,
+            //style: 'opacity: 0;',  // TODO think ?
             bodyStyle: 'background: transparent !important; border:0 !important; padding-top: 4px;', // TODO move css
             dockedItems: [{
                 xtype: 'desktop_menu'
@@ -29,6 +30,7 @@ Ext.define('Kebab.desktop.view.Index', {
 
     listeners: {
         render: function(p) {
+            //p.getEl().fadeIn(); // TODO think ?
             p.body.on('contextmenu', function(e) {
                 p.fireEvent('bodycontextmenu', e);
             });
