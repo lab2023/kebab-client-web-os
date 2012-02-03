@@ -56,10 +56,14 @@ Ext.define('Kebab.desktop.controller.Launchpad', {
 
     loadDepartments: function() {
         var me = this,
-            appsStore = me.getController('User').getApplicationsStore();
+            appsStore = me.getController('User').getApplicationsStore(),
+            departments = [];
 
-        appsStore.each(function(record) {
-            me.getDepartmentsView().getStore().add(record.data);
+        Ext.each(appsStore.collect('sys_department'), function(department) {
+            var record = appsStore.findRecord('sys_department', department);
+            if (record) {
+                me.getDepartmentsView().getStore().add(record.data);
+            }
         });
     },
 
