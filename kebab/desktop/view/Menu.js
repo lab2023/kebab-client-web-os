@@ -12,13 +12,20 @@ Ext.define('Kebab.desktop.view.Menu', {
     id: 'desktop-menu',
 
     /**
+     * Required classes
+     */
+    requires: [
+        'Ext.toolbar.TextItem'
+    ],
+
+    /**
      * Component initializer
      */
     initComponent: function() {
         var me = this;
         
         Ext.apply(me, {
-            dock: 'top',
+            dock: Kebab.desktop.Config.getMenu().position,
             border: false,
             bodyStyle: 'border-bottom:1px solid #D0D0D0 !important;', // TODO move css
             height: 32,
