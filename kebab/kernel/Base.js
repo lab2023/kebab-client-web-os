@@ -11,6 +11,7 @@ Ext.define('Kebab.kernel.Base', {
 
     requires: [
         'Kebab.kernel.EventBusManager',
+        'Kebab.kernel.component.Launcher',
         'Ext.ux.window.Notification'
     ],
 
