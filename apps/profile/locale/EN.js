@@ -5,5 +5,6 @@
  * Profile Application EN translations
  */
 Ext.define('Apps.profile.locale.EN', {
-    appTitle: 'Profile'
+    appTitle: 'Profile',
+    appDepartment: 'Accessories'
 });

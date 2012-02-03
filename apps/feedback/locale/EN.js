@@ -5,5 +5,6 @@
  * Feedback Application EN translations
  */
 Ext.define('Apps.feedback.locale.EN', {
-    appTitle: 'Feedback'
+    appTitle: 'Feedback',
+    appDepartment: 'System'
 });

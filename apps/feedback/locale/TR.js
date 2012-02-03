@@ -5,5 +5,6 @@
  * Feedback Application TR translations
  */
 Ext.define('Apps.feedback.locale.TR', {
-    appTitle: 'Geri Bildirim'
+    appTitle: 'Geri Bildirim',
+    appDepartment: 'Sistem'
 });

@@ -16,14 +16,18 @@ Ext.define('Apps.feedback.view.Viewport', {
         var me = this;
 
         Ext.apply(me, {
-            iconCls: 'feedback-viewport',
             title: Apps.feedback.I18n.t('appTitle'),
-            width: 500,
-            height: 400,
+            width: 400,
+            height: 300,
+            border: false,
             constrain: true,
             maximizable: true,
             minimizable: true,
-            autoShow: true
+            autoShow: true,
+            layout: 'fit',
+            items: [{
+                xtype: 'feedback_form'
+            }]
         }, null);
 
         me.callParent(arguments);

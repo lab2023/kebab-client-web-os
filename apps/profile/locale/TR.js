@@ -5,5 +5,6 @@
  * Profile Application TR translations
  */
 Ext.define('Apps.profile.locale.TR', {
-    appTitle: 'Profil'
+    appTitle: 'Profil',
+    appDepartment: 'Aksesuarlar'
 });

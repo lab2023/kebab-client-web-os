@@ -16,7 +16,6 @@ Ext.define('Apps.profile.view.Viewport', {
         var me = this;
 
         Ext.apply(me, {
-            iconCls: 'profile-viewport',
             title: Apps.profile.I18n.t('appTitle'),
             width: 400,
             height: 300,
@@ -24,18 +23,21 @@ Ext.define('Apps.profile.view.Viewport', {
             maximizable: true,
             minimizable: true,
             autoShow: true,
+            autoScroll: true,
             tools: [{
                 type:'help',
                 tooltip: 'Open feedback application',
                 text: 'Feedback',
                 launcher: {
-                    appId: 'Feedback',
-                    params: {
-                        hello: 'test'
-                    }
+                    appId: 'Feedback'
                 }
             }],
-            fbar: [{text: 'a'}]
+            fbar: [{
+                text: 'Open Feedback',
+                launcher: {
+                    appId: 'Feedback'
+                }
+            }]
         }, null);
 
         me.callParent(arguments);
