@@ -4,6 +4,8 @@
  * Thanks for great contributing.
  * "theluk" sencha user was made by the original design of this class.
  *
+ * // TODO not working ext.js core version
+ *
  * See details:
  * http://www.sencha.com/forum/showthread.php?139122-EventBus-causing-Problems-when-using-multiple-Application-Classes
  *
@@ -42,7 +44,7 @@ Ext.define('Kebab.kernel.EventBusManager', {
                 var busManager = me.getBusManager();
 
                 if (Ext.util.Observable.prototype.fireEvent.apply(this, arguments) !== false) {
-                    var goOn = true;
+                   var goOn = true;
 
                     for (var i = 0; i < busManager.getCount(); i++) {
                         var eventBus = busManager.getAt(i);
