@@ -36,36 +36,11 @@ Ext.define('Kebab.desktop.controller.Dock', {
                     // TODO solve fast double click errors (event is suspended!)
                     me.getController('Launchpad').openLaunchpad(cp, e);
                 }
-            },
-            'desktop_dock': {
-                render: me.loadUserLaunchers
             }
         });
 
         // Call parent
         me.callParent(arguments);
-    },
-
-    /**
-     * Load user defined launchers
-     */
-    loadUserLaunchers: function() {
-        var me = this;
-        Ext.onReady(function() { // solve this and use filter
-            me.getController('User').getApplicationsStore().each(function(application) {
-                var appId = application.get('sys_name').ucFirst();
-                if (application.get('keepDock')) { // TODO Remove user preferences data
-                    me.getController('Dock').addLauncher({
-                        xtype: 'kebab_launcher',
-                        keepDock: true,
-                        tooltip: Kebab.helper.i18n(appId, 'app').t('appTitle'),
-                        launcher: {
-                            appId: appId
-                        }
-                    });
-                }
-            });
-        });
     },
 
     /**

@@ -97,6 +97,9 @@ Ext.define('Kebab.desktop.controller.Application', {
                 } catch (e) {
                     Kebab.helper.notify('Application not launched...', 'Error', true);
                     me.getController('Dock').removeLauncher(appId);
+                    if (cp.isDisabled()) {
+                        cp.enable();
+                    }
                 }
 
             } else {
