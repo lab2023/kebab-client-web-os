@@ -22,7 +22,8 @@
     var global = this,
         extJs = {
             version: "4.1.0-beta-2",
-            path: "ext-4.1.0-beta-2"
+            path: "ext-4.1.0-beta-2",
+            theme: "ext-all-gray"
         };
 
     // Kebab is not defined!
@@ -137,8 +138,13 @@
                         }
                     });
 
-                    // Load core resources
-                    me.helper.loadCSS('resources/css/kernel.css');
+                    // Load core css resources
+                    var cssFiles = [
+                        'vendors/' + extJs.path + '/resources/css/' +extJs.theme+ '.css',
+                        'vendors/fatcow-icons/fatcow-icons.css',
+                        'resources/css/kernel.css'
+                    ];
+                    me.helper.loadCSS(cssFiles);
 
                     // Load Ext JS focale file
                     me.helper.loadJS(Ext.util.Format.format(
@@ -303,19 +309,32 @@
                     return Kebab.getConfig(key);
                 },
 
+                i18n: function(name, type) {
+                    var i18nClass;
+
+                    if (type == 'app') {
+                        i18nClass = 'Apps.' + name.toLowerCase() + '.locale.I18n';
+                        return eval(i18nClass);
+                    } else {
+                        i18nClass = 'Kebab.' + name.toLowerCase() + '.locale.I18n';
+                        return eval(i18nClass);
+                    }
+                },
+
                 /**
                  * Notification helper
                  *
                  * @param {String} msg
                  * @param {String} title
                  */
-                notify: function(msg, title, keep) {
+                notify: function(msg, title, keep, appId) {
 
                     var win = Ext.create('Ext.ux.window.Notification', {
                         corner: 'tr',
                         paddingX: 15,
                         paddingY: 50,
                         width: 200,
+                        autoHeight: true,
                         slideInDelay: 800,
                         slideDownDelay: 1500,
                         autoDestroyDelay: 4000,
@@ -327,8 +346,35 @@
                         autoShow: true,
                         closable: false,
                         title: title || 'Notification',
-                        html: msg || 'Lorem ipsum dolor sit amet'
+                        items: [{
+                            border: false,
+                            bodyStyle: 'background: transparent !important;',
+                            html: msg || 'Lorem ipsum dolor sit amet'
+                        }],
+                        buttonAlign: 'center',
                     });
+
+                    if (appId) {
+                        Ext.apply(win, {
+                            autoDestroy:false
+                        });
+                        win.add({
+                            xtype: 'button',
+                            width: 100,
+                            style: 'margin-top: 5px;',
+                            text: 'Click to open',
+                            launcher: {
+                                appId: appId
+                            },
+                            listeners: {
+                                render: function(btn) {
+                                    btn.getEl().on('click', function() {
+                                        win.close();
+                                    });
+                                }
+                            }
+                        });
+                    }
                     win.getEl().on('click', function() {
                         win.close();
                     });
