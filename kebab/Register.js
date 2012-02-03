@@ -29,9 +29,8 @@ Ext.define('Kebab.Register', {
      * @type {Array}
      */
     requires: [
-        'Kebab.register.locale.EN',
-        'Kebab.register.locale.TR',
-        'Kebab.register.locale.RU'
+        'Kebab.register.config.Config',
+        'Kebab.register.locale.I18n'
     ],
 
     /**

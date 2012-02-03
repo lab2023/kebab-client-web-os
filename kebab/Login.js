@@ -38,6 +38,7 @@ Ext.define('Kebab.Login', {
     * @type {Array}
     */
     requires: [
+        'Kebab.login.config.Config',
         'Kebab.login.locale.I18n'
     ],
 
