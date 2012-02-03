@@ -13,8 +13,9 @@ Ext.define('Kebab.desktop.controller.Index', {
     ],
 
     config: {
-        desktopContextMenu: null
+        desktopContextMenu: Ext.create('Ext.menu.Menu')
     },
+
     /**
      * Controller view widgets
      */
@@ -49,36 +50,29 @@ Ext.define('Kebab.desktop.controller.Index', {
     },
 
     buildDesktopMenu: function() {
-        var me = this,
-            menuItems = {
-                items: []
-            };
+        var me = this;
 
-        if (menuItems.items.length) {
-            menuItems.items.push('-');
-        }
+        me.getDesktopContextMenu().add(me.getDesktopMenu());
+    },
 
-        menuItems.items.push({
+    getDesktopMenu: function() {
+        var me = this;
+
+        return [{
+            iconCls: 'icon-application_cascade',
             text: 'Cascade Apps',
-            handler: function() {
-                me.getController('Application').cascadeApplicationViewports();
-            }
+            action: 'cascadeApps'
         },{
+            iconCls: 'icon-application_put',
             text: 'Minimize Apps',
-            handler: function() {
-                me.getController('Application').hideAllApplicationViewports();
-            }
-        });
-
-        me.setDesktopContextMenu(Ext.create('Ext.menu.Menu', menuItems));
+            action: 'showDesktop'
+        }];
     },
 
     showDesktopMenu: function (e) {
         var me = this, menu =
             me.getDesktopContextMenu();
-
         e.stopEvent();
         menu.showAt(e.getXY());
-        menu.doConstrain();
     }
 });
