@@ -57,7 +57,7 @@
     }
 
     div.launchers:hover {
-        @include border-radius(5px);
+        @include border-radius(10px);
         @include background-image(linear-gradient(rgba(255,255,255, .5), rgba(255,255,255, .9)));
         @include box-shadow(rgba(gray, .6) 0 0 25px, rgba(silver, .4) 0 0 3px 1px inset);
     }
