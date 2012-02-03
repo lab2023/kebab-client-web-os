@@ -31,15 +31,41 @@ Ext.define('Kebab.desktop.controller.Dock', {
 
         me.control({
             // Listener launcher components
-            'button[showDesktop]': {
-                click: function() {
-                    me.getController('Application').hideAllApplicationViewports();
+            'component[action="showLaunchpad"]': {
+                click: function(cp, e) {
+                    // TODO solve fast double click errors (event is suspended!)
+                    me.getController('Launchpad').openLaunchpad(cp, e);
                 }
             },
+            'desktop_dock': {
+                render: me.loadUserLaunchers
+            }
         });
 
         // Call parent
         me.callParent(arguments);
+    },
+
+    /**
+     * Load user defined launchers
+     */
+    loadUserLaunchers: function() {
+        var me = this;
+        Ext.onReady(function() { // solve this and use filter
+            me.getController('User').getApplicationsStore().each(function(application) {
+                var appId = application.get('sys_name').ucFirst();
+                if (application.get('keepDock')) { // TODO Remove user preferences data
+                    me.getController('Dock').addLauncher({
+                        xtype: 'kebab_launcher',
+                        keepDock: true,
+                        tooltip: Kebab.helper.i18n(appId, 'app').t('appTitle'),
+                        launcher: {
+                            appId: appId
+                        }
+                    });
+                }
+            });
+        });
     },
 
     /**
@@ -52,8 +78,9 @@ Ext.define('Kebab.desktop.controller.Dock', {
                 id: me.generateLauncherId(data.launcher.appId)
             });
 
-        if (!me.getDock().items.get(launcherData.id))
+        if (!me.getDock().items.get(launcherData.id)) {
             me.getDock().add(launcherData);
+        }
 
         return me.getDock().items.get(launcherData.id);
     },
@@ -64,12 +91,17 @@ Ext.define('Kebab.desktop.controller.Dock', {
      */
     removeLauncher: function(appId) {
         var me = this,
-            launcher = me.getDock().items.get(me.generateLauncherId(appId));
+            launcherCp = me.getDock().items.get(me.generateLauncherId(appId));
 
-        if (!launcher.pinned && launcher) {
-            me.getDock().remove(launcher);
+        if (!launcherCp.keepDock && launcherCp) {
+            launcherCp.getEl().fadeOut({
+                duration: 200,
+                callback: function() {
+                    me.getDock().remove(launcherCp);
+                }
+            });
         } else {
-            me.deactivateLauncher(launcher);
+            me.deactivateLauncher(launcherCp);
         }
     },
 
@@ -79,22 +111,22 @@ Ext.define('Kebab.desktop.controller.Dock', {
      */
     activateLauncher: function(appId) {
         var me = this,
-            launcher = me.getLauncher(appId);
+            launcherCp = me.getLauncher(appId);
 
         me.getLaunchers().each(function(launcher) {
             if (!launcher.applicationsLauncher) {
                 me.deactivateLauncher(launcher);
             }
         });
-        launcher.addClsWithUI('dock-launcher-activated');
+        launcherCp.addClsWithUI('active');
     },
 
     /**
      *
      * @param launcher
      */
-    deactivateLauncher: function(launcher) {
-        launcher.removeClsWithUI('dock-launcher-activated');
+    deactivateLauncher: function(launcherCp) {
+        launcherCp.removeClsWithUI('active');
     },
 
     /**

@@ -25,11 +25,11 @@ Ext.define('Kebab.desktop.view.Dock', {
         var me = this;
         
         Ext.apply(me, {
-            style: 'border-radius: 10px !important; margin: 0 100px 5px;' +
-                'padding: 5px; border:1px solid #ccc !important;', // TODO move css
-            dock: 'bottom',
+            /*style: 'opacity: 0; border-radius: 10px !important; margin: 0 100px 5px;' +
+                    'padding: 5px; border:1px solid #ccc !important;', // TODO move css*/
+            dock: Kebab.desktop.Config.getDock().position,
             defaults: {
-                scale: 'large',
+                size: Kebab.desktop.Config.getDock().launchers.size,
                 reorderable: true
             },
             plugins: Ext.create('Ext.ux.BoxReorderer'),
@@ -39,43 +39,34 @@ Ext.define('Kebab.desktop.view.Dock', {
         me.callParent(arguments);
     },
 
+    listeners: {
+        render: function(tb) {
+            tb.getEl().fadeIn({
+                duration: 800
+            });
+        }
+    },
+
     /**
      * Build the dock items
      */
     buildItems: function() {
 
         return [{
-            applicationsLauncher: true,
-            reorderable: false,
+            xtype: 'kebab_launcher',
             tooltip: 'Show launchpad',
-            text: 'Apps',
-            menu: [{
-                text: 'Profile',
-                iconCls: 'profile-viewport',
-                launcher: {
-                    appId: 'Profile'
-                }
-
-            },{
-                text: 'Feedback',
-                iconCls: 'feedback-viewport',
-                launcher: {
-                    appId: 'Feedback'
-                }
-            }]
+            action: 'showLaunchpad',
+            img: 'kebab',
+            reorderable: false
         },{
-            text: '|',
+            xtype: 'kebab_launcher',
+            tooltip: 'Show desktop',
             reorderable: false,
-            showDesktop: true,
-            tooltip: 'Minimize all applications'
+            action: 'showDesktop',
+            img: 'desktop'
         },{
-            id: 'feedback-launcher',
-            pinned: true,
-            iconCls: 'feedback-launcher',
-            tooltip: 'Feedback',
-            launcher: {
-                appId: 'Feedback'
-            }
+            xtype: 'tbseparator',
+            reorderable: false
         }];
 
     }
