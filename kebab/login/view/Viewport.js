@@ -75,17 +75,17 @@ Ext.define('Kebab.login.view.Viewport', {
             tooltip: 'Select your language',
             menu: [{
                 text: 'English',
-                short: 'en',
+                shortName: 'en',
                 checked: true,
                 group: 'language'
             },{
                 text: 'Turkish',
-                short: 'Tr',
+                shortName: 'Tr',
                 checked: false,
                 group: 'language'
             },{
                 text: 'Russian',
-                short: 'Ru',
+                shortName: 'Ru',
                 checked: false,
                 group: 'language'
             }]
