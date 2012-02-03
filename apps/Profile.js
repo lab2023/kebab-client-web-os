@@ -60,8 +60,9 @@ Ext.define('Apps.Profile', {
      * @type {Array}
      */
     requires: [
-        'Apps.profile.view.Viewport', // TODO change load xhr to dom
-        'Apps.profile.locale.I18n'
+        'Apps.profile.config.Config',
+        'Apps.profile.locale.I18n',
+        'Apps.profile.view.Viewport',  // TODO change load xhr to dom
     ],
 
     /**

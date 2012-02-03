@@ -17,8 +17,8 @@ Ext.define('Apps.feedback.view.Viewport', {
 
         Ext.apply(me, {
             title: Apps.feedback.I18n.t('appTitle'),
-            width: 400,
-            height: 300,
+            width: Apps.feedback.Config.getViewport().width,
+            height: Apps.feedback.Config.getViewport().height,
             border: false,
             constrain: true,
             maximizable: true,

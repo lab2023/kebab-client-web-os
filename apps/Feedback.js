@@ -60,8 +60,9 @@ Ext.define('Apps.Feedback', {
      * @type {Array}
      */
     requires: [
+        'Apps.feedback.config.Config',
+        'Apps.feedback.locale.I18n',
         'Apps.feedback.view.Viewport',  // TODO change load xhr to dom
-        'Apps.feedback.locale.I18n'
     ],
 
     /**

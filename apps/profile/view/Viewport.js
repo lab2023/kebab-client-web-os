@@ -17,8 +17,8 @@ Ext.define('Apps.profile.view.Viewport', {
 
         Ext.apply(me, {
             title: Apps.profile.I18n.t('appTitle'),
-            width: 400,
-            height: 300,
+            width: Apps.profile.Config.getViewport().width,
+            height: Apps.profile.Config.getViewport().height,
             constrain: true,
             maximizable: true,
             minimizable: true,
