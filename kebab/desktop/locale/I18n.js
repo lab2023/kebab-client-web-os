@@ -15,7 +15,7 @@ Ext.define('Kebab.desktop.locale.I18n', {
      * @type {Object}
      */
     mixins: {
-        i18n: 'Kebab.kernel.I18n'
+        i18n: 'Kebab.kernel.mixin.I18n'
     },
 
     /**

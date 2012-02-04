@@ -4,7 +4,7 @@
  *
  * Kebab Kernel I18n Class
  */
-Ext.define('Kebab.kernel.I18n', {
+Ext.define('Kebab.kernel.mixin.I18n', {
 
     /**
      * Default locale
