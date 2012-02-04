@@ -317,6 +317,11 @@
                     return Kebab.getConfig(key);
                 },
 
+                /**
+                 * I18n helper
+                 * @param name
+                 * @param type
+                 */
                 i18n: function(name, type) {
                     var i18nClass;
 
