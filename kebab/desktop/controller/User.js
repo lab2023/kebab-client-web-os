@@ -50,10 +50,9 @@ Ext.define('Kebab.desktop.controller.User', {
         });
 
         // Load required apps
+        Ext.require(appI18nClasses);
         if (Kebab.desktop.Config.getApps().requireAll) {
             Ext.require(appClasses);
-        } else {
-            Ext.require(appI18nClasses);
         }
 
         // Setup user applications data translations

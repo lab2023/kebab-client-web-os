@@ -5,7 +5,7 @@
  *
  * Kebab Kernel System controller
  */
-Ext.define('Apps.profile.controller.Test', {
+Ext.define('Apps.profile.controller.Index', {
     extend: 'Ext.app.Controller',
 
     /**
