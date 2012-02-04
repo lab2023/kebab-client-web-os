@@ -62,7 +62,7 @@ Ext.define('Apps.Feedback', {
     requires: [
         'Apps.feedback.config.Config',
         'Apps.feedback.locale.I18n',
-        'Apps.feedback.view.Viewport',  // TODO change load xhr to dom
+        'Apps.feedback.view.Viewport'  // TODO change load xhr to dom
     ],
 
     /**
@@ -74,7 +74,7 @@ Ext.define('Apps.Feedback', {
         me.initConfig(config);
 
         // Load application resources if single mode
-        Kebab.helper.loadCSS([me.appFolder + '/resources/css/style.css']);
+        Kebab.helper.loadCSS(['apps/feedback/resources/css/style.css']);
 
         // Call parent constructor
         me.callParent(arguments);

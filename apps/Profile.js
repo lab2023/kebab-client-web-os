@@ -62,7 +62,7 @@ Ext.define('Apps.Profile', {
     requires: [
         'Apps.profile.config.Config',
         'Apps.profile.locale.I18n',
-        'Apps.profile.view.Viewport',  // TODO change load xhr to dom
+        'Apps.profile.view.Viewport'  // TODO change load xhr to dom
     ],
 
     /**
@@ -74,7 +74,7 @@ Ext.define('Apps.Profile', {
         me.initConfig(config);
 
         // Load application resources if single mode
-        Kebab.helper.loadCSS([me.appFolder + '/resources/css/style.css']);
+        Kebab.helper.loadCSS(['apps/profile/resources/css/style.css']);
 
         // Call parent constructor
         me.callParent(arguments);
