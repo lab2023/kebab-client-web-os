@@ -25,7 +25,14 @@ Ext.define('Kebab.Desktop', {
     autoCreateViewport: true,
 
     /**
-     * Application locales
+     * Application mixins
+     */
+    mixins: [
+        'Kebab.kernel.mixin.LoadMask',
+    ],
+
+    /**
+     * Application requires
      * @type {Array}
      */
     requires: [
@@ -52,7 +59,8 @@ Ext.define('Kebab.Desktop', {
         'Dock',
         'Application',
         'Launchpad',
-        'User'
+        'User',
+        'Session'
     ],
 
     /**

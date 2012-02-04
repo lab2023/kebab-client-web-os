@@ -8,6 +8,13 @@ Ext.define('Kebab.kernel.app.Application', {
     extend: 'Ext.app.Application',
 
     /**
+     * Application mixins
+     */
+    mixins: [
+        'Kebab.kernel.mixin.LoadMask',
+    ],
+
+    /**
      * Application Config
      */
     config: {
@@ -21,8 +28,6 @@ Ext.define('Kebab.kernel.app.Application', {
      * @type Boolean
      */
     autoCreateViewport: false,
-
-    autoLoadCssFile: true,
 
     /**
      * Application constructor

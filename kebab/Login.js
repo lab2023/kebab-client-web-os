@@ -9,15 +9,6 @@ Ext.define('Kebab.Login', {
     extend: 'Ext.app.Application',
 
     /**
-     * Application mixins
-     *
-     * @type {Object}
-     */
-    mixins: {
-        i18n: 'Kebab.kernel.I18n'
-    },
-
-    /**
      * Application namespace
      */
     name: 'Kebab.login',
@@ -34,7 +25,14 @@ Ext.define('Kebab.Login', {
     autoCreateViewport: true,
 
     /**
-    * Application locales
+     * Application mixins
+     */
+    mixins: [
+        'Kebab.kernel.mixin.LoadMask',
+    ],
+
+    /**
+    * Application requires
     * @type {Array}
     */
     requires: [
