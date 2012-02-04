@@ -36,10 +36,10 @@ Ext.define('Kebab.desktop.controller.Session', {
      */
     signOut: function(cp, e) {
         var me = this,
-            mask = me.application.getMask();
+            loadMask = me.application.getLoadMask();
 
         e.stopEvent();
-        mask.show();
+        loadMask.show();
         Ext.Ajax.request({
             url: 'sessions/' + me.getUserData().id,
             method: 'DELETE',
@@ -47,7 +47,7 @@ Ext.define('Kebab.desktop.controller.Session', {
                 Kebab.helper.redirect('login.html');
             },
             failure: function() {
-                mask.hide();
+                loadMask.hide();
                 Kebab.helper.notify('Failed', 'Logout failed... Please try again.', true);
             }
         });

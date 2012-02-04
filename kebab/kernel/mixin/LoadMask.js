@@ -14,11 +14,15 @@ Ext.define('Kebab.kernel.mixin.LoadMask', {
     /**
      * Get Load Mask
      */
-    getMask: function(msg, cp) {
+    getLoadMask: function(msg, cp) {
         var me = this;
 
-        return new Ext.LoadMask(cp || me.getViewport(), {
-            msg: msg || 'Please wait...'
-        });
+        if (!me._loadMask) {
+            me._loadMask = new Ext.LoadMask(cp || me.getViewport(), {
+                msg: msg || 'Please wait...'
+            });
+        }
+
+        return me._loadMask;
     }
 });
