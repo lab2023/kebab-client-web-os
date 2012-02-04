@@ -29,15 +29,7 @@ Ext.define('Kebab.desktop.controller.Dock', {
     init: function() {
         var me = this;
 
-        me.control({
-            // Listener launcher components
-            'component[action="showLaunchpad"]': {
-                click: function(cp, e) {
-                    // TODO solve fast double click errors (event is suspended!)
-                    me.getController('Launchpad').openLaunchpad(cp, e);
-                }
-            }
-        });
+        me.control();
 
         // Call parent
         me.callParent(arguments);

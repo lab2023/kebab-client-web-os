@@ -29,6 +29,10 @@ Ext.define('Kebab.desktop.controller.Launchpad', {
         var me = this;
 
         me.control({
+            // Listener launcher showLaunchpad component
+            'component[action="showLaunchpad"]': {
+                click: me.openLaunchpad // TODO solve fast double click errors (event is suspended!)
+            },
             // Listener launcher components
             'desktop_launchpad_launchers': {
                 render: me.loadLaunchers,
@@ -43,6 +47,38 @@ Ext.define('Kebab.desktop.controller.Launchpad', {
         });
 
         me.callParent(arguments);
+    },
+
+    openLaunchpad: function(cp, e){
+        var me = this,
+            showX = Ext.fly('desktop-index-body').getX() + 5,
+            showY = Ext.fly('desktop-index-body').getY() + 5;
+
+        e.stopEvent();
+
+        if (!me.getLaunchpad()) {
+
+            Ext.create(this.getView('Launchpad'), {
+                x: showX,
+                y: showY,
+                animateTarget: cp.id,
+                listeners: {
+                    render: function() {
+                        cp.addClsWithUI('active');
+                    }
+                }
+            });
+
+        } else {
+
+            if (!me.getLaunchpad().isVisible()) {
+                me.getLaunchpad().show();
+                cp.addClsWithUI('active');
+            } else {
+                cp.removeClsWithUI('active');
+                me.getLaunchpad().hide();
+            }
+        }
     },
 
     loadLaunchers: function() {
@@ -100,37 +136,5 @@ Ext.define('Kebab.desktop.controller.Launchpad', {
 
         me.getDepartmentsView().getSelectionModel().deselectAll(); // TODO clear selected nodes
         me.getLaunchersView().getStore().clearFilter();
-    },
-
-    openLaunchpad: function(cp, e){
-        var me = this,
-            showX = Ext.fly('desktop-index-body').getX() + 5,
-            showY = Ext.fly('desktop-index-body').getY() + 5;
-
-        e.stopEvent();
-
-        if (!me.getLaunchpad()) {
-
-            Ext.create(this.getView('Launchpad'), {
-                x: showX,
-                y: showY,
-                animateTarget: cp.id,
-                listeners: {
-                    render: function() {
-                        cp.addClsWithUI('active');
-                    }
-                }
-            });
-
-        } else {
-
-            if (!me.getLaunchpad().isVisible()) {
-                me.getLaunchpad().show();
-                cp.addClsWithUI('active');
-            } else {
-                cp.removeClsWithUI('active');
-                me.getLaunchpad().hide();
-            }
-        }
     }
 });
