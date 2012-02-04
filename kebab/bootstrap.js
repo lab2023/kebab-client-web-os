@@ -84,6 +84,7 @@
              *
              * Example:
              *   Kebab.boot('Kebab.Desktop', {
+             *        root: "",
              *        authenticity_token: "your_token_here",
              *        tenant:{
              *            "id": 1,
@@ -133,7 +134,7 @@
                         enabled: true,
                         paths: {
                             'Kebab' : me.helper.root('kebab'),
-                            'Apps' : me.helper.root('apps'),
+                            'Apps' : me.helper.root('apps'), // TODO Add config eg: appsPath
                             'Ext.ux' : me.helper.root('vendors/ext-ux')
                         }
                     });
@@ -176,11 +177,18 @@
                 }
             },
 
+            /**
+             * Reload specific url
+             * @param url
+             */
             reboot: function(url) {
                 var me = this;
                 url ? me.helper.redirect(url) : window.location.reload();
             },
 
+            /**
+             * Reload current url
+             */
             reload: function() {
                 window.location.reload();
             },
@@ -263,7 +271,7 @@
                  * @return {String} Generated full root path
                  */
                 root: function(path) {
-                    var ps = Kebab.getRoot() == '' ? '' : '/'; // Path seperator
+                    var ps = Kebab.getRoot() == '' ? '' : '/'; // Path separator
                     return path ? Kebab.getRoot() + ps + path : Kebab.getRoot();
                 },
 
