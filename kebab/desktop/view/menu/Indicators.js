@@ -61,15 +61,7 @@ Ext.define('Kebab.desktop.view.menu.Indicators', {
         },{
             iconCls: 'icon-kernel-power',
             tooltip: Kebab.desktop.I18n.t('shutdown'),
-            handler: function() {
-                Ext.Ajax.request({ // TODO move controller
-                    url: Kebab.helper.url('sessions'),
-                    method: 'DELETE',
-                    success: function() {
-                        Kebab.helper.redirect('login.html');
-                    }
-                });
-            }
+            action: 'signOut'
         }];
     }
 });

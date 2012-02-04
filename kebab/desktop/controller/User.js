@@ -29,6 +29,9 @@ Ext.define('Kebab.desktop.controller.User', {
                 render: me.loadUserLaunchers
             }
         });
+
+        // Call parent
+        me.callParent(arguments);
     },
 
     loadUserApplications: function() {
