@@ -19,7 +19,7 @@ Ext.define('Apps.feedback.view.Form', {
 
         Ext.apply(me, {
             frame: true,
-            padding: 20,
+            padding: 10,
             layout: {
                 type: 'vbox',
                 align: 'stretch'
@@ -43,20 +43,14 @@ Ext.define('Apps.feedback.view.Form', {
 
         return [{
             xtype: 'textfield',
-            fieldLabel: 'Your e-mail address',
-            readOnly: true,
-            value: Kebab.helper.config('user').email,
-            allowBlank: false
-        }, {
-            xtype: 'textfield',
             fieldLabel: 'Subject',
+            name: 'subject',
             allowBlank: false
         }, {
             xtype: 'textareafield',
             fieldLabel: 'Message',
-            labelAlign: 'top',
+            name: 'body',
             flex: 1,
-            margins: '0',
             allowBlank: false
         }];
     },
