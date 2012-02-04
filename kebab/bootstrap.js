@@ -335,7 +335,7 @@
                  * @param {String} msg
                  * @param {String} title
                  */
-                notify: function(msg, title, keep, appId) {
+                notify: function(title, msg, keep, appId) {
 
                     var win = Ext.create('Ext.ux.window.Notification', {
                         corner: 'tr',
