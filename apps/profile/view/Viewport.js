@@ -23,7 +23,6 @@ Ext.define('Apps.profile.view.Viewport', {
             maximizable: true,
             minimizable: true,
             autoShow: true,
-            autoScroll: true,
             tools: [{
                 type:'help',
                 tooltip: 'Open feedback application',
