@@ -19,10 +19,11 @@ Ext.define('Kebab.desktop.view.launchpad.Launchers', {
 
     initComponent: function() {
         var me = this,
+            launcherImgPath = Kebab.helper.root('apps/{sys_name}/resources/launcher.svg'),
             tpl = Ext.create('Ext.XTemplate',
             '<tpl for=".">',
                 '<div title="Department: {appDepartment}" class="launchers">',
-                        '<img src="apps/{sys_name}/resources/launcher.svg" width="' + me.launchersSize + '"/>',
+                        '<img src="' + launcherImgPath + '" width="' + me.launchersSize + '"/>',
                         '<p>{appTitle}</p>',
                 '</div>',
             '</tpl>'
