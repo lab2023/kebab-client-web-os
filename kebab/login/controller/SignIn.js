@@ -54,9 +54,15 @@ Ext.define('Kebab.login.controller.SignIn', {
         if (e.getKey() == e.ENTER || cp.action == 'submit') {
             e.stopEvent();
 
-            var form = cp.up('form').getForm();
+            // Accessors
+            var formPanel = cp.up('form'),
+                form = formPanel.getForm();
 
+            // Validation
             if (form.isValid()) {
+                // Loader
+                form.waitMsgTarget = formPanel.getEl();
+                // Submission
                 form.submit({
                     waitMsg: 'Please wait...',
                     url: 'sessions',
@@ -64,7 +70,7 @@ Ext.define('Kebab.login.controller.SignIn', {
                         Kebab.helper.redirect('desktop.html');
                     },
                     failure: function() {
-                        Kebab.helper.notify('Failed', 'Login failed... Please try again.');
+                        Kebab.helper.notify('Failed', 'Login failed... Please try again.', true);
                     }
                 });
             }

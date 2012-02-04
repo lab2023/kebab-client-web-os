@@ -51,18 +51,24 @@ Ext.define('Kebab.login.controller.PasswordReset', {
         if (e.getKey() == e.ENTER || cp.action == 'submit') {
             e.stopEvent();
 
-            var form = cp.up('form').getForm();
+            // Accessors
+            var formPanel = cp.up('form'),
+                form = formPanel.getForm();
 
+            // Validation
             if (form.isValid()) {
+                // Loader
+                form.waitMsgTarget = formPanel.getEl();
+                // Submission
                 form.submit({
                     waitMsg: 'Please wait...',
                     url: 'passwords',
                     success: function() {
-                        Kebab.helper.notify('Successful', 'Your password has been reset. Please check your email account.');
+                        Kebab.helper.notify('Successful', 'Your password has been reset. Please check your email account.', true);
                         me.getController('Index').showSignIn(cp, e);
                     },
                     failure: function() {
-                        Kebab.helper.notify('Failed', 'Operation failed... Please try again.');
+                        Kebab.helper.notify('Failed', 'Sending failed... Please try again.', true);
                     }
                 });
             }
