@@ -343,13 +343,13 @@
                  * @param {String} msg
                  * @param {String} title
                  */
-                notify: function(title, msg, keep, appId) {
+                notify: function(title, msg, keep, button) {
 
                     var win = Ext.create('Ext.ux.window.Notification', {
                         corner: 'tr',
                         paddingX: 15,
                         paddingY: 50,
-                        width: 200,
+                        width: 225,
                         autoHeight: true,
                         slideInDelay: 800,
                         slideDownDelay: 1500,
@@ -370,26 +370,22 @@
                         buttonAlign: 'center',
                     });
 
-                    if (appId) {
+                    if (button) {
                         Ext.apply(win, {
                             autoDestroy:false
                         });
-                        win.add({
-                            xtype: 'button',
+                        win.add(Ext.applyIf(button, {
                             width: 100,
                             style: 'margin-top: 5px;',
                             text: 'Click to open',
-                            launcher: {
-                                appId: appId
-                            },
                             listeners: {
-                                render: function(btn) {
-                                    btn.getEl().on('click', function() {
+                                el: {
+                                    click: function() {
                                         win.close();
-                                    });
+                                    }
                                 }
                             }
-                        });
+                        }));
                     }
                     win.getEl().on('click', function() {
                         win.close();
