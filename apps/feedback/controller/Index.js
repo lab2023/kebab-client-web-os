@@ -23,6 +23,14 @@ Ext.define('Apps.feedback.controller.Index', {
     ],
 
     /**
+     * Controller refs
+     */
+    refs: [{
+        ref: 'feedbackForm',
+        selector: 'feedback_form'
+    }],
+
+    /**
      * Controller initializer
      */
     init: function() {
@@ -59,7 +67,7 @@ Ext.define('Apps.feedback.controller.Index', {
             e.stopEvent();
 
             // Accessors
-            var formPanel = cp.up('form'),
+            var formPanel = me.getFeedbackForm(),
                 form = formPanel.getForm();
 
             // Validation

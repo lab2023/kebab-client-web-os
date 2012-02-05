@@ -8,16 +8,25 @@
 Ext.define('Apps.profile.controller.Index', {
     extend: 'Ext.app.Controller',
 
+    /**
+     * Controller models
+     */
     models: [
         'User',
         'Password'
     ],
 
+    /**
+     * Controller views
+     */
     views: [
         'UserForm',
         'PasswordForm'
     ],
 
+    /**
+     * Controller refs
+     */
     refs: [{
         ref: 'userForm',
         selector: 'profile_userForm'
@@ -88,13 +97,14 @@ Ext.define('Apps.profile.controller.Index', {
      * @param e Ext.EventObject
      */
     updateUser: function(cp, e) {
+        var me = this;
 
         // Just enter key is pressed or submit button clicked
         if (e.getKey() == e.ENTER || cp.action == 'updateUser') {
             e.stopEvent();
 
             // Accessors
-            var formPanel = cp.up('form'),
+            var formPanel = me.getUserForm(),
                 form = formPanel.getForm(),
                 user = form.getRecord();
 
@@ -137,7 +147,7 @@ Ext.define('Apps.profile.controller.Index', {
             e.stopEvent();
 
             // Accessors
-            var formPanel = cp.up('form'),
+            var formPanel = me.getPasswordForm(),
                 form = formPanel.getForm();
 
             // Form Validation
