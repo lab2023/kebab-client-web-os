@@ -145,8 +145,8 @@ Ext.define('Kebab.desktop.controller.Application', {
             app = vp.application;
             me.getController('Dock').removeLauncher(app.id);
             me.getController('Menu').getInfo().items.getAt(1).hide(); // TODO move menu controller
-            vp.destroy();
             me.getAppManager().remove(app);
+            app.destroy();
     },
 
     /**

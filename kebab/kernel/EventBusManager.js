@@ -62,10 +62,10 @@ Ext.define('Kebab.kernel.EventBusManager', {
         });
 
         // Override  Ext.app.EventBus constructor
-        Ext.override(Ext.app.EventBus, {
-            constructor: function () {
+        Ext.override(Ext.app.EventBus, {constructor: function () {
                 this.mixins.observable.constructor.call(this);
                 this.bus = {};
+                this.id = Ext.id();
                 me.addBus(this);
             }
         });

@@ -61,6 +61,8 @@ Ext.define('Kebab.kernel.app.Application', {
         }
 
         me.callParent(arguments);
+
+        this.eventbus.appId = me.id;
     },
 
     /**
@@ -103,5 +105,16 @@ Ext.define('Kebab.kernel.app.Application', {
         }
 
         console.log('Apps. ' + me.id + ' was launched...');
+    },
+
+    destroy: function() {
+        var me = this;
+
+        // Remove all listeners
+        var bus = Kebab.EventBusManager.getBusManager().filter('appId', me.id).first();
+        Kebab.EventBusManager.getBusManager().remove(bus);
+
+        // Destroy viewport
+        me.getViewport().destroy();
     }
 });
