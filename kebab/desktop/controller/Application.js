@@ -217,6 +217,9 @@ Ext.define('Kebab.desktop.controller.Application', {
         Ext.each(me.getApplicationViewports(), function(viewport) {
             me.applicationViewportMinimize(viewport);
         });
+
+        // TODO move launchpad controller
+        me.getController('Launchpad').getLaunchpad().hide();
     },
 
     cascadeApplicationViewports: function() {
