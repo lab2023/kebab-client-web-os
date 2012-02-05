@@ -153,7 +153,10 @@ Ext.define('Apps.profile.controller.Index', {
                 // Model Validation
                 if(Password.isValid()) {
 
+                    // Mask
                     formPanel.mask();
+
+                    // Save
                     Password.save({
                         success: function() {
                             formPanel.unmask();

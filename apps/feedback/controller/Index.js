@@ -77,7 +77,7 @@ Ext.define('Apps.feedback.controller.Index', {
                     // Mask
                     formPanel.mask();
 
-                    // Submission
+                    // Save
                     Feedback.save({
                         success: function() {
                             Kebab.helper.notify('Success', 'Your message has been sent.');
