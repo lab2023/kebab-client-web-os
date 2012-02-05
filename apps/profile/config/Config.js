@@ -11,8 +11,8 @@ Ext.define('Apps.profile.config.Config', {
 
     config: {
         viewport: {
-            width: 400,
-            height: 300
+            width: 410,
+            height: 230
         }
     },
 

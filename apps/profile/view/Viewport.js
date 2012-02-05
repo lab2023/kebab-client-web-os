@@ -23,19 +23,23 @@ Ext.define('Apps.profile.view.Viewport', {
             maximizable: true,
             minimizable: true,
             autoShow: true,
+            border: false,
+            resizable: false,
+            maximizable: false,
+            layout:'card',
+            activeItem: 0,
             tools: [{
-                type:'help',
+                type: 'help',
                 tooltip: 'Open feedback application',
                 text: 'Feedback',
                 launcher: {
                     appId: 'Feedback'
                 }
             }],
-            fbar: [{
-                text: 'Open Feedback',
-                launcher: {
-                    appId: 'Feedback'
-                }
+            items: [{
+                xtype: 'profile_userForm'
+            },{
+                xtype: 'profile_passwordForm'
             }]
         }, null);
 
