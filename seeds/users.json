@@ -1,0 +1,13 @@
+{
+    "success":true,
+    "id": 1,
+    "email": "user@example.com",
+    "name": "Sample User",
+    "locale": "en",
+    "time_zone": "Casablanca",
+    "privileges": [
+        {"id": 1, "sys_name": "create-any-item"},
+        {"id": 2, "sys_name": "destroy-any-item"}
+    ],
+    "applications": []
+}
