@@ -52,7 +52,10 @@
                 },
                 user: {
                     "id": 1,
-                    "name" : "Sample User",
+                    "email": "user@example.com",
+                    "name": "Sample User",
+                    "locale": "en",
+                    "time_zone": "Casablanca",
                     "privileges": [
                         {"id": 1, "sys_name:": "login"},
                         {"id": 2, "sys_name:": "logout"}

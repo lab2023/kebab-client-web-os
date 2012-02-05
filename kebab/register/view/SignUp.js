@@ -82,6 +82,11 @@ Ext.define('Kebab.register.view.SignUp', {
             name: 'tenant[name]',
             allowBlank: false
         },{
+            fieldLabel: 'Your Name',
+            emptyText: 'Type your name here',
+            name: 'user[name]',
+            allowBlank: false
+        },{
             fieldLabel: 'E-mail',
             emptyText: 'This is what you’ll use to sign in',
             name: 'user[email]',
@@ -124,7 +129,16 @@ Ext.define('Kebab.register.view.SignUp', {
                 queryMode: 'local',
                 store: Ext.create('Ext.data.Store', {
                     fields: ['name', 'value'],
-                    data : me.buildLocalesData()
+                    data : [{ // TODO get system config
+                        name: 'English',
+                        value: 'en'
+                    },{
+                        name: 'Turkish',
+                        value: 'tr'
+                    },{
+                        name: 'Russian',
+                        value: 'ru'
+                    }]
                 }),
                 listeners: {
                     beforerender: function(c) {
@@ -170,19 +184,6 @@ Ext.define('Kebab.register.view.SignUp', {
             action: 'submit',
             formBind: true,
             disabled: true
-        }];
-    },
-
-    buildLocalesData: function() {
-        return [{
-            name: 'English',
-            value: 'en'
-        },{
-            name: 'Turkish',
-            value: 'tr'
-        },{
-            name: 'Russian',
-            value: 'ru'
         }];
     }
 });
