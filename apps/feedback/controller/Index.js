@@ -8,6 +8,16 @@
 Ext.define('Apps.feedback.controller.Index', {
     extend: 'Ext.app.Controller',
 
+    /**
+     * Controller models
+     */
+    models: [
+        'Feedback'
+    ],
+
+    /**
+     * Controller views
+     */
     views: [
         'Form'
     ],
@@ -18,14 +28,15 @@ Ext.define('Apps.feedback.controller.Index', {
     init: function() {
         var me = this;
 
+        // Controller listeners
         me.control({
             // Sign-in form textfield items
             'feedback_form > textfield': {
-                specialkey: me.submit
+                specialkey: me.sendFeedback
             },
             // Sign-in form textfield items
-            'feedback_form button[action="submit"]': {
-                click: me.submit
+            'feedback_form button[action="sendFeedback"]': {
+                click: me.sendFeedback
             }
         });
 
@@ -40,10 +51,11 @@ Ext.define('Apps.feedback.controller.Index', {
      * @param cp Ext.button.Button Fired component
      * @param e Ext.EventObject
      */
-    submit: function(cp, e) {
+    sendFeedback: function(cp, e) {
+        var me = this;
 
         // Just enter key is pressed or submit button clicked
-        if (e.getKey() == e.ENTER || cp.action == 'submit') {
+        if (e.getKey() == e.ENTER || cp.action == 'sendFeedback') {
             e.stopEvent();
 
             // Accessors
@@ -52,20 +64,33 @@ Ext.define('Apps.feedback.controller.Index', {
 
             // Validation
             if (form.isValid()) {
-                // Loader
-                form.waitMsgTarget = formPanel.getEl();
-                // Submission
-                form.submit({
-                    waitMsg: 'Please wait...',
-                    url: 'feedback',
-                    success: function() {
-                        Kebab.helper.notify('Success', 'Your message has been sent.');
-                        form.reset();
-                    },
-                    failure: function() {
-                        Kebab.helper.notify('Failed', 'Sending failed... Please try again.', true);
-                    }
-                });
+
+                // Create new feedback model instance
+                var Feedback = Ext.create(
+                    me.getFeedbackModel(),
+                    form.getValues()
+                );
+
+                // Validation
+                if(Feedback.isValid()) {
+
+                    // Mask
+                    formPanel.mask();
+
+                    // Submission
+                    Feedback.save({
+                        success: function() {
+                            Kebab.helper.notify('Success', 'Your message has been sent.');
+                            form.reset();
+                            formPanel.unmask();
+                        },
+                        failure: function() {
+                            Kebab.helper.notify('Failed', 'Sending failed... Please try again.', true);
+                            formPanel.unmask();
+                        }
+                    });
+                }
+
             }
         }
     }

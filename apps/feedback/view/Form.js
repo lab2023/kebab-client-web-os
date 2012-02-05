@@ -58,7 +58,7 @@ Ext.define('Apps.feedback.view.Form', {
     buildButtons: function() {
         return [{
             text: 'Send feedback',
-            action: 'submit',
+            action: 'sendFeedback',
             formBind: true,
             disabled: true
         }];
