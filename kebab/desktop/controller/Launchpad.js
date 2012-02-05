@@ -29,6 +29,11 @@ Ext.define('Kebab.desktop.controller.Launchpad', {
         var me = this;
 
         me.control({
+            // Listener desktop launchpad component
+            'desktop_launchpad': {
+                show: me.afterShowLaunchpad,
+                hide: me.afterHideLaunchpad
+            },
             // Listener launcher showLaunchpad component
             'component[action="showLaunchpad"]': {
                 click: me.openLaunchpad // TODO solve fast double click errors (event is suspended!)
@@ -73,12 +78,21 @@ Ext.define('Kebab.desktop.controller.Launchpad', {
 
             if (!me.getLaunchpad().isVisible()) {
                 me.getLaunchpad().show();
-                cp.addClsWithUI('active');
             } else {
-                cp.removeClsWithUI('active');
                 me.getLaunchpad().hide();
             }
         }
+    },
+
+    afterShowLaunchpad: function() {
+        var me = this;
+        me.getController('Dock').getLaunchpadButton().addClsWithUI('active');
+    },
+
+    afterHideLaunchpad: function() {
+        var me = this;
+        me.getController('Dock').getLaunchpadButton().removeClsWithUI('active');
+        me.clearSelections();
     },
 
     loadLaunchers: function() {
@@ -98,9 +112,13 @@ Ext.define('Kebab.desktop.controller.Launchpad', {
         Ext.each(appsStore.collect('sys_department'), function(department) {
             var record = appsStore.findRecord('sys_department', department);
             if (record) {
-                me.getDepartmentsView().getStore().add(record.data);
+                departments.push(record.data);
             }
         });
+
+        if (departments.length > 0) {
+            me.getDepartmentsView().getStore().add(departments);
+        }
     },
 
     selectLauncher: function(dv, rec, n, i, e) {
@@ -112,8 +130,6 @@ Ext.define('Kebab.desktop.controller.Launchpad', {
             });
 
         me.getController('Application').launchApplication(cp, e);
-        me.clearSelections();
-
         dv.ownerCt.hide();
         /*
         if (dv.ownerCt.maximized == true) {

@@ -19,6 +19,9 @@ Ext.define('Kebab.desktop.controller.Dock', {
         ref: 'dock',
         selector: 'desktop_dock'
     },{
+        ref: 'launchpadButton',
+        selector: 'desktop_dock component[action="showLaunchpad"]'
+    },{
         ref: 'applicationsLauncher',
         selector: 'desktop_dock button[applicationsLauncher]'
     }],
