@@ -1,8 +1,8 @@
 /**
- * @class Desktop
+ * @class Feedback
  * @author Tayfun Öziş ERİKAN <tayfun.ozis.erikan@lab2023.com>
  *
- * Kebab Desktop
+ * Feedback Application
  */
 Ext.define('Apps.Feedback', {
     extend: 'Kebab.kernel.app.Application',

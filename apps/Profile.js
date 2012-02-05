@@ -1,8 +1,8 @@
 /**
- * @class Desktop
+ * @class Profile
  * @author Tayfun Öziş ERİKAN <tayfun.ozis.erikan@lab2023.com>
  *
- * Kebab Desktop
+ * Profile Application
  */
 Ext.define('Apps.Profile', {
     extend: 'Kebab.kernel.app.Application',
