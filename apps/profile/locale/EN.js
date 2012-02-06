@@ -6,5 +6,5 @@
  */
 Ext.define('Apps.profile.locale.EN', {
     appTitle: 'User Profile',
-    appDepartment: 'Accessories'
+    appDepartment: 'System'
 });

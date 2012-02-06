@@ -6,5 +6,5 @@
  */
 Ext.define('Apps.profile.locale.TR', {
     appTitle: 'User Profili',
-    appDepartment: 'Aksesuarlar'
+    appDepartment: 'Sistem'
 });
