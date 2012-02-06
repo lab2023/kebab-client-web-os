@@ -10,6 +10,7 @@ Ext.define('Kebab.kernel.Base', {
     extend: 'Ext.util.Observable',
 
     requires: [
+        'Kebab.kernel.override.Window',
         'Kebab.kernel.app.Application',
         'Kebab.kernel.EventBusManager',
         'Kebab.kernel.component.Launcher',
@@ -27,6 +28,11 @@ Ext.define('Kebab.kernel.Base', {
         // add ucFirst
         String.prototype.ucFirst = function() {
             return this.charAt(0).toUpperCase() + this.substr(1);
+        }
+
+        // add lcFirst
+        String.prototype.lcFirst = function() {
+            return this.charAt(0).toLowerCase() + this.substr(1);
         }
     },
 
