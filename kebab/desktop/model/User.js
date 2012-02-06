@@ -7,6 +7,7 @@ Ext.define('Kebab.desktop.model.User', {
         {name: 'email', type: 'string'},
         {name: 'locale', type: 'string'},
         {name: 'time_zone', type: 'string'},
+        {name: 'active', type: 'boolean',  defaultValue: true},
     ],
 
     validations: [
@@ -19,7 +20,7 @@ Ext.define('Kebab.desktop.model.User', {
     ],
 
     proxy: {
-        type: 'ajax',
-        url : 'seeds/users.json'
+        type: 'rest',
+        url : 'users'
     }
 });
