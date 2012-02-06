@@ -166,6 +166,10 @@ Ext.define('Kebab.desktop.controller.Application', {
             },1200);
         }
 
+        // TODO desktop body constrain
+        //me.getController('Index').getIndex().items.add(vp);
+        //me.getController('Index').getIndex().doLayout(vp);
+
         // replace normal window close fadeOut animation:
         vp.doClose = function ()  {
             vp.doClose = Ext.emptyFn; // dblclick can call again...
@@ -219,7 +223,10 @@ Ext.define('Kebab.desktop.controller.Application', {
         });
 
         // TODO move launchpad controller
-        me.getController('Launchpad').getLaunchpad().hide();
+        try {
+            me.getController('Launchpad').getLaunchpad().hide();
+        } catch (e) {
+        }
     },
 
     cascadeApplicationViewports: function() {
