@@ -329,10 +329,10 @@
                     var i18nClass;
 
                     if (type == 'app') {
-                        i18nClass = 'Apps.' + name.toLowerCase() + '.locale.I18n';
+                        i18nClass = 'Apps.' + name.lcFirst() + '.locale.I18n';
                         return eval(i18nClass);
                     } else {
-                        i18nClass = 'Kebab.' + name.toLowerCase() + '.locale.I18n';
+                        i18nClass = 'Kebab.' + name.lcFirst() + '.locale.I18n';
                         return eval(i18nClass);
                     }
                 },

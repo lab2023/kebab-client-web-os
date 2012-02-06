@@ -19,7 +19,7 @@ Ext.define('Kebab.kernel.component.Launcher', {
     initComponent: function() {
         var me = this,
             imagePath = !me.img
-                ? Kebab.helper.root('apps/' + me.launcher.appId.toLowerCase() + '/resources/launcher.svg')
+                ? Kebab.helper.root('apps/' + me.launcher.appId.lcFirst() + '/resources/launcher.svg')
                 : Kebab.helper.root('resources/images/icons/svg/' + me.img.toLowerCase() + '.svg');
 
         Ext.apply(me, {
@@ -34,7 +34,7 @@ Ext.define('Kebab.kernel.component.Launcher', {
         try {
             if (me.launcher.appId) {
                 Ext.apply(me, {
-                    id:me.launcher.appId.toLowerCase() + '-launcher',
+                    id:me.launcher.appId.lcFirst() + '-launcher',
                     launcher:{
                         appId: me.launcher.appId
                     }

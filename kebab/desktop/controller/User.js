@@ -10,6 +10,7 @@ Ext.define('Kebab.desktop.controller.User', {
 
     models: [
         'User',
+        'Password',
         'Application',
         'Privilege'
     ],
@@ -46,9 +47,9 @@ Ext.define('Kebab.desktop.controller.User', {
 
         // Populate app classes
         applicationsStore.each(function(application) {
-            var appId = application.get('sys_name').ucFirst();
-            appClasses.push('Apps.' + appId);
-            appI18nClasses.push('Apps.' + appId.toLowerCase() + '.locale.I18n');
+            var appSysName = application.get('sys_name');
+            appClasses.push('Apps.' + appSysName.ucFirst());
+            appI18nClasses.push('Apps.' + appSysName.lcFirst() + '.locale.I18n');
 
         });
 
@@ -62,9 +63,9 @@ Ext.define('Kebab.desktop.controller.User', {
         // TODO move controller listener
         Ext.onReady(function() {  // TODO solve this and use filter
             applicationsStore.each(function(application) {
-                var appId = application.get('sys_name').ucFirst();
-                application.set('appTitle', Kebab.helper.i18n(appId, 'app').t('appTitle'));
-                application.set('appDepartment', Kebab.helper.i18n(appId, 'app').t('appDepartment'));
+                var appSysName = application.get('sys_name');
+                application.set('appTitle', Kebab.helper.i18n(appSysName.lcFirst(), 'app').t('appTitle'));
+                application.set('appDepartment', Kebab.helper.i18n(appSysName.lcFirst(), 'app').t('appDepartment'));
             });
         });
     },
@@ -77,14 +78,14 @@ Ext.define('Kebab.desktop.controller.User', {
 
         Ext.onReady(function() { // TODO solve this and use filter
             me.getApplicationsStore().each(function(application) {
-                var appId = application.get('sys_name').ucFirst();
+                var appSysName = application.get('sys_name');
                 if (application.get('keepDock')) { // TODO Remove user preferences data
                     me.getController('Dock').addLauncher({
                         xtype: 'kebab_launcher',
                         keepDock: true,
-                        tooltip: Kebab.helper.i18n(appId, 'app').t('appTitle'),
+                        tooltip: Kebab.helper.i18n(appSysName.lcFirst(), 'app').t('appTitle'),
                         launcher: {
-                            appId: appId
+                            appId: appSysName.ucFirst()
                         }
                     });
                 }

@@ -131,6 +131,6 @@ Ext.define('Kebab.desktop.controller.Dock', {
      * @param id
      */
     generateLauncherId: function(id) {
-        return id.toLowerCase() + '-launcher';
+        return id.lcFirst() + '-launcher';
     }
 });

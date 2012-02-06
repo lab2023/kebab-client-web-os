@@ -34,27 +34,29 @@ Ext.define('Kebab.kernel.app.Application', {
      * @param config
      */
     constructor: function(config) {
-        var me = this;
+        var me = this,
+            appNamespace = me.id.lcFirst();
 
         me.initConfig(config);
 
         // Base required classes
         Ext.require([
-            'Apps.' + me.id.toLowerCase() + '.config.Config',
-            'Apps.' + me.id.toLowerCase() + '.locale.I18n',
-            'Apps.' + me.id.toLowerCase() + '.view.Viewport'
+            'Apps.' + appNamespace + '.config.Config',
+            'Apps.' + appNamespace + '.locale.I18n',
+            'Apps.' + appNamespace + '.view.Viewport'
         ]);
 
         Ext.apply(me, {
-            name: 'Apps.' + me.id.toLowerCase(),
-            appFolder: Kebab.helper.root('apps/' + me.id.toLowerCase())
+            name: 'Apps.' + appNamespace,
+            appNamespace: appNamespace,
+            appFolder: Kebab.helper.root('apps/' + appNamespace)
         });
 
         var cssFiles = [];
         // Load application css resources if exist
         if (me.cssFiles && me.cssFiles.length > 0) {
             Ext.each(me.cssFiles, function(cssFile) {
-                cssFiles.push('apps/' + me.id.toLowerCase() + '/resources/css/' + cssFile)
+                cssFiles.push('apps/' + appNamespace + '/resources/css/' + cssFile)
 
             });
             Kebab.helper.loadCSS(cssFiles);
@@ -84,7 +86,7 @@ Ext.define('Kebab.kernel.app.Application', {
                 renderTo: Ext.getBody(),
                 margin: 10,
                 size: 96,
-                tooltip: eval("Apps." + me.id.toLowerCase() + ".I18n.t('appTitle')"),
+                tooltip: eval("Apps." + me.appNamespace + ".I18n.t('appTitle')"),
                 launcher: {
                     appId: me.id
                 },
@@ -104,7 +106,7 @@ Ext.define('Kebab.kernel.app.Application', {
             });
         }
 
-        console.log('Apps. ' + me.id + ' was launched...');
+        console.log('Apps.' + me.id + ' was launched...');
     },
 
     destroy: function() {
