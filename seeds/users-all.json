@@ -3,42 +3,42 @@
     "data": [{
         "id": 1,
         "email": "user@example.com",
-        "name": "Sample User",
+        "name": "A Sample User",
         "locale": "en",
         "time_zone": "Casablanca",
         "active": true
     },{
         "id": 2,
         "email": "user@example1.com",
-        "name": "Sample User 1",
+        "name": "B Sample User 1",
         "locale": "ru",
         "time_zone": "Casablanca1",
         "active": true
     },{
         "id": 3,
         "email": "user@example2.com",
-        "name": "Sample User 2",
+        "name": "C Sample User 2",
         "locale": "tr",
         "time_zone": "Casablanca",
         "active": false
     },{
         "id": 4,
         "email": "user@example.com",
-        "name": "Sample User",
+        "name": "D Sample User",
         "locale": "en",
         "time_zone": "Casablanca",
         "active": true
     },{
         "id": 5,
         "email": "user@example1.com",
-        "name": "Sample User 1",
+        "name": "E Sample User 1",
         "locale": "ru",
         "time_zone": "Casablanca1",
         "active": true
     },{
         "id": 6,
         "email": "user@example2.com",
-        "name": "Sample User 2",
+        "name": "F Sample User 2",
         "locale": "tr",
         "time_zone": "Casablanca",
         "active": false

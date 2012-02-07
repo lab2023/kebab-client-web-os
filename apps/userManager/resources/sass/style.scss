@@ -8,56 +8,58 @@
 @import "compass";
 #userManager-viewport {
 
-    div.active, div.passive {
+    color: #000;
 
-        background-color: #fff;
+    h1 {
+        font-size: 120%;
+        margin-bottom: 5px;
+        padding-bottom: 2px;
+        border-bottom:1px dashed #eee;
+    }
+
+    div.users {
+
+        background-color:#fff;
+        @include border-radius(10px);
         margin: 5px;
         padding: 10px;
-        border: 1px solid silver;
-        @include border-radius(10px);
+        border:1px solid #ccc;
 
-        h1 {
-            font-size: 120%;
-            margin-bottom: 5px;
-            padding-bottom: 2px;
-            border-bottom:1px dashed #eee;
+        p.body {
+            float:left;
         }
 
-        div.users {
-
-            margin: 5px 0;
-            padding: 5px;
-            border:1px solid #eee;
-
-            p.body {
-                float:left;
-            }
-
-            p.links {
-                visibility: hidden;
-                padding-top:6px;
-                float:right;
-                text-align:right;
-                width: 150px;
-            }
-
-            p.clear {
-                clear:both;
-            }
+        p.links {
+            visibility: hidden;
+            padding-top:6px;
+            float:right;
+            text-align:right;
+            width: 150px;
         }
 
-        div.users:hover {
-
-            p.links {
-                visibility: visible;
-            }
-
-            cursor: pointer;
-            background-color: darken(#fff, 5%);
+        p.clear {
+            clear:both;
         }
     }
 
-    div.active:hover, div.passive:hover {
-        border-color: gray;
+    div.users:hover {
+
+        p.links {
+            visibility: visible;
+            span {
+                cursor: pointer;
+                text-decoration:underline;
+                color: blue;
+            }
+        }
+
+        background-color: darken(#fff, 5%);
+    }
+
+    div.deactivated {
+        p.body {
+            @include opacity(0.4);
+            text-decoration: line-through;
+        }
     }
 }

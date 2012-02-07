@@ -18,28 +18,16 @@ Ext.define('Apps.userManager.view.UserList', {
     initComponent: function() {
         var me = this,
             tpl = Ext.create('Ext.XTemplate',
-            '<div class="active">',
-                '<h1 class="active">Activated users</h1>',
                 '<tpl for=".">',
-                    '<tpl if="active == true">',
-                        '<div class="users">',
-                            '<p class="body"><strong>{name}</strong><br />{email}</p>',
-                            '<p class="links"><a href="#">Deactivate</a></p>',
-                            '<p class="clear"></p>',
-                        '</div>',
-                    '</tpl>',
-                '</tpl>',
-            '</div>',
-            '<div class="passive">',
-                '<h1>Deactivated users</h1>',
-                '<tpl for=".">',
-                    '<tpl if="active == false">',
-                        '<div class="users">',
-                            '<p class="body"><strong>{name}</strong><br />{email}</p>',
-                            '<p class="links"><a href="#">Rectivate</a></p>',
-                            '<p class="clear"></p>',
-                        '</div>',
-                    '</tpl>',
+                    '<div class="users{[!values.active ? " deactivated" : ""]}">',
+                        '<p class="body"><strong>{name}</strong><br />{email}</p>',
+                        '<p class="links">',
+                            '<a href="#{[values.active ? "deactivate" : "reactivate"]}">',
+                                '{[values.active ? "Deactivate" : "Reactivate"]}',
+                            '</a>',
+                        '</p>',
+                        '<p class="clear"></p>',
+                    '</div>',
                 '</tpl>',
             '</div>'
             );
@@ -54,7 +42,7 @@ Ext.define('Apps.userManager.view.UserList', {
             overItemCls: 'users-hover',
             multiSelect: false,
             singleSelect: true,
-            autoScroll  : true,
+            autoScroll: true
         }, null);
 
         me.callParent(arguments);
