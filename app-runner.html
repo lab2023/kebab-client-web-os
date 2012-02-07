@@ -21,7 +21,30 @@
     <script type="text/javascript" src="kebab/bootstrap.js"></script>
     <script type="text/javascript">
         var app = 'Apps.' + Ext.urlDecode(window.location.search).app;
-        Kebab.boot(app, '');
+        Kebab.boot(app, {
+            authenticity_token: "your_token_here",
+            tenant:{
+                "id": 1,
+                "name": "lab2023 - internet technologies",
+                "host": "lab2023.kebab.local"
+            },
+            user: {
+                "id": 1,
+                "email": "user@example.com",
+                "name": "Sample User",
+                "locale": "en",
+                "time_zone": "Casablanca",
+                "privileges": [
+                    {"id": 1, "sys_name": "create-any-item"},
+                    {"id": 2, "sys_name": "destroy-any-item"}
+                ],
+                "applications": []
+            },
+            locale :{
+                "default_locale": Ext.urlDecode(window.location.search).locale || "en",
+                "available_locales": ["en", "tr", "ru"]
+            }
+        });
     </script>
 </head>
 <body>

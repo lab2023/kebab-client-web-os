@@ -23,7 +23,7 @@
         Kebab.boot('Kebab.Register', {
             authenticity_token: "your_token_here",
             locale :{
-                "default_locale": "en",
+                "default_locale": Ext.urlDecode(window.location.search).locale || "en",
                 "available_locales": ["en", "tr", "ru"]
             }
         });

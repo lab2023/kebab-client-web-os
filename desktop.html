@@ -40,7 +40,7 @@
                 "applications": []
             },
             locale :{
-                "default_locale": "en",
+                "default_locale": Ext.urlDecode(window.location.search).locale || "en",
                 "available_locales": ["en", "tr", "ru"]
             }
         });

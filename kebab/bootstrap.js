@@ -56,17 +56,11 @@
                     "name": "Sample User",
                     "locale": "en",
                     "time_zone": "Casablanca",
-                    "privileges": [
-                        {"id": 1, "sys_name:": "login"},
-                        {"id": 2, "sys_name:": "logout"}
-                    ],
-                    "apps": [
-                        {"id": 1, "sys_name:": "profile", "sys_department":"system"},
-                        {"id": 2, "sys_name:": "feedback", "sys_department": "system"}
-                    ]
+                    "privileges": [],
+                    "applications": []
                 },
                 locale :{
-                    "default_locale": "en",
+                    "default_locale": Ext.urlDecode(window.location.search).locale || "en",
                     "available_locales": ["en", "tr", "ru"]
                 },
                 root :  "",
