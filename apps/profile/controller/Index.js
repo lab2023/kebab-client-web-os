@@ -76,14 +76,14 @@ Ext.define('Apps.profile.controller.Index', {
             userId = Kebab.helper.config('user').id,
             User = me.getUserModel();
 
-        p.mask();
+        p.getEl().mask('Please wait...');
         User.load(userId, {
             success: function(user) {
-                p.unmask();
+                p.getEl().unmask();
                 form.loadRecord(user);
             },
             failure: function(user) {
-                p.unmask();
+                p.getEl().unmask();
                 Kebab.helper.notify('Failed', 'Load failed... Please try again.', true);
             }
         });
@@ -115,16 +115,16 @@ Ext.define('Apps.profile.controller.Index', {
                 form.updateRecord(user);
 
                 // Mask
-                formPanel.mask();
+                formPanel.getEl().mask('Please wait');
 
                 // Submission
                 user.save({
                     success: function() {
-                        formPanel.unmask();
+                        formPanel.getEl().unmask();
                         Kebab.helper.notify('Successful', 'Your user info has been updated.');
                     },
                     failure: function() {
-                        formPanel.unmask();
+                        formPanel.getEl().unmask();
                         Kebab.helper.notify('Failed', 'Update failed... Please try again.', true);
                     }
                 });
@@ -164,17 +164,17 @@ Ext.define('Apps.profile.controller.Index', {
                 if(Password.isValid()) {
 
                     // Mask
-                    formPanel.mask();
+                    formPanel.getEl().mask('Please wait');
 
                     // Save
                     Password.save({
                         success: function() {
-                            formPanel.unmask();
+                            formPanel.getEl().unmask();
                             Kebab.helper.notify('Successful', 'Your password has been changed.');
                             me.showUserForm();
                         },
                         failure: function() {
-                            formPanel.unmask();
+                            formPanel.getEl().unmask();
                             Kebab.helper.notify('Failed', 'Update failed... Please try again.', true, {
                                 xtype: 'button',
                                 text: 'Try again',
