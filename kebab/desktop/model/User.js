@@ -7,7 +7,7 @@ Ext.define('Kebab.desktop.model.User', {
         {name: 'email', type: 'string'},
         {name: 'locale', type: 'string'},
         {name: 'time_zone', type: 'string'},
-        {name: 'active', type: 'boolean',  defaultValue: true},
+        {name: 'active', type: 'boolean',  defaultValue: true}
     ],
 
     validations: [
