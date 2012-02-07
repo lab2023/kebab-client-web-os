@@ -5,6 +5,6 @@
  * Profile Application TR translations
  */
 Ext.define('Apps.profile.locale.TR', {
-    appTitle: 'User Profili',
+    appTitle: 'Kullanıcı Profili',
     appDepartment: 'Sistem'
 });
