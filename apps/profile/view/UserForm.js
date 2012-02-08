@@ -18,8 +18,6 @@ Ext.define('Apps.profile.view.UserForm', {
         var me = this;
 
         Ext.apply(me, {
-            frame: true,
-            padding: 10,
             layout: {
                 type: 'vbox',
                 align: 'stretch'

@@ -20,14 +20,17 @@ Ext.define('Apps.profile.view.Viewport', {
             width: Apps.profile.Config.getViewport().width,
             height: Apps.profile.Config.getViewport().height,
             constrain: true,
-            maximizable: true,
+            maximizable: false,
             minimizable: true,
             autoShow: true,
             border: false,
             resizable: false,
-            maximizable: false,
             layout:'card',
             activeItem: 0,
+            defaults: {
+                frame: true,
+                padding: 10
+            },
             items: [{
                 xtype: 'profile_userForm'
             },{
