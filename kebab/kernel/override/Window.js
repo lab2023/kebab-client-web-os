@@ -8,7 +8,7 @@
 Ext.define('Kebab.kernel.override.Window', {
     singleton: true,
 
-    constructor: function() {
+    init: function() {
 
         Ext.override(Ext.window.Window, {
 
@@ -29,4 +29,8 @@ Ext.define('Kebab.kernel.override.Window', {
             }
         });
     }
+});
+
+Ext.onReady(function() {
+    Kebab.kernel.override.Window.init();
 });
