@@ -24,7 +24,22 @@ Ext.define('Apps.accountManager.view.Viewport', {
             maximizable: true,
             minimizable: true,
             autoShow: true,
-            layout: 'fit'
+            layout: {
+                type: 'vbox',
+                align : 'stretch',
+                pack  : 'start'
+            },
+            defaults: {
+                frame: true
+            },
+            items: [{
+                flex:1,
+                xtype: 'accountManager_paymentDetails'
+            },{
+                flex:2,
+                style: 'margin-top:3px;',
+                xtype: 'accountManager_paymentHistoryList'
+            }]
         }, null);
 
         me.callParent(arguments);

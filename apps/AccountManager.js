@@ -17,7 +17,7 @@ Ext.define('Apps.AccountManager', {
      * @type Array
      */
     controllers: [
-        //'Index'
+        'Index'
     ],
 
     /**
