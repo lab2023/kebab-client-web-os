@@ -68,7 +68,8 @@ Ext.define('Kebab.view.desktop.menu.Indicators', {
             iconCls: 'icon-kernel-feedback',
             tooltip: Kebab.I18nHelper.t('kebab.feedback'),
             handler: function() {
-                UserVoice.showPopupWidget();
+                //UserVoice.showPopupWidget();
+                alert('Please setup your UserVoice account and enable UserVoice.showPopupWidget();');
             }
         },{
             iconCls: 'icon-kernel-power',
