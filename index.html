@@ -3,36 +3,45 @@
  http://kebab-project.com
  Copyright (c) 2011-2012 lab2023 - internet technologies TURKEY Inc.
  http://www.lab2023.com
-
-    * LICENSE
-    *
-    * This source file is subject to the  Dual Licensing Model that is bundled
-    * with this package in the file LICENSE.txt.
-    * It is also available through the world-wide-web at this URL:
-    * http://www.kebab-project.com/licensing
-    * If you did not receive a copy of the license and are unable to
-    * obtain it through the world-wide-web, please send an email
-    * to info@lab2023.com so we can send you a copy immediately.
 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Kebab Revolution 2.0.0 - Web OS</title>
+    <title>Kebab Web OS - Login</title>
+
+    <meta content="authenticity_token" name="csrf-param" />
+    <meta content="your_token_here" name="csrf-token" />
 
     <!-- include favicon here -->
-    <link rel="shortcut icon" type="image/x-icon"  href="favicon.ico" />
-
-    <!-- include css files here -->
-    <link rel="stylesheet" type="text/css" href="resources/css/kebab-light.css">
+    <link rel="shortcut icon" type="image/x-icon"  href="resources/favicon.ico" />
 
     <!-- include js files here -->
-    <script type="text/javascript" src="vendors/ext-4.0.7-gpl/bootstrap.js"></script>
-    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="vendors/ext-4.1.0-beta-2/ext-all-debug.js"></script>
+    <script type="text/javascript" src="vendors/ext-4.1.0-beta-2/locale/ext-lang-en.js"></script>
+    <script type="text/javascript" src="locale/kebab-lang-en.js"></script>
+    <script type="text/javascript" src="kebab/kebab.js"></script>
+    <script type="text/javascript" src="kebab/login.js"></script>
+
+    <script type="text/javascript">
+        Kebab.setBootstrap({
+            "authenticity_token": "your_token_here",
+            "tenant":{
+                "cname":null,
+                "id":1,
+                "name":"lab2023 Inc.",
+                "subdomain":"lab2023"
+            },
+            "locale": {
+                "default_locale": "en",
+                "available_locales": ["en", "ru", "tr"]
+            },
+            "env": "production",
+            "version":"1.1.1",
+            "user": {}
+        });
+    </script>
 </head>
 <body>
-    <div id="loader-mask">
-        <p><span>Loading please wait</span></p>
-    </div>
 </body>
 </html>

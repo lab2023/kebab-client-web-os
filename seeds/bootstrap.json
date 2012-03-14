@@ -1,0 +1,28 @@
+{
+    "authenticity_token": "your_token_here",
+    "tenant":{
+        "cname":null,
+        "id":1,
+        "name":"lab2023 Inc.",
+        "subdomain":"lab2023"
+    },
+    "locale": {
+        "default_locale": "tr",
+        "available_locales": ["en", "ru", "tr"]
+    },
+    "env": "production",
+    "version":"1.1.1",
+    "user": {
+        "id": 1,
+        "email": "mail@example.com",
+        "name": "John Doe",
+        "is_owner": true,
+        "applications": [],
+        "privileges":[
+            {"id":1, "info":null, "name":"Invite User", "sys_name":"InviteUser"},
+            {"id":2, "info":null, "name":"Passive User", "sys_name":"PassiveUser"},
+            {"id":3, "info":null, "name":"Active User", "sys_name":"ActiveUser"},
+            {"id":4, "info":null, "name":"Manage Account", "sys_name":"ManageAccount"}
+        ]
+    }
+}

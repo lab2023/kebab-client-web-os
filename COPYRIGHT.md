@@ -5,8 +5,7 @@ Kebab Project 2.x (Kebab Revolution) - Web OS Client Platform for Ext JS 4.x
     http://www.lab2023.com - http://www.kebab-project.com/cms/licensing
 ================================================================================
 
-Credits of 3rd Party Libraries, Plugins, Extentions etc.
---------------------------------------------------------------------------------
+# Credits of 3rd Party Libraries, Plugins, Extentions etc.
 
 - Ext JS 4.0.2a - JavaScript Framework
     Copyright (c) http://www.sencha.com
@@ -16,8 +15,15 @@ Credits of 3rd Party Libraries, Plugins, Extentions etc.
     Copyright (c) 2008-2011 Pivotal Labs
     http://pivotal.github.com/jasmine/
 
-Credits of Wallpaper pictures, images, icons etc.
---------------------------------------------------------------------------------
-- Simple Desktops Cube Chaos Wallpaper
-    Created by: Jonathan Gleit
-    www.simpledesktops.com - http://static.simpledesktops.com/desktops/2011/11/07/cubechaos2.png
+- Notification / Toastwindow extension for Ext JS 4.x
+    Copyright (c) 2011 Eirik Lorentsen
+    http://www.eirik.net/
+
+# Credits of Wallpaper pictures, images, icons etc.
+
+- FatCow - Farm-Fresh Web Icons
+    Copyright (c) 2012 FatCow Web Hosting
+    http://www.fatcow.com/free-icons
+- Tango Desktop Project
+    Copyright (c) Tango Desktop Project
+    http://tango.freedesktop.org/
