@@ -144,7 +144,8 @@ Ext.define('Kebab.kernel.connection.AjaxSniffer', {
             xtype: 'button',
             text: 'Report this problem',
             handler: function() {
-                UserVoice.showPopupWidget();
+                //UserVoice.showPopupWidget();
+                alert('Please setup your UserVoice account and enable UserVoice.showPopupWidget();');
             }
         });
     },
@@ -164,7 +165,10 @@ Ext.define('Kebab.kernel.connection.AjaxSniffer', {
         Kebab.NotifyHelper.msg('ERR', '<strong>Opps! Server Error</strong><br />Something going wrong.', true, {
             xtype: 'button',
             text: 'Report this problem',
-            handler: UserVoice.showPopupWidget
+            handler: function() {
+                //UserVoice.showPopupWidget();
+                alert('Please setup your UserVoice account and enable UserVoice.showPopupWidget();');
+            }
         });
     },
 
