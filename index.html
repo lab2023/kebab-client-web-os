@@ -8,36 +8,40 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Kebab Web OS</title>
+    <title>Kebab Web OS - Login</title>
+
+    <meta content="authenticity_token" name="csrf-param" />
+    <meta content="your_token_here" name="csrf-token" />
 
     <!-- include favicon here -->
     <link rel="shortcut icon" type="image/x-icon"  href="resources/favicon.ico" />
 
-    <!-- include css files here -->
-    <link rel="stylesheet" type="text/css" href="resources/css/web.css" />
+    <!-- include js files here -->
+    <script type="text/javascript" src="vendors/ext-4.1.0-beta-2/ext-all-debug.js"></script>
+    <script type="text/javascript" src="vendors/ext-4.1.0-beta-2/locale/ext-lang-en.js"></script>
+    <script type="text/javascript" src="locale/kebab-lang-en.js"></script>
+    <script type="text/javascript" src="kebab/kebab.js"></script>
+    <script type="text/javascript" src="kebab/login.js"></script>
+
+    <script type="text/javascript">
+        Kebab.setBootstrap({
+            "authenticity_token": "your_token_here",
+            "tenant":{
+                "cname":null,
+                "id":1,
+                "name":"lab2023 Inc.",
+                "subdomain":"lab2023"
+            },
+            "locale": {
+                "default_locale": "en",
+                "available_locales": ["en", "ru", "tr"]
+            },
+            "env": "production",
+            "version":"1.1.1",
+            "user": {}
+        });
+    </script>
 </head>
 <body>
-    <div id="wrapper">
-        <!-- Logo -->
-        <a id="logo" href="index.html">
-            <img src="resources/images/logo.png" />
-        </a>
-
-        <!-- Navigation -->
-        <p id="navi">
-            <a href="index.html">Home</a> · <a href="plans.html">Plans &amp Pricing</a> · <a href="login.html">Sign-in</a>
-        </p>
-
-        <!-- Contents -->
-        <div id="contents">
-            <h1>Welcome to Kebab Web OS</h1>
-            <blockquote>"Create your multi-tenant web applications, using Kebab"</blockquote>
-        </div>
-
-        <!-- Footer -->
-        <p id="footer">
-            2010 - 2011 · <a href="http://www.lab2023.com" target="_blank">lab2023 - internet technologies</a> · All rights reserved
-        </p>
-    </div>
 </body>
 </html>

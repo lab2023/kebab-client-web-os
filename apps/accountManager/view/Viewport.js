@@ -16,28 +16,29 @@ Ext.define('Apps.accountManager.view.Viewport', {
         var me = this;
 
         Ext.apply(me, {
-            title: Apps.accountManager.I18n.t('appTitle'),
+            title: Kebab.I18nHelper.t('accountManager.title'),
             width: Apps.accountManager.Config.getViewport().width,
             height: Apps.accountManager.Config.getViewport().height,
-            border: false,
+            border: true,
             constrain: true,
             maximizable: true,
             minimizable: true,
             autoShow: true,
             layout: {
-                type: 'vbox',
+                type: 'hbox',
                 align : 'stretch',
                 pack  : 'start'
             },
             defaults: {
-                frame: true
+                frame:true,
+                flex:2,
+                margin: 3
             },
             items: [{
-                flex:1,
-                xtype: 'accountManager_paymentDetails'
+                width:221,
+                frame: false,
+                xtype: 'accountManager_accountDetails'
             },{
-                flex:2,
-                style: 'margin-top:3px;',
                 xtype: 'accountManager_paymentHistoryList'
             }]
         }, null);

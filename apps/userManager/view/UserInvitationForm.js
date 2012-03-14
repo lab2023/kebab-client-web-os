@@ -18,9 +18,9 @@ Ext.define('Apps.userManager.view.UserInvitationForm', {
         var me = this;
 
         Ext.apply(me, {
-            frame: true,
+            iconCls: 'icon-add',
             padding: 10,
-            title: 'User Invitation Form',
+            title:  Kebab.I18nHelper.t('userManager.texts.userInvitation'),
             layout: {
                 type: 'vbox',
                 align: 'stretch'
@@ -43,13 +43,11 @@ Ext.define('Apps.userManager.view.UserInvitationForm', {
         var me = this;
 
         return [{
-            fieldLabel: 'Name',
-            emptyText: 'Type the name of the user to be invited here',
+            fieldLabel: Kebab.I18nHelper.t('kebab.texts.name'),
             name: 'name',
             allowBlank: false
         },{
-            fieldLabel: 'E-mail',
-            emptyText: 'This e-mail address to send the invitation',
+            fieldLabel: Kebab.I18nHelper.t('kebab.texts.email'),
             name: 'email',
             vtype: 'email',
             allowBlank: false
@@ -59,11 +57,11 @@ Ext.define('Apps.userManager.view.UserInvitationForm', {
     buildButtons: function() {
         return [{
             iconCls: 'icon-cancel',
-            text: 'Cancel',
+            text: Kebab.I18nHelper.t('kebab.buttons.cancel'),
             action: 'closeUserInvitationForm'
         },{
             iconCls: 'icon-email',
-            text: 'Send Invitation',
+            text: Kebab.I18nHelper.t('kebab.buttons.send'),
             action: 'sendUserInvitation',
             formBind: true,
             disabled: true

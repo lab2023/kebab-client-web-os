@@ -1,9 +1,13 @@
 Ext.define('Apps.userManager.store.Users', {
     extend: 'Ext.data.Store',
-    model: 'Apps.userManager.model.User',
+    model: 'Kebab.model.User',
+
+    autoDestroy: true,
+    autoLoad: true,
+    autoSync: true,
 
     sorters: [{
-        property: 'active',
+        property: 'disabled',
         direction: 'DESC'
     }],
 

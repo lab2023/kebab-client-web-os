@@ -94,10 +94,7 @@ Ext.define('Apps.profile.view.UserForm', {
                 displayField: 'name',
                 valueField: 'value',
                 queryMode: 'local',
-                store: Ext.create('Ext.data.Store', {
-                    fields: ['name', 'value'],
-                    data : Kebab.kernel.Base.timeZonesData
-                })
+                store: Ext.StoreManager.lookup('TimeZones')
             }]
         }];
     },
@@ -106,7 +103,8 @@ Ext.define('Apps.profile.view.UserForm', {
         return [{
             iconCls: 'icon-delete',
             text: 'Cancel Membership',
-            action: 'cancelMembership'
+            action: 'cancelMembership',
+            hidden: Kebab.getBootstrap('user')['is_owner']
         },{
             iconCls: 'icon-key',
             text: 'Change Password',

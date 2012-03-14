@@ -1,5 +1,5 @@
 /**
- * @class System
+ * @class Index
  * @extends Ext.app.Controller
  * @author Tayfun Öziş ERİKAN <tayfun.ozis.erikan@lab2023.com>
  *
@@ -73,7 +73,7 @@ Ext.define('Apps.profile.controller.Index', {
     loadUser: function(p) {
         var me = this,
             form = p.getForm(),
-            userId = Kebab.helper.config('user').id,
+            userId = Kebab.getBootstrap('user').id,
             User = me.getUserModel();
 
         p.getEl().mask('Please wait...');
@@ -84,7 +84,7 @@ Ext.define('Apps.profile.controller.Index', {
             },
             failure: function(user) {
                 p.getEl().unmask();
-                Kebab.helper.notify('Failed', 'Load failed... Please try again.', true);
+                Kebab.NotifyHelper.msg('ERR', Kebab.I18nHelper.t('kebab.messages.failure'));
             }
         });
     },
@@ -121,11 +121,15 @@ Ext.define('Apps.profile.controller.Index', {
                 user.save({
                     success: function() {
                         formPanel.getEl().unmask();
-                        Kebab.helper.notify('Successful', 'Your user info has been updated.');
+                        Kebab.NotifyHelper.msg('OK', 'Your user info has been updated.', true, {
+                            xtype: 'button',
+                            action: 'restart',
+                            text: 'Click to reload your session'
+                        });
                     },
                     failure: function() {
                         formPanel.getEl().unmask();
-                        Kebab.helper.notify('Failed', 'Update failed... Please try again.', true);
+                        Kebab.NotifyHelper.msg('ERR', Kebab.I18nHelper.t('kebab.messages.failure'));
                     }
                 });
             }
@@ -155,9 +159,10 @@ Ext.define('Apps.profile.controller.Index', {
 
                 // Create model instance
                 var Password = Ext.create(me.getPasswordModel(), {
-                    id: Kebab.helper.config('user').id,
-                    password: form.getValues().new_password,
-                    password_confirmation: form.getValues().new_password
+                    id: Kebab.getBootstrap('user').id,
+                    password: form.getValues().password,
+                    new_password: form.getValues().new_password,
+                    new_password_confirmation: form.getValues().new_password_confirmation
                 });
 
                 // Model Validation
@@ -170,14 +175,14 @@ Ext.define('Apps.profile.controller.Index', {
                     Password.save({
                         success: function() {
                             formPanel.getEl().unmask();
-                            Kebab.helper.notify('Successful', 'Your password has been changed.');
+                            Kebab.NotifyHelper.msg('OK', Kebab.I18nHelper.t('kebab.messages.success'));
                             me.showUserForm();
                         },
                         failure: function() {
                             formPanel.getEl().unmask();
-                            Kebab.helper.notify('Failed', 'Update failed... Please try again.', true, {
+                            Kebab.NotifyHelper.msg('ERR', Kebab.I18nHelper.t('kebab.messages.failure'), true, {
                                 xtype: 'button',
-                                text: 'Try again',
+                                text: Kebab.I18nHelper.t('kebab.texts.tryAgain'),
                                 handler: function() {
                                     me.updatePassword(cp, e);
                                 }
@@ -197,37 +202,40 @@ Ext.define('Apps.profile.controller.Index', {
     cancelMembershipAsk: function(btn) {
         var me = this;
 
-        Ext.Msg.show({
-            title:'Are you sure ?',
-            msg:'You couldn\'t sign-in again and lose your personal data !!!',
-            buttons:Ext.Msg.OKCANCEL,
-            animateTarget:btn.getEl(),
-            fn: function(button) {
-                if (button == 'ok') {
-                    me.cancelMembership();
-                }
-            },
-            icon:Ext.Msg.WARNING
-        });
+        if (!Kebab.getBootstrap('user')['is_owner']) {
+             Ext.Msg.show({
+                title:'Are you sure ?',
+                msg:'You couldn\'t sign-in again and lose your personal data !!!',
+                buttons:Ext.Msg.OKCANCEL,
+                animateTarget:btn.getEl(),
+                fn: function(button) {
+                    if (button == 'ok') {
+                        me.cancelMembership();
+                    }
+                },
+                icon:Ext.Msg.WARNING
+            });
+        } else {
+            Kebab.NotifyHelper.msg('ERR', 'This process is not permitted.');
+        }
     },
 
     /**
      * Destroy user from server
      */
     cancelMembership: function() {
-        var me = this,
-            loadMask = Kebab.helper.application().getLoadMask(),
+        var loadMask = Kebab.LoaderHelper.getMask(),
             User = me.getUserForm().getForm().getRecord();
 
         loadMask.show();
 
         User.destroy({
             success:function () {
-                Kebab.helper.redirect('login.html');
+                Kebab.URLHelper.redirect('login.html');
             },
             failure:function () {
                 loadMask.hide();
-                Kebab.helper.notify('Failed', 'Operation failed... Please try again.', true);
+                Kebab.NotifyHelper.msg('ERR', Kebab.I18nHelper.t('kebab.messages.failure'));
             }
         });
     },

@@ -8,13 +8,6 @@ Ext.define('Kebab.kernel.app.Application', {
     extend: 'Ext.app.Application',
 
     /**
-     * Application mixins
-     */
-    mixins: [
-        'Kebab.kernel.mixin.LoadMask',
-    ],
-
-    /**
      * Application Config
      */
     config: {
@@ -22,6 +15,11 @@ Ext.define('Kebab.kernel.app.Application', {
         constrainTo: null,
         animateTarget: null
     },
+
+    /**
+     * Application config class auto create property
+     */
+    autoCreateConfig: true,
 
     /**
      * Application viewport auto create property
@@ -35,21 +33,23 @@ Ext.define('Kebab.kernel.app.Application', {
      */
     constructor: function(config) {
         var me = this,
-            appNamespace = me.id.lcFirst();
+            appNamespace = me.id;
 
         me.initConfig(config);
 
         // Base required classes
-        Ext.require([
-            'Apps.' + appNamespace + '.config.Config',
-            'Apps.' + appNamespace + '.locale.I18n',
+        var classes = [
             'Apps.' + appNamespace + '.view.Viewport'
-        ]);
+        ];
+        if (me.autoCreateConfig) {
+            classes.push('Apps.' + appNamespace + '.config.Config')
+        }
+        Ext.require(classes);
 
         Ext.apply(me, {
             name: 'Apps.' + appNamespace,
             appNamespace: appNamespace,
-            appFolder: Kebab.helper.root('apps/' + appNamespace)
+            appFolder: Kebab.getRoot('apps/' + appNamespace)
         });
 
         var cssFiles = [];
@@ -59,11 +59,12 @@ Ext.define('Kebab.kernel.app.Application', {
                 cssFiles.push('apps/' + appNamespace + '/resources/css/' + cssFile)
 
             });
-            Kebab.helper.loadCSS(cssFiles);
+            Kebab.AssetHelper.loadCSS(cssFiles);
         }
 
         me.callParent(arguments);
 
+        // Set EventBus id
         this.eventbus.appId = me.id;
     },
 
@@ -86,7 +87,7 @@ Ext.define('Kebab.kernel.app.Application', {
                 renderTo: Ext.getBody(),
                 margin: 10,
                 size: 96,
-                tooltip: eval("Apps." + me.appNamespace + ".I18n.t('appTitle')"),
+                tooltip: Kebab.I18nHelper.t(me.appNamespace + '.title'),
                 launcher: {
                     appId: me.id
                 },
@@ -106,9 +107,12 @@ Ext.define('Kebab.kernel.app.Application', {
             });
         }
 
-        console.log('Apps.' + me.id + ' was launched...');
+        console.log('Apps.' + me.id + '.Application was launched...');
     },
 
+    /**
+     * Remove all events and destroy all views
+     */
     destroy: function() {
         var me = this;
 

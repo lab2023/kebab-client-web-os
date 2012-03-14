@@ -1,5 +1,5 @@
 /**
- * @class Base
+ * @class Window
  * @singleton
  * @author Tayfun Öziş ERİKAN <tayfun.ozis.erikan@lab2023.com>
  *
@@ -9,20 +9,16 @@ Ext.define('Kebab.kernel.override.Window', {
     singleton: true,
 
     init: function() {
-
         Ext.override(Ext.window.Window, {
 
             constructor: function () {
                 var me = this;
 
                 if (me.appViewport === true) {
-                    me.tools = [{
-                        type: 'help',
-                        tooltip: 'Open feedback application',
-                        launcher: {
-                            appId: 'Feedback'
-                        }
-                    }];
+
+                    me.shadow = false;
+                    me.collapsible = true;
+                    me.animCollapse = false;
                 }
 
                 me.callParent(arguments);
@@ -30,7 +26,4 @@ Ext.define('Kebab.kernel.override.Window', {
         });
     }
 });
-
-Ext.onReady(function() {
-    Kebab.kernel.override.Window.init();
-});
+Ext.onReady(Kebab.kernel.override.Window.init, Kebab.kernel.override.Window);

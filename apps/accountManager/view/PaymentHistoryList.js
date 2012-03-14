@@ -5,22 +5,9 @@ Ext.define('Apps.accountManager.view.PaymentHistoryList', {
     initComponent: function() {
         var me = this;
 
-        var store = Ext.create('Ext.data.Store', {
-            model: 'Apps.accountManager.model.Subscription',
-            autoLoad: true,
-            proxy: {
-                type: 'rest',
-                url: 'subscription/payments',
-                reader: {
-                    type: 'json',
-                    root: 'images'
-                }
-            }
-        });
-
         Ext.apply(me, {
             title:'Payment History',
-            store: store,
+            store: Ext.data.StoreManager.lookup('PaymentHistories'),
             viewConfig: {
                 emptyText: 'No payment to display'
             },
@@ -33,21 +20,24 @@ Ext.define('Apps.accountManager.view.PaymentHistoryList', {
     buildColumns: function() {
 
         return [{
-            text: 'Plan Name',
-            dataIndex: 'plan_name',
-            flex: 50
+            xtype: 'rownumberer'
         },{
-            text: 'Date',
+            text: 'Invoice No',
+            flex: 34,
+            dataIndex: 'invoice_no'
+        },{
+            text: 'Payment Date',
             xtype: 'datecolumn',
-            format: 'm-d-',
-            flex: 35,
-            dataIndex: 'date'
+            align: 'right',
+            format: 'Y-m-d H:i:s',
+            flex: 33,
+            dataIndex: 'payment_date'
         },{
             text: 'Price',
-            dataIndex: 'size',
-            tpl: '{format:usMoney}',
+            dataIndex: 'price',
+            renderer: Ext.util.Format.usMoney,
             align: 'right',
-            flex: 15
+            flex: 33
         }];
 
     }

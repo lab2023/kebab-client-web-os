@@ -19,11 +19,11 @@ Ext.define('Apps.userManager.view.UserList', {
         var me = this,
             tpl = Ext.create('Ext.XTemplate',
                 '<tpl for=".">',
-                    '<div class="users{[!values.active ? " deactivated" : ""]}">',
+                    '<div class="users{[values.disabled ? " disabled" : ""]}">',
                         '<p class="body"><strong>{name}</strong><br />{email}</p>',
                         '<p class="links">',
-                            '<a href="#{[values.active ? "deactivate" : "reactivate"]}">',
-                                '{[values.active ? "Deactivate" : "Reactivate"]}',
+                            '<a href="#{[values.disabled ? "enable" : "disable"]}">',
+                                '{[values.disabled ? "' + Kebab.I18nHelper.t('kebab.texts.enable') + '" : "' + Kebab.I18nHelper.t('kebab.texts.disable') + '"]}',
                             '</a>',
                         '</p>',
                         '<p class="clear"></p>',
@@ -34,9 +34,7 @@ Ext.define('Apps.userManager.view.UserList', {
 
         Ext.apply(me,{
             deferInitialRefresh: false,
-            store: Ext.create('Apps.userManager.store.Users', {
-                autoLoad: true
-            }),
+            store: Ext.data.StoreManager.lookup('Users'),
             tpl: tpl,
             itemSelector: 'div.users',
             overItemCls: 'users-hover',

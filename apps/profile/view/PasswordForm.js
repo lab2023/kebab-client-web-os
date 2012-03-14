@@ -42,20 +42,23 @@ Ext.define('Apps.profile.view.PasswordForm', {
         return [{
             fieldLabel: 'Old password',
             emptyText: 'Type your current password here',
-            name: 'old_assword',
+            name: 'password',
             inputType: 'password',
+            minLength: 4,
             allowBlank: false
         },{
             fieldLabel: 'New password',
             emptyText: 'Type your secure password here',
             name: 'new_password',
             inputType: 'password',
+            minLength: 4,
             allowBlank: false
         },{
             fieldLabel: 'Enter your new password again for verification',
             emptyText: 'Re-type your password here',
-            name: 'password_confirmation',
+            name: 'new_password_confirmation',
             inputType: 'password',
+            minLength: 4,
             allowBlank: false,
             validator: function(value) {
                 var password1 = me.getForm().findField('new_password');

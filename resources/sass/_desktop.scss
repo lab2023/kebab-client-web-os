@@ -1,0 +1,112 @@
+/* -----------------------------------------------------------------------------
+ Kebab Project 2.x (Kebab Revolution) - Web OS Client Platform for Ext JS 4.x
+ http://kebab-project.com
+ Copyright (c) 2011-2012 lab2023 - internet technologies TURKEY Inc.
+ http://www.lab2023.com
+----------------------------------------------------------------------------- */
+
+@import "compass";
+
+#desktop-dock {
+
+  @include opacity(0);
+  border-right: 1px solid rgba(black, .1) !important;
+  border-top: 0;
+  background: rgba(0, 0, 0, 0.1) !important;
+
+  div.x-box-inner {
+
+    overflow: visible;
+
+    div.kebab-launcher {
+      @include border-radius(5px);
+      border: 1px solid rgba(gray, .5);
+      @include background-image(linear-gradient(rgba(255, 255, 255, .8), rgba(255, 255, 255, .1)));
+      @include box-shadow(rgba(gray, .6) 0 0 25px, rgba(silver, .4) 0 0 3px 1px inset);
+      cursor: pointer !important;
+      padding: 3px;
+      margin: 3px;
+    }
+
+    div.kebab-launcher:hover {
+      @include background-image(linear-gradient(rgba(255, 255, 255, .1), rgba(255, 255, 255, .8)));
+    }
+
+    div.kebab-launcher-active {
+      @include box-shadow(rgba(gray, 1) 0 0 25px, rgba(silver, 1) 0 0 3px 1px inset);
+      @include background-image(linear-gradient(rgba(255, 255, 255, .1), rgba(255, 255, 255, .8)));
+      border: 1px solid gray;
+    }
+  }
+
+  div.x-toolbar-separator-vertical {
+    margin: 6px 5px 3px 5px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  }
+}
+
+#desktop-launchpad {
+
+  #desktop-launchpad-launchers {
+
+    padding: 10px;
+
+    div.launchers {
+
+      text-align: center;
+      cursor: pointer;
+      float: left;
+      margin: 5px;
+      padding: 5px;
+
+      p {
+        font-weight: 800;
+        text-align: center;
+      }
+    }
+
+    div.launchers:hover {
+      @include border-radius(10px);
+      @include background-image(linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .9)));
+      @include box-shadow(rgba(gray, .6) 0 0 25px, rgba(silver, .4) 0 0 3px 1px inset);
+    }
+  }
+
+  #desktop-launchpad-departments {
+
+    padding: 10px;
+
+    h1 {
+      padding: 2px;
+
+      span {
+        float: right;
+        font-weight: 400;
+        cursor: pointer;
+      }
+
+      span:hover {
+        text-decoration: underline;
+      }
+    }
+
+    div.departments {
+
+      cursor: pointer;
+      width: 100%;
+      margin: 5px 0;
+      padding: 5px;
+
+      @include border-radius(5px);
+      border: 1px solid rgba(gray, .4);
+      background-color: rgba(gray, .1);
+    }
+
+    div.departments:hover, div.departments-selected {
+      color: #fff;
+      font-weight: 800;
+      background-color: rgba(gray, .7);
+      border-color: rgba(gray, .9);
+    }
+  }
+}

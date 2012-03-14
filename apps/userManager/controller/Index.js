@@ -39,6 +39,9 @@ Ext.define('Apps.userManager.controller.Index', {
     },{
         ref: 'userInvitationForm',
         selector: 'userManager_userInvitationForm'
+    },{
+        ref: 'limitsIndicator',
+        selector: 'userManager_viewport button[action="showLimits"]'
     }],
 
     /**
@@ -48,19 +51,15 @@ Ext.define('Apps.userManager.controller.Index', {
         var me = this;
 
         me.control({
-            // Listen inviteUser button events
-            'userManager_viewport button[action="inviteUser"]': {
-                click: me.toggleUserInvitationForm
-            },
-            // Listen closeUserInvitationForm button events
-            'userManager_userInvitationForm button[action="closeUserInvitationForm"]': {
-                click: me.toggleUserInvitationForm
+            'userManager_viewport button[action="showLimits"]': {
+                click: me.updateUserLimits,
+                render: me.updateUserLimits
             },
             // Sign-in form textfield items
             'userManager_userInvitationForm > textfield': {
                 specialkey: me.sendUserInvitation
             },
-            // Listen sendFeedback button events
+            // Listen sendUserInvitation button events
             'userManager_userInvitationForm button[action="sendUserInvitation"]': {
                 click: me.sendUserInvitation
             },
@@ -79,13 +78,13 @@ Ext.define('Apps.userManager.controller.Index', {
         var me = this,
             target = e.getTarget('a', 0, true);
 
-        if (target && (target.getAttribute('href') == '#deactivate' || target.getAttribute('href') == '#reactivate')) {
-            me.changeUserStatus(r, target);
+        if (target && (target.getAttribute('href') == '#disable' || target.getAttribute('href') == '#enable')) {
+            me.enableDisableUser(r, target);
         }
     },
 
     /**
-     * Send feedback message
+     * Send sendUserInvitation message
      *
      * @param cp Ext.form.field.Text Fired component
      * @param cp Ext.button.Button Fired component
@@ -105,11 +104,11 @@ Ext.define('Apps.userManager.controller.Index', {
             // Validation
             if (form.isValid()) {
 
-                // Create new feedback model instance
+                // Create new user model instance
                 var User = Ext.create(
                     me.getUserModel(),
                     form.getValues()
-                )
+                );
 
                 // Mask
                 formPanel.getEl().mask('Please wait...');
@@ -118,13 +117,14 @@ Ext.define('Apps.userManager.controller.Index', {
                 User.save({
                     success: function() {
                         // Add new user to store
-                        me.getUserList().getStore().add(User);
-                        Kebab.helper.notify('Success', 'Your message has been sent.');
+                        me.getUserList().getStore().load();
+                        Kebab.NotifyHelper.msg('OK', Kebab.I18nHelper.t('kebab.messages.success'));
+                        formPanel.getEl().unmask();
+                        me.updateUserLimits();
                         form.reset();
-                        me.toggleUserInvitationForm();
                     },
                     failure: function() {
-                        Kebab.helper.notify('Failed', 'Sending failed... Please try again.', true);
+                        Kebab.NotifyHelper.msg('ERR', Kebab.I18nHelper.t('kebab.messages.failure'));
                         formPanel.getEl().unmask();
                     }
                 });
@@ -133,37 +133,45 @@ Ext.define('Apps.userManager.controller.Index', {
         }
     },
 
-    changeUserStatus: function(record, target) {
+    enableDisableUser: function(record, target) {
         var me = this;
 
         // Are u sure ?
         Ext.Msg.show({
             title:'Are you sure ?',
-            msg:'User no longer not be able to sign-in',
+            msg: record.data.disabled ?
+                'The user will be <strong>enabled</strong> again' :
+                'User no longer <strong>not be able to sign-in</strong>',
             buttons:Ext.Msg.OKCANCEL,
             modal: false,
             animateTarget: target,
             fn: function(button) {
                 if (button == 'ok') {
-                    var status = record.data.active;
 
-                    // Set record
-                    record.set('active', !status);
+                    // Req action
+                    var reqAction = record.data.disabled ? 'enable' : 'disable';
 
                     // Mask
-                    me.getUserList().getEl().mask('Please wait');
+                    me.getUserList().ownerCt.getEl().mask('Please wait');
 
-                    // Sync server
-                    record.save({
+                    // Post server
+                    Ext.Ajax.request({
+                        method: 'POST',
+                        url: 'users/' + reqAction,
+                        params: {
+                            id: record.data.id
+                        },
                         success: function() {
-                            me.getUserList().getEl().unmask();
-                            Kebab.helper.notify('Successful', 'User status was changed.');
+                            me.getUserList().ownerCt.getEl().unmask();
+                            record.set('disabled', !record.data.disabled);
+                            me.updateUserLimits();
+                            Kebab.NotifyHelper.msg('OK', Kebab.I18nHelper.t('kebab.messages.success'));
                         },
                         failure: function() {
                             // Rollback
                             record.reject();
-                            me.getUserList().unmask();
-                            Kebab.helper.notify('Failure', 'User status couldn\'t changed.');
+                            me.getUserList().ownerCt.getEl().unmask();
+                            Kebab.NotifyHelper.msg('ERR', Kebab.I18nHelper.t('kebab.messages.failure'));
                         }
                     });
                 }
@@ -172,14 +180,33 @@ Ext.define('Apps.userManager.controller.Index', {
         });
     },
 
-    toggleUserInvitationForm: function() {
-        var me = this;
+    updateUserLimits: function() {
+        var me = this,
+            btn = me.getLimitsIndicator();
 
-        if (me.getUserInvitationForm().isHidden()) {
-            me.getUserInvitationForm().show();
-        } else {
-            me.application.getViewport().down('button[action="inviteUser"]').toggle(false);
-            me.getUserInvitationForm().hide();
-        }
+        btn.setText(Kebab.I18nHelper.t('kebab.texts.checking'));
+        btn.disable();
+        Ext.Ajax.request({
+            url: 'subscriptions/limits',
+            method: 'GET',
+            success: function(response) {
+                var obj = Ext.decode(response.responseText);
+                btn.removeCls('x-masked');
+                btn.enable();
+                btn.setText(Ext.String.format(Kebab.I18nHelper.t('userManager.texts.userLimits') + ': {1} / {0}', obj.data.user.limit, obj.data.user.total));
+
+
+                if (obj.data.user.limit <= obj.data.user.total) {
+                    me.getUserInvitationForm().disable();
+                } else {
+                    me.getUserInvitationForm().enable();
+                }
+
+            } ,
+            failure: function() {
+                btn.setText(Kebab.I18nHelper.t('kebab.texts.failure'));
+                btn.enable();
+            }
+        });
     }
 });

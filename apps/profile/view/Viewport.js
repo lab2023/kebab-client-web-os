@@ -16,7 +16,7 @@ Ext.define('Apps.profile.view.Viewport', {
         var me = this;
 
         Ext.apply(me, {
-            title: Apps.profile.I18n.t('appTitle'),
+            title: Kebab.I18nHelper.t('profile.title'),
             width: Apps.profile.Config.getViewport().width,
             height: Apps.profile.Config.getViewport().height,
             constrain: true,

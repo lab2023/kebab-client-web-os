@@ -14,10 +14,5 @@ Ext.define('Apps.userManager.config.Config', {
             width: 650,
             height: 400
         }
-    },
-
-    constructor: function(config) {
-        var me = this;
-        me.initConfig(config);
     }
 });

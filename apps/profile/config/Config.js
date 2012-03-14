@@ -14,10 +14,5 @@ Ext.define('Apps.profile.config.Config', {
             width: 410,
             height: 230
         }
-    },
-
-    constructor: function(config) {
-        var me = this;
-        me.initConfig(config);
     }
 });

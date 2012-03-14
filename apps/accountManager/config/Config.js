@@ -11,13 +11,8 @@ Ext.define('Apps.accountManager.config.Config', {
 
     config: {
         viewport: {
-            width: 500,
+            width: 650,
             height: 500
         }
-    },
-
-    constructor: function(config) {
-        var me = this;
-        me.initConfig(config);
     }
 });
