@@ -11,7 +11,7 @@ Ext.define('Apps.accountManager.view.AccountDetails', {
 
     initComponent: function() {
         var me = this,
-            paypalImg = Kebab.getRoot('resources/images/paypal.gif', 'AccountManager'),
+            paypalImg = Kebab.getRoot('apps/accountManager/resources/images/paypal.gif'),
             tpl = Ext.create('Ext.XTemplate',
                 '<h1>Plan Details</h1>',
                 '<p><strong>Current Plan: </strong>{plan_name}</p>',
