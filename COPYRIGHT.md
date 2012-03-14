@@ -24,6 +24,3 @@ Kebab Project 2.x (Kebab Revolution) - Web OS Client Platform for Ext JS 4.x
 - FatCow - Farm-Fresh Web Icons
     Copyright (c) 2012 FatCow Web Hosting
     http://www.fatcow.com/free-icons
-- Tango Desktop Project
-    Copyright (c) Tango Desktop Project
-    http://tango.freedesktop.org/
