@@ -34,7 +34,7 @@ Ext.define('Kebab.controller.System', {
     changeLanguage: function(cp, e) {
         e.stopEvent();
         if (cp.locale != Kebab.getLocale()) {
-            Kebab.URLHelper.redirect('?locale=' + cp.locale);
+            Kebab.URLHelper.refresh('?locale=' + cp.locale);
         }
     }
 });
