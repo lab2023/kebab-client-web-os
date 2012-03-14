@@ -204,7 +204,7 @@ Ext.define('Apps.userManager.controller.Index', {
 
             } ,
             failure: function() {
-                btn.setText(Kebab.I18nHelper.t('kebab.texts.failure'));
+                btn.setText(Kebab.I18nHelper.t('kebab.failure'));
                 btn.enable();
             }
         });
