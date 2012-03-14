@@ -94,7 +94,7 @@ Ext.define('Apps.profile.view.UserForm', {
                 displayField: 'name',
                 valueField: 'value',
                 queryMode: 'local',
-                store: Ext.StoreManager.lookup('TimeZones')
+                store: Ext.create('Kebab.store.TimeZones')
             }]
         }];
     },
