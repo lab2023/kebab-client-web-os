@@ -39,7 +39,7 @@ Ext.define('Kebab.helper.URL', {
      */
     refresh: function(url) {
         var me = this;
-        url ? me.redirect(url) : window.location.reload();
+        url ? me.redirect(window.location.pathname.replace('/', '') + url) : me.reload();
     },
 
     /**
