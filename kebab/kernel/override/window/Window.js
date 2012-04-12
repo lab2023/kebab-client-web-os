@@ -5,7 +5,7 @@
  *
  * Kebab Kernel window overrides
  */
-Ext.define('Kebab.kernel.override.Window', {
+Ext.define('Kebab.kernel.override.window.Window', {
     singleton: true,
 
     init: function() {
@@ -26,4 +26,4 @@ Ext.define('Kebab.kernel.override.Window', {
         });
     }
 });
-Ext.onReady(Kebab.kernel.override.Window.init, Kebab.kernel.override.Window);
+Ext.onReady(Kebab.kernel.override.window.Window.init, Kebab.kernel.override.window.Window);
