@@ -5,12 +5,10 @@
 var Kebab = Kebab || {};
 (function() {
     var me = Kebab,
-        bootstrap = {
-            root:  "os"
-        },
+        bootstrap = {},
         extJs = {
-            version: "4.1.0-beta-2",
-            path: "ext-4.1.0-beta-2",
+            version: "4.1.0-rc2",
+            path: "extjs-4.1.0-rc2",
             theme: "ext-all-gray"
         };
 
