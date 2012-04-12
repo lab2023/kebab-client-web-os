@@ -3,7 +3,7 @@
  * @singleton
  * @author Tayfun Öziş ERİKAN <tayfun.ozis.erikan@lab2023.com>
  *
- * Kebab.kernel.override.Number
+ * Kebab kernel Number override
  *
  * This override is fix Google Chrome 18/19/20 layout bugs *
  * Community links:
