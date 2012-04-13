@@ -5,7 +5,7 @@
 var Kebab = Kebab || {};
 (function() {
     var me = Kebab,
-        bootstrap = {},
+        bootstrap = BOOTSTRAP, // Server-client bridge
         extJs = {
             version: "4.1.0-rc2",
             path: "extjs-4.1.0-rc2",
@@ -19,7 +19,7 @@ var Kebab = Kebab || {};
          * Kebab Version
          * @type {String}
          */
-        version: '1.0.0.dev',
+        version: '2.0.0.beta-1',
 
         /**
          * Kebab Translations

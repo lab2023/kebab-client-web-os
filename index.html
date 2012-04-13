@@ -17,14 +17,8 @@
     <link rel="shortcut icon" type="image/x-icon"  href="resources/favicon.ico" />
 
     <!-- include js files here -->
-    <script type="text/javascript" src="vendors/extjs-4.1.0-rc2/ext-all-debug.js"></script>
-    <script type="text/javascript" src="vendors/extjs-4.1.0-rc2/locale/ext-lang-en.js"></script>
-    <script type="text/javascript" src="locale/kebab-lang-en.js"></script>
-    <script type="text/javascript" src="kebab/kebab.js"></script>
-    <script type="text/javascript" src="kebab/login.js"></script>
-
     <script type="text/javascript">
-        Kebab.setBootstrap({
+        var BOOTSTRAP = {
             "authenticity_token": "your_token_here",
             "tenant":{
                 "cname":null,
@@ -37,10 +31,15 @@
                 "available_locales": ["en", "ru", "tr"]
             },
             "env": "production",
-            "version":"1.1.1",
+            "version":"2.0.0-beta-1",
             "user": {}
-        });
+        };
     </script>
+    <script type="text/javascript" src="vendors/extjs-4.1.0-rc2/ext-all-debug.js"></script>
+    <script type="text/javascript" src="vendors/extjs-4.1.0-rc2/locale/ext-lang-en.js"></script>
+    <script type="text/javascript" src="locale/kebab-lang-en.js"></script>
+    <script type="text/javascript" src="kebab/kebab.js"></script>
+    <script type="text/javascript" src="kebab/login.js"></script>
 </head>
 <body>
 </body>
