@@ -31,7 +31,6 @@ Ext.define('Apps.accountManager.view.Viewport', {
             },
             defaults: {
                 frame:true,
-                flex:2,
                 margin: 3
             },
             items: [{
@@ -39,6 +38,7 @@ Ext.define('Apps.accountManager.view.Viewport', {
                 frame: false,
                 xtype: 'accountManager_accountDetails'
             },{
+                flex:1,
                 xtype: 'accountManager_paymentHistoryList'
             }]
         }, null);
