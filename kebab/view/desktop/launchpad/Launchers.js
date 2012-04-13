@@ -23,9 +23,9 @@ Ext.define('Kebab.view.desktop.launchpad.Launchers', {
             launchersSize = Kebab.DesktopConfig.getLaunchpad().launchers.size,
             tpl = Ext.create('Ext.XTemplate',
             '<tpl for=".">',
-                '<div style="width:' + launchersWidth + 'px; height:' + launchersHeight + 'px; " title="Department: {appDepartment}" class="launchers">',
+                '<div style="width:' + launchersWidth + 'px; height:' + launchersHeight + 'px; " data-qtip="{description}" class="launchers">',
                         '<img src="' + Kebab.AssetHelper.cacheControl(launcherImgPath) + '" width="' + launchersSize + '"/>',
-                        '<p>{appTitle}</p>',
+                        '<p>{title}</p>',
                 '</div>',
             '</tpl>'
             );
@@ -33,12 +33,12 @@ Ext.define('Kebab.view.desktop.launchpad.Launchers', {
         Ext.apply(me,{
             deferInitialRefresh: false,
             store: Ext.create('Ext.data.Store', {
-                fields: ['sys_name', 'sys_department', 'appTitle', 'appDepartment'],
+                fields: ['sys_name', 'sys_department', 'title', 'department', 'description'],
                 sorters: [{
-                    property: 'appTitle',
+                    property: 'title',
                     direction: 'ASC'
                 }, {
-                    property: 'appDepartment',
+                    property: 'department',
                     direction: 'ASC'
                 }]
             }),

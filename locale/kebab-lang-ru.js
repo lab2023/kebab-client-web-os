@@ -94,15 +94,18 @@ Ext.onReady(function() {
 
         // Profile App translations
         translations.profile = {
-            title: 'Настройки пользователя'
+            title: 'Настройки пользователя',
+            description: 'Ваши учетные записи пользователей'
         };
         // accountManager translations
         translations.accountManager = {
-            title: 'Ваш аккаунт'
+            title: 'Ваш аккаунт',
+            description: 'Платежей, счетов и план обновления / понижения'
         };
         // userManager translations
         translations.userManager = {
             title: 'Пользователи',
+            description: 'Пригласить новых пользователей и управлять пользователями',
             texts: {
                 userInvitation: 'Пригласить новых пользователей',
                 userLimits: 'Пользователь пределы'

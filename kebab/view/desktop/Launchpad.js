@@ -49,7 +49,7 @@ Ext.define('Kebab.view.desktop.Launchpad', {
                 width: 200,
                 xtype: 'desktop_launchpad_departments'
             }]
-        }, null);
+        });
 
         me.callParent(arguments);
     }

@@ -22,7 +22,7 @@ Ext.define('Kebab.view.desktop.launchpad.Departments', {
             '<h1>' + Kebab.I18nHelper.t('kebab.departments.title') + '<span>' + Kebab.I18nHelper.t('kebab.all') + '</span></h1>',
             '<tpl for=".">',
                 '<div class="departments">',
-                    '{appDepartment}',
+                    '{department}',
                 '</div>',
             '</tpl>'
             );
@@ -30,9 +30,9 @@ Ext.define('Kebab.view.desktop.launchpad.Departments', {
         Ext.apply(me,{
             deferInitialRefresh: false,
             store: Ext.create('Ext.data.Store', {
-                fields: ['sys_name', 'sys_department', 'appTitle', 'appDepartment'],
+                fields: ['sys_name', 'sys_department', 'title', 'department'],
                 sorters: [{
-                    property: 'appDepartment',
+                    property: 'department',
                     direction: 'ASC'
                 }]
             }),

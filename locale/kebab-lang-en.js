@@ -93,15 +93,18 @@ Ext.onReady(function() {
         };
         // Profile App translations
         translations.profile = {
-            title: 'User Settings'
+            title: 'User Settings',
+            description: 'Your user profile settings'
         };
         // accountManager translations
         translations.accountManager = {
-            title: 'Your Account'
+            title: 'Your Account',
+            description: 'Payment, billing and plan upgrade/downgrades'
         };
         // userManager translations
         translations.userManager = {
             title: 'Users',
+            description: 'Invite new users and manage your users',
             texts: {
                 userInvitation: 'Invite new user',
                 userLimits: 'User limits'

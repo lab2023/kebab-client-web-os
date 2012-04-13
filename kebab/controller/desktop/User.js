@@ -56,8 +56,9 @@ Ext.define('Kebab.controller.desktop.User', {
         applicationsStore.each(function(application) {
             var appId = application.get('sys_name'),
                 appDepartment = application.get('sys_department');
-            application.set('appTitle', Kebab.I18nHelper.t(appId + '.title'));
-            application.set('appDepartment', Kebab.I18nHelper.t('kebab.departments.' + appDepartment));
+            application.set('title', Kebab.I18nHelper.t(appId + '.title'));
+            application.set('description', Kebab.I18nHelper.t(appId + '.description'));
+            application.set('department', Kebab.I18nHelper.t('kebab.departments.' + appDepartment));
         });
     },
 

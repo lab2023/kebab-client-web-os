@@ -32,10 +32,7 @@ Ext.define('Apps.userManager.view.Viewport', {
             items: [{
                 width:250,
                 minWidth:200,
-                hidden: false,
-                collapsible: true,
                 region: 'west',
-                collapseMode: 'mini',
                 xtype: 'userManager_userInvitationForm'
             },{
                 flex:1,

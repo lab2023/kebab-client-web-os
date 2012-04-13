@@ -56,11 +56,12 @@ Ext.define('Kebab.kernel.component.Launcher', {
             }
 
             cp.qtip = Ext.create('Ext.tip.ToolTip', {
-               target: cp.getEl(),
-               showDelay: 75,
-               hideDelay: 75,
-               anchor:  dockPosition == 'left' ? 'right' : 'top',
-               html: cp.tooltip || 'Click to open'
+                target: cp.getEl(),
+                showDelay: 75,
+                hideDelay: 75,
+                maxWidth: 200,
+                anchor:  dockPosition == 'left' ? 'right' : 'top',
+                html: cp.tooltip || 'Click to open'
             });
 
             cp.getEl().on('click', function(e) {

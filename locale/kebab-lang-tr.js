@@ -93,15 +93,18 @@ Ext.onReady(function () {
         };
         // Profile App translations
         translations.profile = {
-            title:'Kullanıcı Ayarları'
+            title:'Kullanıcı Ayarları',
+            description: 'Kullanıcı profili ayarlarınız'
         };
         // accountManager translations
         translations.accountManager = {
-            title:'Hesabınız'
+            title:'Hesabınız',
+            description: 'Ödeme, fatura ve paket yükseltme/düşürme işlemleri'
         };
         // userManager translations
         translations.userManager = {
             title:'Kullanıcılar',
+            description: 'Yeni kullanıcı ekleyin ve mevcut kullanıcılarınızı yönetin',
             texts:{
                 userInvitation:'Yeni kullanıcı davet et',
                 userLimits:'Kullanıcı limitleri'

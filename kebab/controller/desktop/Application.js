@@ -170,7 +170,11 @@ Ext.define('Kebab.controller.desktop.Application', {
             launcher = me.getController('desktop.Dock').getLauncher(vp.application.id);
 
         if (launcher) {
-            launcher.setTooltip(Kebab.I18nHelper.t(vp.application.id + '.title')); // Set tooltip
+            var tip = Ext.String.format('<strong>{0}</strong><br />{1}',
+                Kebab.I18nHelper.t(vp.application.id + '.title'),
+                Kebab.I18nHelper.t(vp.application.id + '.description')
+            );
+            launcher.setTooltip(tip); // Set tooltip
             launcher.getEl().frame(); // Blink
             launcher.addCls('shakeIt'); // Shake it baby!
             Ext.defer(function() {
