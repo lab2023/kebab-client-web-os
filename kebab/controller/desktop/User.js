@@ -13,7 +13,8 @@ Ext.define('Kebab.controller.desktop.User', {
      * @type Array
      */
     stores: [
-        'Applications'
+        'Applications',
+        'Privileges'
     ],
 
     init: function() {

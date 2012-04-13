@@ -20,6 +20,7 @@ Ext.define('Kebab.kernel.Initializer', {
         'Kebab.kernel.override.window.Window',
         'Kebab.kernel.override.Number',
         'Kebab.kernel.util.String',
+        'Kebab.helper.ACL',
         'Kebab.helper.Asset',
         'Kebab.helper.I18n',
         'Kebab.helper.Notify',
