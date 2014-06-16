@@ -18,6 +18,11 @@ Kebab Project 2.x Web Client Platform for Ext JS is only supported on Ext JS 4.x
 
 Unzip all contents your web root and run index.html file. That's all!
 
+# Demo
+
+* [Login Page](http://lab2023.github.io/client-web-os)
+* [Desktop](http://lab2023.github.io/client-web-os/desktop.html)
+* 
 # Links
 
 * [Web Site](http://www.kebab-project.com)
