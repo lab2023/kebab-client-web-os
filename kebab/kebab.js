@@ -6,7 +6,7 @@ var Kebab = Kebab || {};
 (function() {
     var me = Kebab,
         bootstrap = {
-            root:  "os"
+            root:  ""
         },
         extJs = {
             version: "4.1.0-beta-2",
